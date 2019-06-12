@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2019-06-06" view-index="0" gantt-divider-location="653" resource-divider-location="300" version="2.8.10" locale="es_ES">
+    <description/>
+    <view zooming-state="default:2" id="gantt-chart">
+        <field id="tpd3" name="Nombre" width="392" order="0"/>
+        <field id="tpd4" name="Fecha de inicio" width="85" order="1"/>
+        <field id="tpd5" name="Fecha de fin" width="75" order="2"/>
+        <field id="tpd6" name="Duración" width="82" order="3"/>
+        <option id="color.recent"><![CDATA[#99ff00 #ff6666 #ff9999 #33cc00 #00cc33]]></option>
+    </view>
+    <view id="resource-table">
+        <field id="0" name="Nombre" width="210" order="0"/>
+        <field id="1" name="Función" width="86" order="1"/>
+    </view>
+    <!-- -->
+    <calendars>
+        <day-types>
+            <day-type id="0"/>
+            <day-type id="1"/>
+            <default-week id="1" name="default" sun="1" mon="0" tue="0" wed="0" thu="0" fri="0" sat="1"/>
+            <only-show-weekends value="false"/>
+            <overriden-day-types/>
+            <days/>
+        </day-types>
+    </calendars>
+    <tasks empty-milestones="true">
+        <taskproperties>
+            <taskproperty id="tpd0" name="type" type="default" valuetype="icon"/>
+            <taskproperty id="tpd1" name="priority" type="default" valuetype="icon"/>
+            <taskproperty id="tpd2" name="info" type="default" valuetype="icon"/>
+            <taskproperty id="tpd3" name="name" type="default" valuetype="text"/>
+            <taskproperty id="tpd4" name="begindate" type="default" valuetype="date"/>
+            <taskproperty id="tpd5" name="enddate" type="default" valuetype="date"/>
+            <taskproperty id="tpd6" name="duration" type="default" valuetype="int"/>
+            <taskproperty id="tpd7" name="completion" type="default" valuetype="int"/>
+            <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
+            <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
+        </taskproperties>
+        <task id="365" name="Proyecto tesina" color="#8cb6ce" meeting="false" start="2019-06-11" duration="100" complete="2" thirdDate="2019-08-23" thirdDate-constraint="0" expand="true">
+            <task id="1" name="Plan de trabajo de tesis" color="#000000" meeting="false" start="2019-06-11" duration="18" complete="18" thirdDate="2019-06-11" thirdDate-constraint="0" expand="true">
+                <depend id="12" type="2" difference="0" hardness="Strong"/>
+                <task id="10" name="Escribir cronograma tentativo" color="#99ff00" meeting="false" start="2019-06-11" duration="1" complete="100" thirdDate="2019-06-11" thirdDate-constraint="0" expand="true">
+                    <depend id="2" type="2" difference="1" hardness="Strong"/>
+                </task>
+                <task id="2" name="Escribir resumen" color="#99ff00" meeting="false" start="2019-06-13" duration="2" complete="100" thirdDate="2019-06-11" thirdDate-constraint="0" expand="true">
+                    <depend id="6" type="2" difference="0" hardness="Strong"/>
+                    <depend id="7" type="2" difference="3" hardness="Strong"/>
+                </task>
+                <task id="6" name="Escribir objetivos" color="#8cb6ce" meeting="false" start="2019-06-17" duration="2" complete="0" thirdDate="2019-06-11" thirdDate-constraint="0" expand="true">
+                    <depend id="11" type="2" difference="6" hardness="Strong"/>
+                </task>
+                <task id="11" name="Escribir resultados esperados" color="#8cb6ce" meeting="false" start="2019-06-27" duration="2" complete="0" thirdDate="2019-06-11" thirdDate-constraint="0" expand="true">
+                    <depend id="8" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="7" name="Escribir estado del arte" color="#8cb6ce" meeting="false" start="2019-06-20" duration="5" complete="0" thirdDate="2019-06-11" thirdDate-constraint="0" expand="true">
+                    <task id="373" name="Estado del arte CRIO" color="#8cb6ce" meeting="false" start="2019-06-20" duration="3" complete="0" thirdDate="2019-06-18" thirdDate-constraint="0" expand="true"/>
+                    <task id="376" name="Estado del arte SVM" color="#8cb6ce" meeting="false" start="2019-06-20" duration="3" complete="0" thirdDate="2019-06-18" thirdDate-constraint="0" expand="true">
+                        <depend id="378" type="2" difference="0" hardness="Strong"/>
+                    </task>
+                    <task id="378" name="Estado del arte reduccion de atributos" color="#8cb6ce" meeting="false" start="2019-06-25" duration="2" complete="0" thirdDate="2019-06-18" thirdDate-constraint="0" expand="true"/>
+                </task>
+                <task id="8" name="Escribir metodologia" color="#8cb6ce" meeting="false" start="2019-07-01" duration="4" complete="0" thirdDate="2019-06-11" thirdDate-constraint="0" expand="true"/>
+            </task>
+            <task id="277" name="Exposicion paper" color="#ff6666" meeting="false" start="2019-06-12" duration="6" complete="0" thirdDate="2019-06-12" thirdDate-constraint="0" expand="true">
+                <task id="281" name="Lectura paper 1" color="#8cb6ce" meeting="false" start="2019-06-12" duration="1" complete="0" thirdDate="2019-06-13" thirdDate-constraint="0" expand="true"/>
+                <task id="283" name="Lectura paper 2" color="#8cb6ce" meeting="false" start="2019-06-17" duration="1" complete="0" thirdDate="2019-06-13" thirdDate-constraint="0" expand="true"/>
+                <task id="285" name="Lectura paper 3" color="#8cb6ce" meeting="false" start="2019-06-19" duration="1" complete="0" thirdDate="2019-06-13" thirdDate-constraint="0" expand="true"/>
+            </task>
+            <task id="12" name="Implementacion del metodo CRIO" color="#000000" meeting="false" project="true" start="2019-07-05" duration="32" complete="0" thirdDate="2019-06-11" thirdDate-constraint="0" expand="true">
+                <depend id="17" type="2" difference="0" hardness="Strong"/>
+                <task id="13" name="Configuracion e instalacion de herramientas de programacion" color="#8cb6ce" meeting="false" start="2019-07-05" duration="1" complete="0" thirdDate="2019-06-11" thirdDate-constraint="0" expand="true">
+                    <depend id="15" type="2" difference="11" hardness="Strong"/>
+                </task>
+                <task id="15" name="Escribir modelo lineal en SCIP" color="#8cb6ce" meeting="false" start="2019-07-23" duration="4" complete="0" thirdDate="2019-07-01" thirdDate-constraint="0" expand="true">
+                    <depend id="55" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="16" name="Implementar clasificador en python" color="#8cb6ce" meeting="false" start="2019-07-26" duration="15" complete="0" thirdDate="2019-07-01" thirdDate-constraint="0" expand="true">
+                    <depend id="55" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="55" name="Documentar labores realizados" color="#8cb6ce" meeting="false" start="2019-08-16" duration="2" complete="0" thirdDate="2019-07-01" thirdDate-constraint="0" expand="true"/>
+            </task>
+            <task id="323" name="Final probabilidad" color="#ff6666" meeting="false" start="2019-07-08" duration="10" complete="0" thirdDate="2019-07-01" thirdDate-constraint="0" expand="true">
+                <task id="324" name="Estudiar para el final" color="#8cb6ce" meeting="false" start="2019-07-08" duration="10" complete="0" thirdDate="2019-07-03" thirdDate-constraint="0" expand="true"/>
+            </task>
+            <task id="17" name="Comparacion de los algoritmos sobre casos de prueba" color="#000000" meeting="false" start="2019-08-20" duration="15" complete="0" thirdDate="2019-06-11" thirdDate-constraint="0" expand="true">
+                <depend id="24" type="2" difference="0" hardness="Strong"/>
+                <task id="20" name="Configurar e instalar R" color="#8cb6ce" meeting="false" start="2019-08-20" duration="1" complete="0" thirdDate="2019-08-14" thirdDate-constraint="0" expand="true"/>
+                <task id="18" name="Definir las muestras a utilizar" color="#8cb6ce" meeting="false" start="2019-08-20" duration="5" complete="0" thirdDate="2019-06-11" thirdDate-constraint="0" expand="true">
+                    <depend id="21" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="21" name="Ejecutar algoritmos sobre las muestras de entrenamiento" color="#8cb6ce" meeting="false" start="2019-08-27" duration="5" complete="0" thirdDate="2019-08-14" thirdDate-constraint="0" expand="true">
+                    <depend id="22" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="22" name="Ejecutar algoritmos sobre las muestras de prueba" color="#8cb6ce" meeting="false" start="2019-09-03" duration="3" complete="0" thirdDate="2019-08-14" thirdDate-constraint="0" expand="true">
+                    <depend id="23" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="23" name="Analisis de datos y obtension de resultados" color="#8cb6ce" meeting="false" start="2019-09-06" duration="2" complete="0" thirdDate="2019-08-14" thirdDate-constraint="0" expand="true"/>
+            </task>
+            <task id="24" name="Ejecucion de los algoritmos incorporando reduccion de dimensiones" color="#000000" meeting="false" start="2019-09-10" duration="15" complete="0" thirdDate="2019-06-11" thirdDate-constraint="0" expand="true">
+                <depend id="29" type="2" difference="0" hardness="Rubber"/>
+                <task id="25" name="Definir si se utilizar feature selection o feature extraction" color="#8cb6ce" meeting="false" start="2019-09-10" duration="2" complete="0" thirdDate="2019-09-04" thirdDate-constraint="0" expand="true">
+                    <depend id="328" type="2" difference="0" hardness="Rubber"/>
+                </task>
+                <task id="328" name="Aplicar reduccion de dimension a las muestras" color="#8cb6ce" meeting="false" start="2019-09-12" duration="3" complete="0" thirdDate="2019-09-04" thirdDate-constraint="0" expand="true">
+                    <depend id="26" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="26" name="Ejecutar algoritmos sobre las muestras de entrenamiento" color="#8cb6ce" meeting="false" start="2019-09-17" duration="5" complete="0" thirdDate="2019-09-04" thirdDate-constraint="0" expand="true">
+                    <depend id="27" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="27" name="Ejecutar algortimos sobre las muestras de prueba" color="#8cb6ce" meeting="false" start="2019-09-24" duration="3" complete="0" thirdDate="2019-09-04" thirdDate-constraint="0" expand="true">
+                    <depend id="28" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="28" name="Analisis de datos y obtension de resultados" color="#8cb6ce" meeting="false" start="2019-09-27" duration="2" complete="0" thirdDate="2019-09-04" thirdDate-constraint="0" expand="true"/>
+            </task>
+            <task id="29" name="Elaboracion de documento de tesina" color="#000000" meeting="false" start="2019-10-01" duration="20" complete="0" thirdDate="2019-09-05" thirdDate-constraint="0" expand="true">
+                <task id="31" name="Elaborar documento integrador de tesina" color="#8cb6ce" meeting="false" start="2019-10-01" duration="20" complete="0" thirdDate="2019-06-11" thirdDate-constraint="0" expand="true"/>
+            </task>
+        </task>
+        <task id="356" name="Colchonazo" color="#8cb6ce" meeting="false" start="2019-10-29" duration="24" complete="0" thirdDate="2019-09-30" thirdDate-constraint="0" expand="true"/>
+    </tasks>
+    <resources>
+        <resource id="0" name="Ariel" function="Default:1" contacts="arieldominguezmp@gmail.com" phone=""/>
+        <resource id="1" name="Javier" function="Default:1" contacts="xavierescobar266@gmail.com" phone=""/>
+    </resources>
+    <allocations>
+        <allocation task-id="10" resource-id="0" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="281" resource-id="0" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="2" resource-id="0" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="283" resource-id="0" function="Default:1" responsible="true" load="50.0"/>
+        <allocation task-id="6" resource-id="0" function="Default:1" responsible="true" load="50.0"/>
+        <allocation task-id="285" resource-id="0" function="Default:1" responsible="false" load="50.0"/>
+        <allocation task-id="11" resource-id="0" function="Default:1" responsible="true" load="50.0"/>
+        <allocation task-id="8" resource-id="0" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="323" resource-id="0" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="13" resource-id="0" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="16" resource-id="0" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="55" resource-id="0" function="Default:1" responsible="false" load="100.0"/>
+        <allocation task-id="15" resource-id="0" function="Default:1" responsible="false" load="100.0"/>
+        <allocation task-id="18" resource-id="0" function="Default:1" responsible="true" load="50.0"/>
+        <allocation task-id="20" resource-id="0" function="Default:1" responsible="true" load="50.0"/>
+        <allocation task-id="21" resource-id="0" function="Default:1" responsible="false" load="100.0"/>
+        <allocation task-id="22" resource-id="0" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="23" resource-id="0" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="376" resource-id="0" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="378" resource-id="0" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="10" resource-id="1" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="281" resource-id="1" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="283" resource-id="1" function="Default:1" responsible="false" load="50.0"/>
+        <allocation task-id="6" resource-id="1" function="Default:1" responsible="true" load="50.0"/>
+        <allocation task-id="285" resource-id="1" function="Default:1" responsible="false" load="50.0"/>
+        <allocation task-id="11" resource-id="1" function="Default:1" responsible="false" load="50.0"/>
+        <allocation task-id="8" resource-id="1" function="Default:1" responsible="false" load="100.0"/>
+        <allocation task-id="323" resource-id="1" function="Default:1" responsible="false" load="100.0"/>
+        <allocation task-id="13" resource-id="1" function="Default:1" responsible="false" load="100.0"/>
+        <allocation task-id="15" resource-id="1" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="16" resource-id="1" function="Default:1" responsible="false" load="100.0"/>
+        <allocation task-id="55" resource-id="1" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="18" resource-id="1" function="Default:1" responsible="false" load="100.0"/>
+        <allocation task-id="21" resource-id="1" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="22" resource-id="1" function="Default:1" responsible="false" load="100.0"/>
+        <allocation task-id="23" resource-id="1" function="Default:1" responsible="false" load="100.0"/>
+        <allocation task-id="373" resource-id="1" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="378" resource-id="1" function="Default:1" responsible="false" load="100.0"/>
+    </allocations>
+    <vacations/>
+    <previous/>
+    <roles roleset-name="Default"/>
+</project>
