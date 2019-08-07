@@ -43,11 +43,11 @@
 
 #variables
     var a[K*K1] binary;#1 si el cluster r en K1 pertenece al grupo k en K, 0 si no.
-    var delta real;
-    var e0[M0] real;#margen de error para cada punto de clase 0
-    var e1[M1] real;#margen de error para cada punto de clase 1
-    var p[K*K0*Ft] real;#rectas que dividen cada grupos de clase 0 con cada grupo de clase 1
-    var q[K*K0] real;#ordenada al origen de las rectas
+    var delta >=-infinity;
+    var e0[M0] >=-infinity;#margen de error para cada punto de clase 0
+    var e1[M1] >= -infinity;#margen de error para cada punto de clase 1
+    var p[K*K0*Ft] >= -infinity;#rectas que dividen cada grupos de clase 0 con cada grupo de clase 1
+    var q[K*K0] >= -infinity;#ordenada al origen de las rectas
 
 #funcion objetivo
     minimize z: sum <i> in M0: e0[i] + sum <j> in M1: e1[j];

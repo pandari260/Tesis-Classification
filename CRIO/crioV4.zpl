@@ -9,10 +9,10 @@ param y1 := 1;
 
 
 #variables
-var delta real;
-var px real;
-var py real;
-var q real;
+var delta >= -infinity;
+var px >= -infinity;
+var py >= -infinity;
+var q >= -infinity;
 
 
 
@@ -23,7 +23,7 @@ subto r1:
     #2*x0 -2*y0 + 0 <= -delta;
 
 subto r2:
-    px*x1 -y*y1 +0 >= 0;
+    px*x1  + py*y1 + q >= 0;
     #2*x1 -2*y1 +0 >= 0;
 
 subto r0:
