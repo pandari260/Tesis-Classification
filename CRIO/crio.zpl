@@ -27,7 +27,7 @@
                          |6|6,2|;
 
     #grupos
-    param nk := 10;
+    param nk := 2;
     set K := {1 to nk};#etiquetas para la particion en grupos de clase 1.
 
     #clusters
@@ -57,14 +57,14 @@
         forall <k> in K:
             forall <t> in K0:
                 forall <i> in M0 with C0[i] == t:
-                    p[k,t,1]*Class0[i,1] +  p[k,t,2]*Class0[i,2] + q[k,t] <= -1 + e0[i];
+                    q[k,t] + sum <f> in Ft: p[k,t,f]*Class0[i,f]  <= -1 + e0[i];
     
     subto r2:
         forall <k> in K:
             forall <r> in K1:
                 forall <j> in M1 with C1[j] == r:
                     forall <t> in K0:
-                        p[k,t,1]*Class1[j,1] + p[k,t,2]*Class1[j,2] + q[k,t] >= -M + (M + 1)*a[k,r] - e1[j];
+                        q[k,t] + sum <f> in Ft: p[k,t,f]*Class1[j,f]  >= -M + (M + 1)*a[k,r] - e1[j];
     
     subto r3:
         forall <r> in K1:
