@@ -1,45 +1,35 @@
 #Mixed-integer optimization problem for Assing groups to polyhedral regions for CRIO
 
 #parametros
-    param n := 12;#numero de muestras
-    param d := 2;#dimecion de las muestras
+    param n := read "parametros" as "1n" skip 0 use 1; #numero de muestras
+    param d := read "parametros" as "1n" skip 1 use 1;#dimecion de las muestras
     set Ft :={1 to d};#etiquetas para las caracteristicas de cada muestra;
 
     #muestras de clase 0
-    param m0 := 6;#cantidad de muestras de clase 0;
+    param m0 :=read "parametros" as "1n" skip 2 use 1;#cantidad de muestras de clase 0;
     set M0 := {1 to m0};#etiquetas para las muestras de clase 0
-    param Class0[M0*Ft] := |1,2|
-                         |1|8,10|
-                         |2|9,10|
-                         |3|8,9|
-                         |4|4,5|
-                         |5|3,4|
-                         |6|4,4|;
+    param Class0[M0*Ft] := read "clase_0.dat" as "<1n,2n> 3n"; 
+
     #muestras de clase 1
-    param m1 := 6;#cantidad de muestras de clase 1;
+    param m1 :=read "parametros" as "1n" skip 3 use 1;#cantidad de muestras de clase 1;
     set M1 := {1 to m1};#etiquetas para las muestras de clase 1
-    param Class1[M1*Ft] := |1,2|
-                         |1|7,1|
-                         |2|1,7|
-                         |3|1,6|
-                         |4|2,7|
-                         |5|6,1|
-                         |6|6,2|;
+    param Class1[M1*Ft] := read "clase_1.dat" as "<1n,2n> 3n"; 
+
 
     #grupos
-    param nk := 2;
+    param nk :=read "parametros" as "1n" skip 4 use 1;
     set K := {1 to nk};#etiquetas para la particion en grupos de clase 1.
 
     #clusters
-    param k0 := 2;#numero de clusters de clase 0
+    param k0 :=read "parametros" as "1n" skip 5 use 1;#numero de clusters de clase 0
     set K0 := {1 to k0};#etiquetas para los clusters de clase 0
-    param C0[M0] := <1> 1,<2> 1,<3> 1,<4>2,<5>2,<6> 2;#cluster de cada muestras de clase 0
+    param C0[M0] := read "cluster_0.dat" as "<1n> 2n";#cluster de cada muestras de clase 0
  
-    param k1 := 2;#numero de clusters de clase 1
+    param k1 := 2;param k1 :=read "parametros" as "1n" skip 6 use 1;#numero de clusters de clase 1
     set K1 := {1 to k1};#etiquetas para los clusters de clase 1
-    param C1[M1] :=  <1> 1,<2> 2,<3> 2,<4>2,<5>1,<6>1;#cluster para los clusters de clase 0
+    param C1[M1] := read "cluster_1.dat" as "<1n> 2n";#cluster para los clusters de clase 0
 
-    param M := 1000000;#un numero positivo muy grande
+    param M := read "parametros" as "1n" skip 7 use 1;#un numero positivo muy grande
 
 #variables
     var a[K*K1] binary;#1 si el cluster r en K1 pertenece al grupo k en K, 0 si no.
