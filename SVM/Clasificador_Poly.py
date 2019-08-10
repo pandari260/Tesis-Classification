@@ -14,7 +14,7 @@ from sklearn.model_selection import train_test_split
 #irisdata = pd.read_csv(url, names=colnames)
 
 
-bankdata = pd.read_csv("/Users/Pandari/Desktop/Tesis/input_basic.csv")
+bankdata = pd.read_csv("input.csv")
 
 bankdata.shape
 bankdata.head()
@@ -22,9 +22,9 @@ bankdata.head()
 X = bankdata.drop('Class', axis=1)
 y = bankdata['Class']
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.4)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.7)
 
-svclassifier = SVC(kernel='linear')
+svclassifier = SVC(kernel='rbf')
 svclassifier.fit(X_train, y_train)
 
 print(svclassifier.score(X_test, y_test))
@@ -33,4 +33,3 @@ y_pred = svclassifier.predict(X_test)
 print(confusion_matrix(y_test, y_pred))
 print(classification_report(y_test, y_pred))
 
-print("hola mundo")
