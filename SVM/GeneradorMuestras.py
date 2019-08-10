@@ -11,31 +11,31 @@ class GeneradorMuestras:
         return s
 
     @staticmethod
-    def generarNdimensional(d, n):
-        mean = GeneradorMuestras.generarEsperanzas(d)
-        cov = GeneradorMuestras.generarCovarianzas(d)
+    def generarNdimensional(mu,v,d, n):
+        mean = GeneradorMuestras.generarEsperanzas(mu,d)
+        cov = GeneradorMuestras.generarCovarianzas(v,d)
         print(cov)
         np.random.seed(np.random.randint(1,1001)) #generacion aleatoria
         #np.random.seed(42)
         return  np.random.multivariate_normal(mean, cov, n).T
          
     @staticmethod
-    def generarEsperanzas(n):
+    def generarEsperanzas(mu,n):
         esp = []
         for i in range(n):  
-            esp.append(0)
+            esp.append(mu)
         return esp
 
     @staticmethod
-    def generarCovarianzas(n):
+    def generarCovarianzas(v,d):
         cov, cov_i = [], []
-        for i in range(n):
-            for j in range(n):
+        for i in range(d):
+            for j in range(d):
                 if i==j:
-                    cov_i.append(1)                         
+                    cov_i.append(v)                         
                 else:
                     cov_i.append(0)
-            cov.append( cov_i)
+            cov.append(cov_i)
             cov_i = []
         return cov    
 

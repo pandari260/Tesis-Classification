@@ -2,16 +2,13 @@
 class TraductorMuestra:
 
     @staticmethod
-    def traducirACSV(datosGenerados):
+    def traducirACSV(datosGenerados, clase):
         muestra, dato = [],[]
         
         for i in range(len(datosGenerados[0])): 
             for j in range(len(datosGenerados)):
                 dato.append(round(datosGenerados[j][i],5))
-            if(i%2 == 0):
-                dato.append("Clase_1")
-            else:
-                dato.append("Clase_0")
+            dato.append(clase)
             muestra.append(dato)
             dato = []
 
