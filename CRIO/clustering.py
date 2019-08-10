@@ -1,9 +1,14 @@
 import math
 
 
-def crearClusters(cA, cB):#crea clusters para las muestras de cA de clase A
-    K = len(cA)
-    k = 0
+
+def minimaDistancia(matriz):
+    min = matriz[0][1]
+    for lista in matriz:
+        for n in lista:
+            if n != 0 and n < min:
+                min = n
+    return min
 
 def distanciaEntre(a,b):
     sum = 0
@@ -30,7 +35,12 @@ def crearMatrizDistancia(clusters):
     return matrizDist
 
 
+def crearClusters(cA, cB):#crea clusters para las muestras de cA de clase A
+    K = len(cA)
+    k = 0
+    matDist = crearMatrizDistancia(cA)
 
+    
 
 
 
@@ -40,6 +50,7 @@ def main():
     clase0 =[[[8,10]],[[9,10]],[[8,9]],[[4,5]],[[3,4]],[[4,4]]]
     
     print(crearMatrizDistancia(clase1))
+    print(minimaDistancia(crearMatrizDistancia(clase1)))
 
 
     #cluster1 = crearClusters(clase1, clase0)
