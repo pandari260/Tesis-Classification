@@ -13,7 +13,7 @@ from sklearn.model_selection import train_test_split
 # Read dataset to pandas dataframe
 #irisdata = pd.read_csv(url, names=colnames)
 
-
+    
 bankdata = pd.read_csv("input.csv")
 
 bankdata.shape
