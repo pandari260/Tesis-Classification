@@ -7,7 +7,7 @@ class TraductorMuestra:
         
         for i in range(len(datosGenerados[0])): 
             for j in range(len(datosGenerados)):
-                dato.append(round(datosGenerados[j][i],5))
+                dato.append(round(datosGenerados[j][i],5)) #Solo se incluyen hasta los 5 decimales
             dato.append(clase)
             muestra.append(dato)
             dato = []
