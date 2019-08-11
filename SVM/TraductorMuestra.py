@@ -2,7 +2,7 @@
 class TraductorMuestra:
 
     @staticmethod
-    def traducirACSV(datosGenerados, clase):
+    def traducirMuestra(datosGenerados, clase):
         muestra, dato = [],[]
         
         for i in range(len(datosGenerados[0])): 
