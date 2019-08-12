@@ -7,16 +7,21 @@ gen = generador.GeneradorMuestras()
 graf = graficador.GraficadorNormal()
 traduc = traductor.TraductorMuestra()
 
-muestra = gen.generarNdimensional(3,1000)
-muestrasGeneradas = traduc.traducirACSV(muestra)
 
-print('Conjunto de muestras generadas')
-#print(muestrasGeneradas)
+muestraClase1 = gen.generarNdimensional(0,1,5,1000)
+muestrasGeneradasC1 = traduc.traducirMuestra(muestraClase1,1)
 
-x,y = gen.generarNdimensional(2,500)
-graf.graficarBidimensional(x,y)
+muestraClase2 = gen.generarNdimensional(3,1,5,1000)
+muestrasGeneradasC2 = traduc.traducirMuestra(muestraClase2,0)
 
-traduc.generarArchivoCSV(muestrasGeneradas)
+muestraClase1a = gen.generarNdimensional(1,1,5,1000)
+muestrasGeneradasC1a = traduc.traducirMuestra(muestraClase1a,1)
+
+#print(muestrasGeneradasC1+muestrasGeneradasC2)
+x,y = gen.generarNdimensional(0,100,2,100)
+#graf.graficarBidimensional(x, y)
+#graf.graficarBidimensional(xx,yy)
+traduc.generarArchivoCSV(muestrasGeneradasC1+muestrasGeneradasC2+muestrasGeneradasC1a)
 
 
 
