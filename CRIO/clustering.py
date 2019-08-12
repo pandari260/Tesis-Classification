@@ -1,14 +1,17 @@
 import math
+from pyscipopt import Model
 
 
 
 def minimaDistancia(matriz):
+    tam = len(matriz)
     min = matriz[0][1]
-    for lista in matriz:
-        for n in lista:
+    for r in range(0,tam):
+        for s in range(0,tam):
+            n = matriz[r][s]
             if n != 0 and n < min:
                 min = n
-    return min
+    return r,s
 
 def distanciaEntre(a,b):
     sum = 0
@@ -34,11 +37,27 @@ def crearMatrizDistancia(clusters):
         matrizDist.append(distancias)
     return matrizDist
 
+def contieneOutlier(Cr, Cs, claseB,d):
+    model = Model("contiene outlier")
+    delta = model.addVar(vtype = "C", name="delta")
+    p = []
+    q = []
+    
+        
+
+
+
+
+
 
 def crearClusters(cA, cB):#crea clusters para las muestras de cA de clase A
     K = len(cA)
     k = 0
     matDist = crearMatrizDistancia(cA)
+    #while k < K:
+     #   r,s = minimaDistancia(matDist)
+      #  if 
+
 
     
 
@@ -50,11 +69,15 @@ def main():
     clase0 =[[[8,10]],[[9,10]],[[8,9]],[[4,5]],[[3,4]],[[4,4]]]
     
     print(crearMatrizDistancia(clase1))
+    print("-----------------------------------------------------------------------------------------------")
     print(minimaDistancia(crearMatrizDistancia(clase1)))
 
 
     #cluster1 = crearClusters(clase1, clase0)
     
-
-main()
-    
+def leerProblema():
+    model = Model()
+    model.readProblem("crio.zpl")
+    model.optimize()
+    print(model.getObjVal())
+main()    
