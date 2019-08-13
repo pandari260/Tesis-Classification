@@ -6,7 +6,7 @@ from sklearn.metrics import classification_report, confusion_matrix
 from sklearn.model_selection import train_test_split
 
 
-bankdata = pd.read_csv("input.csv")
+bankdata = pd.read_csv("input/input.csv")
 
 bankdata.shape
 bankdata.head()

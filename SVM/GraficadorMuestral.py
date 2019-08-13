@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-class GraficadorNormal:
+class GraficadorMuestral:
 
     @staticmethod
     def graficarUnidimensional(s, mu, sigma):
@@ -12,9 +12,7 @@ class GraficadorNormal:
         plt.show()
         
     @staticmethod
-    def graficarBidimensional( x, y):
-        
+    def graficarBidimensional( x, y):        
         plt.plot(x, y, 'x')
-        #plt.scatter(y[:, 0], x[:, 1], c = y)
         plt.axis('equal')
         plt.show()

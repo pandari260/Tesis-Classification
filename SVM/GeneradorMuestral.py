@@ -2,21 +2,14 @@ import numpy as np
 import array as array
 import matplotlib.pyplot as plt
 
-class GeneradorMuestras:
-    
-    @staticmethod
-    def generarUnidimensional(mu, sigma, n):
-        np.random.seed(np.random.randint(1,1001)) # Ver si queda la semilla o no
-        s = np.random.normal(mu, sigma, size=(n))
-        return s
+class GeneradorMuestral:
 
     @staticmethod
-    def generarNdimensional(mu,v,d, n):
-        mean = GeneradorMuestras.generarEsperanzas(mu,d)
-        cov = GeneradorMuestras.generarCovarianzas(v,d)
-        print(cov)
-        np.random.seed(np.random.randint(1,1001)) #generacion aleatoria
-        #np.random.seed(42)
+    def generarMuestraDN(mu,v,d, n):
+        mean = GeneradorMuestral.generarEsperanzas(mu,d)
+        cov = GeneradorMuestral.generarCovarianzas(v,d)
+        #np.random.seed(np.random.randint(1,1001)) #generacion aleatoria
+        np.random.seed(45)
         return  np.random.multivariate_normal(mean, cov, n).T
          
     @staticmethod
