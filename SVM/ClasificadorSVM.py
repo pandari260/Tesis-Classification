@@ -12,18 +12,15 @@ class ClasificadorSVM:
     def __init__(self, kernel):
         self.clasificador = SVC(C=1, degree=3, gamma='scale', kernel=kernel)
         #C determina la zona de amplificacion al definir los vectores de soporte
-        
 
     def leerMuestra(self, archivo):
         dataSet = pd.read_csv(archivo)
         datos = dataSet.drop('Class', axis=1)
         target = dataSet['Class']
-
         return datos, target        
 
     @staticmethod
     def mostrarMetricas(Y_test, y_pred):   
-        
         print("Precicion: ", accuracy_score(Y_test, y_pred))
         print("Matriz de confucion: ")
         print(confusion_matrix(Y_test, y_pred))

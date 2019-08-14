@@ -1,8 +1,8 @@
-class ConversorMuestral:
+class ParserMuestral:
 
     muestraC1, muestraC2 = [], []
     
-    def convertirMuestra(self, datosGenerados, clase):
+    def parsearMuestra(self, datosGenerados, clase):
         muestra, dato = [],[]
         for i in range(len(datosGenerados[0])): 
             for j in range(len(datosGenerados)):
