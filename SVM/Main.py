@@ -17,15 +17,16 @@ muestrasGeneradasC1 = conver.convertirMuestra(muestraClase1,1)
 muestraClase2 = gen.generarMuestraDN(2,1,3,100)
 muestrasGeneradasC2 = conver.convertirMuestra(muestraClase2,0)
 
-#print("Clase a la que pertenece: "+str(conver.getClase((1.4586,4.6703,2.5005))))
+print("Clase a la que pertenece: "+str(conver.getClase((0.6731,2.2481,-1.6543))))
 
 #print(muestrasGeneradasC1+muestrasGeneradasC2)
 #x,y = gen.generarNdimensional(0,100,2,100)
 #graf.graficarBidimensional(x, y)
 #graf.graficarBidimensional(xx,yy)
 exp.exportarArchivoCSV(muestrasGeneradasC1+muestrasGeneradasC2)
-clas.clasificarMuestra()
+#clas.clasificarMuestra()
 
+clas.clasificarMuestra('input/input.csv')
 
 
 
