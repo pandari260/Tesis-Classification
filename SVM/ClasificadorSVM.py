@@ -2,33 +2,39 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 from sklearn.svm import SVC
-from sklearn.metrics import classification_report, confusion_matrix
+from sklearn.metrics import classification_report, confusion_matrix, accuracy_score, recall_score
 from sklearn.model_selection import train_test_split
 
 class ClasificadorSVM:
 
-    def clasificarMuestra(self):
-    
-        bankdata = pd.read_csv("input/input.csv")
+    clasificador = ""
 
-        bankdata.shape
-        bankdata.head()
-        X = bankdata.drop('Class', axis=1)
-        y = bankdata['Class']
+    def __init__(self, kernel):
+        self.clasificador = SVC(C=1, degree=3, gamma='scale', kernel=kernel)
+        #C determina la zona de amplificacion al definir los vectores de soporte
+        
 
-        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.7)
+    def leerMuestra(self, archivo):
+        dataSet = pd.read_csv(archivo)
+        datos = dataSet.drop('Class', axis=1)
+        target = dataSet['Class']
 
-        #svclassifier = SVC(kernel='rbf')
-       
-        svclassifier = SVC(C=1.0, cache_size=200, class_weight=None, coef0=0.0,
-        decision_function_shape='ovr', degree=3, gamma='scale', kernel='rbf',
-        max_iter=-1, probability=False, random_state=None, shrinking=True,
-        tol=0.001, verbose=False)
-        svclassifier.fit(X_train, y_train)
+        return datos, target        
 
-        print(svclassifier.score(X_test, y_test))
-        y_pred = svclassifier.predict(X_test)
+    @staticmethod
+    def mostrarMetricas(Y_test, y_pred):   
+        
+        print("Precicion: ", accuracy_score(Y_test, y_pred))
+        print("Matriz de confucion: ")
+        print(confusion_matrix(Y_test, y_pred))
+        print("Reporte de metricas: ")
+        print(classification_report(Y_test, y_pred))
 
-        print(confusion_matrix(y_test, y_pred))
-        print(classification_report(y_test, y_pred))
+    def clasificarMuestra(self, archivo):
+        datos, target = self.leerMuestra(archivo)
+        X_train, X_test, Y_train, Y_test = train_test_split(datos, target, test_size = 0.7)
+        self.clasificador.fit(X_train, Y_train)
+        y_pred = self.clasificador.predict(X_test)
+        ClasificadorSVM.mostrarMetricas(Y_test, y_pred)
 
+   
