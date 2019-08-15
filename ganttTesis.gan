@@ -1,15 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2019-07-01" view-index="0" gantt-divider-location="842" resource-divider-location="300" version="2.8.10" locale="en_AR">
+<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2019-07-18" view-index="0" gantt-divider-location="842" resource-divider-location="300" version="2.8.10" locale="es_AR">
     <description/>
     <view zooming-state="default:2" id="gantt-chart">
-        <field id="tpd3" name="Name" width="472" order="0"/>
-        <field id="tpd4" name="Begin date" width="105" order="1"/>
-        <field id="tpd5" name="End date" width="127" order="2"/>
-        <field id="tpd6" name="Duration" width="132" order="3"/>
-        <option id="color.recent"><![CDATA[#66ff66 #33ff33 #99ff00 #33cc00 #ff6666 #ff9999 #00cc33]]></option>
+        <field id="tpd3" name="Nombre" width="463" order="0"/>
+        <field id="tpd4" name="Fecha de inicio" width="103" order="1"/>
+        <field id="tpd5" name="Fecha de fin" width="125" order="2"/>
+        <field id="tpd6" name="Duración" width="130" order="3"/>
+        <option id="color.recent"><![CDATA[#33ff33 #66ff66 #99ff00 #33cc00 #ff6666 #ff9999 #00cc33]]></option>
     </view>
     <view id="resource-table">
-        <field id="0" name="Name" width="209" order="0"/>
-        <field id="1" name="Default role" width="85" order="1"/>
+        <field id="0" name="Nombre" width="209" order="0"/>
+        <field id="1" name="Función" width="85" order="1"/>
     </view>
     <!-- -->
     <calendars>
@@ -35,7 +35,7 @@
             <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
             <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
         </taskproperties>
-        <task id="365" name="Proyecto tesina" color="#8cb6ce" meeting="false" start="2019-06-11" duration="100" complete="24" thirdDate="2019-08-23" thirdDate-constraint="0" expand="true">
+        <task id="365" name="Proyecto tesina" color="#8cb6ce" meeting="false" start="2019-06-11" duration="100" complete="27" thirdDate="2019-08-23" thirdDate-constraint="0" expand="true">
             <task id="1" name="Plan de trabajo de tesis" color="#000000" meeting="false" start="2019-06-11" duration="18" complete="68" thirdDate="2019-06-11" thirdDate-constraint="0" expand="true">
                 <depend id="12" type="2" difference="0" hardness="Strong"/>
                 <task id="10" name="Escribir cronograma tentativo" color="#99ff00" meeting="false" start="2019-06-11" duration="1" complete="100" thirdDate="2019-06-11" thirdDate-constraint="0" expand="true">
@@ -81,10 +81,10 @@
             <task id="323" name="Final probabilidad" color="#ff6666" meeting="false" start="2019-07-08" duration="10" complete="100" thirdDate="2019-07-01" thirdDate-constraint="0" expand="true">
                 <task id="324" name="Estudiar para el final" color="#66ff66" meeting="false" start="2019-07-08" duration="10" complete="100" thirdDate="2019-07-03" thirdDate-constraint="0" expand="true"/>
             </task>
-            <task id="17" name="Comparacion de los algoritmos sobre casos de prueba" color="#000000" meeting="false" start="2019-08-20" duration="15" complete="0" thirdDate="2019-06-11" thirdDate-constraint="0" expand="true">
+            <task id="17" name="Comparacion de los algoritmos sobre casos de prueba" color="#000000" meeting="false" start="2019-08-20" duration="15" complete="27" thirdDate="2019-06-11" thirdDate-constraint="0" expand="true">
                 <depend id="24" type="2" difference="0" hardness="Strong"/>
-                <task id="20" name="Configurar e instalar R" color="#8cb6ce" meeting="false" start="2019-08-20" duration="1" complete="0" thirdDate="2019-08-14" thirdDate-constraint="0" expand="true"/>
-                <task id="18" name="Definir las muestras a utilizar" color="#8cb6ce" meeting="false" start="2019-08-20" duration="5" complete="0" thirdDate="2019-06-11" thirdDate-constraint="0" expand="true">
+                <task id="20" name="Configurar e instalar R" color="#33ff33" meeting="false" start="2019-08-20" duration="1" complete="100" thirdDate="2019-08-14" thirdDate-constraint="0" expand="true"/>
+                <task id="18" name="Definir las muestras a utilizar" color="#8cb6ce" meeting="false" start="2019-08-20" duration="5" complete="69" thirdDate="2019-06-11" thirdDate-constraint="0" expand="true">
                     <depend id="21" type="2" difference="0" hardness="Strong"/>
                 </task>
                 <task id="21" name="Ejecutar algoritmos sobre las muestras de entrenamiento" color="#8cb6ce" meeting="false" start="2019-08-27" duration="5" complete="0" thirdDate="2019-08-14" thirdDate-constraint="0" expand="true">
