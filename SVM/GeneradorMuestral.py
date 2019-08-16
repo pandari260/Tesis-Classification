@@ -6,7 +6,7 @@ class GeneradorMuestral:
 
     muestraC1, muestraC2 = [], []
 
-    def generarMuestraDN(self, mu, v, d, n, clase):
+    def generarMuestra(self, mu, v, d, n, clase):
         mean = GeneradorMuestral.generarEsperanzas(mu,d)
         cov = GeneradorMuestral.generarCovarianzas(v,d)
         #np.random.seed(np.random.randint(1,1001)) #generacion aleatoria

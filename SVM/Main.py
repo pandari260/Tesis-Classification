@@ -10,8 +10,8 @@ graf = graficador.GraficadorMuestral()
 exp = exportador.ExportadorArchivo()
 clas = clasificador.ClasificadorSVM('rbf')
 
-muestraClase1 = gen.generarMuestraDN(0,1,2,100,1)
-muestraClase2 = gen.generarMuestraDN(3,1,2,100,0)
+muestraClase1 = gen.generarMuestra(0,1,2,100,1)
+muestraClase2 = gen.generarMuestra(3,1,2,100,0)
 
 
 consul = consultor.ConsultorClase(gen.getMuestraC1(), gen.getMuestraC2())
