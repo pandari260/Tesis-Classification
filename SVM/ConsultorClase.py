@@ -1,21 +1,13 @@
-class ParserMuestral:
+
+class ConsultorClase:
 
     muestraC1, muestraC2 = [], []
-    
-    def parsearMuestra(self, datosGenerados, clase):
-        muestra, dato = [],[]
-        for i in range(len(datosGenerados[0])): 
-            for j in range(len(datosGenerados)):
-                dato.append(round(datosGenerados[j][i],4)) #Solo se incluyen hasta los 5 decimales
-            dato.append(clase)
-            muestra.append(dato)
-            dato = []
-            
-        if(clase == 1): self.muestraC1 += muestra 
-        else: self.muestraC2 += muestra
-        return muestra
 
-    def getClase(self, dato):
+    def __init__(self, muestraC1, muestraC2):
+        self.muestraC1 = muestraC1
+        self.muestraC2 = muestraC2
+
+    def consultarClase(self, dato):
         if(self.estaEnMuestra(dato, self.muestraC1)): return 1
         elif(self.estaEnMuestra(dato, self.muestraC2)): return 0
         return -1
@@ -38,9 +30,3 @@ class ParserMuestral:
                     cont += 1
         if(cont == 0):
             muestra.append(indice)
-
-    def getMuestraC1(self):
-        return self.muestraC1
-
-    def getMuestraC2(self):
-        return self.muestraC2
