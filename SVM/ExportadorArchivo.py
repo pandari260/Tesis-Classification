@@ -2,8 +2,8 @@
 class ExportadorArchivo:
 
     @staticmethod
-    def exportarArchivoCSV(muestra):
-        f=open("input/input.csv","w")
+    def exportarArchivoCSV(muestra, ubicacion):
+        f=open(ubicacion,"w")
         for i in range(len(muestra[0])-1):
             f.write("Feature"+str(i+1)+",")
         f.write('Class\n')

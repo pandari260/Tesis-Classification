@@ -16,10 +16,8 @@ class ParserMuestral:
         return muestra
 
     def getClase(self, dato):
-        if(self.estaEnMuestra(dato, self.muestraC1)):
-            return 1
-        elif(self.estaEnMuestra(dato, self.muestraC2)):
-            return 0
+        if(self.estaEnMuestra(dato, self.muestraC1)): return 1
+        elif(self.estaEnMuestra(dato, self.muestraC2)): return 0
         return -1
 
     def estaEnMuestra(self, dato, muestra):
@@ -29,8 +27,7 @@ class ParserMuestral:
                 if(dato[i] == muestra[j][i]):
                     self.agregar(i, encontrado)
 
-        if(len(encontrado) == len(dato)): 
-            return True
+        if(len(encontrado) == len(dato)): return True
         return False
     
     def agregar(self, indice, muestra):
