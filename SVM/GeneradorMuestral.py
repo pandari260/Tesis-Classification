@@ -22,10 +22,23 @@ class GeneradorMuestral:
             dato.append(clase)
             muestra.append(dato)
             dato = []
-            
+        
         if(clase == 1): self.muestraC1 += muestra 
         else: self.muestraC2 += muestra
         return muestra    
+
+    def generarMuestraZPL(self, muestra):
+        nuevaMuestra, dato = [], []
+        for i in range(len(muestra)):
+            print(len(muestra))
+            for j in range(len(muestra[i])):
+                print(len(muestra[0]))
+                dato.append(i+1)
+                dato.append(j+1)
+                dato.append(muestra[i][j])
+                nuevaMuestra.append(dato)
+                dato = []
+        return nuevaMuestra
 
     @staticmethod
     def generarEsperanzas(mu,n):

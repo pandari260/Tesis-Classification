@@ -8,11 +8,12 @@ class ConsultorClase:
         self.muestraC2 = muestraC2
 
     def consultarClase(self, dato):
-        if(self.estaEnMuestra(dato, self.muestraC1)): return 1
-        elif(self.estaEnMuestra(dato, self.muestraC2)): return 0
+
+        if(self.perteneceA(dato, self.muestraC1)): return 1
+        elif(self.perteneceA(dato, self.muestraC2)): return 0
         return -1
 
-    def estaEnMuestra(self, dato, muestra):
+    def perteneceA(self, dato, muestra):
         encontrado = []
         for i in range(len(dato)):
             for j in range(len(muestra)):
