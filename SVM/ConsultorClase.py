@@ -8,7 +8,6 @@ class ConsultorClase:
         self.muestraC2 = muestraC2
 
     def consultarClase(self, dato):
-
         if(self.perteneceA(dato, self.muestraC1)): return 1
         elif(self.perteneceA(dato, self.muestraC2)): return 0
         return -1
