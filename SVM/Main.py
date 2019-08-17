@@ -19,7 +19,7 @@ consul = consultor.ConsultorClase(gen.getMuestraC1(), gen.getMuestraC2())
 dato = [(0.026, 0.2603, 453,4),(0.026, 0.2603, 45356,5),(0.026, 0.2603, 76445,6),(0.026, 0.2603, 6546, 23,7)]
 
 #print(muestraClase1)
-print(gen.generarMuestraZPL(dato))
+print(gen.convertirMuestraZPL(dato))
 
 #print("Clase a la que pertenece: "+str(consul.consultarClase((-0.4995,0.6731))))
 
