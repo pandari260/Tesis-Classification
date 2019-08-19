@@ -1,83 +1,131 @@
 import math
 from pyscipopt import Model
 
-
-
 def minimaDistancia(matriz):
     tam = len(matriz)
-    min = matriz[0][1]
+    minF, minC = 0,0#minima fila y minima columna
+    min = float("inf")
+
     for r in range(0,tam):
-        for s in range(0,tam):
+        for s in range(0,(tam-r)):
             n = matriz[r][s]
             if n != 0 and n < min:
                 min = n
-    return r,s
+                minF = r
+                minC = s
+    return minF,minC
 
-def distanciaEntre(a,b):
+def distanciaEntrePuntos(a,b):
     sum = 0
     for i in range(0,len(a)):
         sum = sum + (a[i] - b[i])**2
     return math.sqrt(sum)
 
+def distanciaEntreClusters(clA, clB):
+    d = 0
+    for pA in clA:
+        for pB in clB:
+            aux = distanciaEntrePuntos(pA,pB)
+            if aux > d:
+                d = aux
+    return d
+
 def crearMatrizDistancia(clusters):
     tam = len(clusters)
     matrizDist = []
-    for clustA in clusters:
-        distancias =[]
-        for clustB in clusters:
+    for clA in range(0, tam):
+        distancias = []
+        for clB in range(clA,tam):
             dAB = 0
-            if clustA != clustB:
-                dAB = distanciaEntre(clustA[0],clustB[0])
-                for a in clustA:
-                    for b in clustB:
-                        aux = distanciaEntre(a,b)
-                        if aux < dAB:
-                            dAB = aux
-            distancias.append(dAB)    
+            if clA !=clB:
+                dAB = distanciaEntreClusters(clusters[clA], clusters[clB]) 
+            distancias.append(dAB)
         matrizDist.append(distancias)
     return matrizDist
+                
+def mergeClusters(clusterA,clusterB):
+    c = []
+    for p in clusterA:
+        c.append(p)
+    for p in clusterB:
+        c.append(p)
+    return c
 
-def contieneOutlier(Cr, Cs, claseB,d):
-    model = Model("contiene outlier")
-    delta = model.addVar(vtype = "C", name="delta")
-    p = []
-    q = []
+def escribirClusterToSamples(ruta, cluster):
+    tam = len(cluster)
+    tam_p = len(cluster[0])
+    f = open(ruta, "w")
+    for p in range(0,tam):
+        for n in range(0,tam_p):
+            f.write(str(p+1) + "," + str(n+1) + "," + str(cluster[p][n])+ "\n")
+    f.close()
+
+def escribirParametros(ruta, parametros):
+    f = open(ruta,"w")
+    for p in parametros:
+        f.write(str(p)+ "\n")
+    f.close()
+
+def contieneOutlier(Cr, Cs, claseB):
+    model = Model()
+    escribirClusterToSamples("clase_A.dat", mergeClusters(Cr,Cs))
+    escribirClusterToSamples("clase_B.dat", claseB)
+    parametros = [len(claseB), (len(Cr) + len(Cs))]
+    escribirParametros("parametrosSeparable", parametros)
+    model.readProblem("separable.zpl")
+    model.optimize()
+    ret = model.getObjVal()
+    if ret != 0:
+        ret = 1
+    return ret
+   
     
+def crearClusters(cA, cB):#crea clusters para las muestras de cA de clase A    
+    c = claseToCluster(cA)
+    K = len(c)
+    k = 0
+    while k < K:
+        matDist = crearMatrizDistancia(c)
+        r,s = minimaDistancia(matDist)
+        if contieneOutlier(c[r],c[s],cB) == 0:
+            k = k + 1
+        else:
+            c.append(mergeClusters(c[r],c[s]))
+
+            if r > s:
+                c.pop(s)
+                c.pop(r-1)
+            else:
+                c.pop(r)
+                c.pop(s-1)
+
+            K = K - 1
+            k = 0
+        k = k + 1
+    return c
+       
+def escribirClusters(ruta, clusters, clase):
+    tam_clase = len(clase)
+    tam_cluster = len(clusters)
+    f = open(ruta, "w")
+    for p in range(0, tam_clase):
+        for c in range(0, tam_cluster):
+            if clase[p] in clusters[c]:
+                f.write(str(p+1) + "," +str(c+1) + "\n" )
+    f.close()
+
+#transforma un lista de muestras en una lista de clusters, un cluster por muestra
+def claseToCluster(clase):
+    cluster = []
+    for p in clase:
+        l = []
+        l.append(p)
+        cluster.append(l)
+    return  cluster
+
+    
+
+
         
 
 
-
-
-
-
-def crearClusters(cA, cB):#crea clusters para las muestras de cA de clase A
-    K = len(cA)
-    k = 0
-    matDist = crearMatrizDistancia(cA)
-    #while k < K:
-     #   r,s = minimaDistancia(matDist)
-      #  if 
-
-
-    
-
-
-
-
-def main():
-    clase1 =[[[1,7]],[[7,1]],[[1,6]],[[2,7]],[[6,1]],[[6,2]]]
-    clase0 =[[[8,10]],[[9,10]],[[8,9]],[[4,5]],[[3,4]],[[4,4]]]
-    
-    print(crearMatrizDistancia(clase1))
-    print("-----------------------------------------------------------------------------------------------")
-    print(minimaDistancia(crearMatrizDistancia(clase1)))
-
-
-    #cluster1 = crearClusters(clase1, clase0)
-    
-def leerProblema():
-    model = Model()
-    model.readProblem("crio.zpl")
-    model.optimize()
-    print(model.getObjVal())
-main()    
