@@ -13,7 +13,8 @@ class ClasificadorSVM:
         self.clasificador = SVC(C=1, degree=3, gamma='scale', kernel=kernel)
         #C determina la zona de amplificacion al definir los vectores de soporte
 
-    def leerArchivo(self, archivo):
+    @staticmethod
+    def leerArchivo(archivo):
         dataSet = pd.read_csv(archivo)
         datos = dataSet.drop('Class', axis=1)
         target = dataSet['Class']
