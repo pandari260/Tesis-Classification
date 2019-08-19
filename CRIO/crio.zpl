@@ -23,11 +23,11 @@
     #clusters
     param k0 :=read "parametros" as "1n" skip 5 use 1;#numero de clusters de clase 0
     set K0 := {1 to k0};#etiquetas para los clusters de clase 0
-    param C0[M0] := read "cluster_0.dat" as "<1n> 2n";#cluster de cada muestras de clase 0
+    param C0[M0] := read "cluster0.dat" as "<1n> 2n";#cluster de cada muestras de clase 0
  
-    param k1 := 2;param k1 :=read "parametros" as "1n" skip 6 use 1;#numero de clusters de clase 1
+    param k1 :=read "parametros" as "1n" skip 6 use 1;#numero de clusters de clase 1
     set K1 := {1 to k1};#etiquetas para los clusters de clase 1
-    param C1[M1] := read "cluster_1.dat" as "<1n> 2n";#cluster para los clusters de clase 0
+    param C1[M1] := read "cluster1.dat" as "<1n> 2n";#cluster para los clusters de clase 0
 
     param M := read "parametros" as "1n" skip 7 use 1;#un numero positivo muy grande
 
