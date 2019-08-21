@@ -13,3 +13,4 @@ def exportarArchivoCSV(muestra, ubicacion):
                    f.write(",")
             f.write("\n")
     f.close()
+
