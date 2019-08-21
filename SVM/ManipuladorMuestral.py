@@ -7,12 +7,13 @@ def obtenerMuestraSVM(archivo):
     return datos, target   
 
 def convertirMuestraZPL(muestra): 
-    nuevaMuestra, dato = [], []
-    for i in range(len(muestra)):
-        for j in range(len(muestra[i])):
-            dato.append(i+1)
-            dato.append(j+1)
-            dato.append(muestra[i][j])
-            nuevaMuestra.append(dato)
-            dato = []
+    nuevaMuestra, preMuestra = [], []
+    for item in muestra:
+        for i in range(len(item)):
+            for j in range(len(item[0])):
+                preMuestra.append(i+1)
+                preMuestra.append(j+1)
+                preMuestra.append(item[i][j])
+                nuevaMuestra.append(preMuestra)
+                preMuestra = []
     return nuevaMuestra
