@@ -30,18 +30,19 @@ coves2 = [   [[1,0],[0,1]],
             [[1,0],[0,1]],
             [[1,0],[0,1]] ]
 
-n2 = [3,8,5]
+n2 = [100,100,100]
 clases2 = [1,0,1]
 
 # Se espera 0.997272
 #print( coves)
 
 muestra = muestra.generarMuestra(mues2, coves2, n2, clases2)
-m2 = manipulador.convertirMuestraZPL(muestra)
-print(m2)
-#exportador.exportarArchivoCSV(muestra,'input/input.csv')
-#resultClasificacion, datosPrueba = svm.clasificar('rbf', 'input/input.csv')
-#impresora.imprimirOutSVM(resultClasificacion, datosPrueba)
+c0,c1 = manipulador.convertirMuestraZPL(muestra)
+exportador.exportarArchivoZPL(c0,'input/zplC0.csv')
+exportador.exportarArchivoZPL(c1,'input/zplC1.csv')
+exportador.exportarArchivoCSV(muestra,'input/input.csv')
+resultClasificacion, datosPrueba = svm.clasificar('rbf', 'input/input.csv')
+impresora.imprimirOutSVM(resultClasificacion, datosPrueba)
 
 
 

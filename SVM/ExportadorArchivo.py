@@ -1,6 +1,6 @@
 
 def exportarArchivoCSV(muestra, ubicacion):
-    f=open(ubicacion,"w")
+    f = open(ubicacion, "w")
     for i in range(len(muestra[0][0])-1):
         f.write("Feature"+str(i+1)+",")
     f.write('Class\n')
@@ -14,3 +14,12 @@ def exportarArchivoCSV(muestra, ubicacion):
             f.write("\n")
     f.close()
 
+def exportarArchivoZPL(muestra, ubicacion):
+    f = open(ubicacion, "w")
+    for dato in muestra:
+        for j in range(len(dato)):
+            f.write(str(dato[j]))
+            if(j!=len(dato)-1):
+                f.write(",")
+        f.write("\n")
+    f.close()
