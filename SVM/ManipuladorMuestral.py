@@ -7,28 +7,29 @@ def obtenerMuestraSVM(archivo):
     return datos, target   
 
 def convertirMuestraZPL(muestra): 
-    muestraC0, muestraC1, indiceC0, indiceC1 = [], [], 0, 0
+    muestraC0, muestraC1 = separarClases(muestra)
+    return darFormatoZPL(muestraC0), darFormatoZPL(muestraC1)
+
+def separarClases(muestra):
+    muestraC0, muestraC1 = [], []
     for item in muestra:
-        if(getClase(item) == 0):
-          muestraC0.append(darFormatoZPL(item, indiceC0+1))
-          indiceC0 = len(item)
-        else:
-          muestraC1.append(darFormatoZPL(item, indiceC1+1))
-          indiceC1 = len(item)
-    return muestraC1, muestraC0
+        if(getClase(item[0]) == 0): muestraC0 += item
+        else: muestraC1 += item
+    return muestraC0, muestraC1
 
 def getClase(item):
-    tamano = len(item[0])
-    if(item[0][tamano-1] == 0): return 0
+    if(item[len(item)-1] == 0): return 0
     else: return 1
 
-def darFormatoZPL(item, indice):
-    muestra, preMuestra = [], []
-    for i in range(len(item)):
-        for j in range(len(item[0])-1):
-            preMuestra.append(indice+i)
+def darFormatoZPL(muestra):
+    preMuestra, newMuestra = [], []
+    for i in range(len(muestra)):
+        for j in range(len(muestra[0])-1):
+            preMuestra.append(i+1)
             preMuestra.append(j+1)
-            preMuestra.append(item[i][j])
-            muestra.append(preMuestra)
+            preMuestra.append(muestra[i][j])
+            newMuestra.append(preMuestra)
             preMuestra = []
-    return muestra
+    return newMuestra
+
+
