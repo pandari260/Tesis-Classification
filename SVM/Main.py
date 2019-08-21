@@ -40,7 +40,7 @@ muestra = muestra.generarMuestra(mues2, coves2, n2, clases2)
 c0,c1 = manipulador.convertirMuestraZPL(muestra)
 exportador.exportarArchivoZPL(c0,'input/zplC0.csv')
 exportador.exportarArchivoZPL(c1,'input/zplC1.csv')
-exportador.exportarArchivoCSV(muestra,'input/input.csv')
+exportador.exportarArchivoSVM(muestra,'input/input.csv')
 resultClasificacion, datosPrueba = svm.clasificar('rbf', 'input/input.csv')
 impresora.imprimirOutSVM(resultClasificacion, datosPrueba)
 
