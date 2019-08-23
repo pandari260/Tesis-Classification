@@ -1,14 +1,10 @@
 
-def exportarArchivoSVM(muestra, ubicacion):
+    
+def exportarArchivoSVM( muestra, ubicacion):
     generarEncabezado(muestra, ubicacion, "w")        
     f = open(ubicacion, "a")
     for dato in muestra:
-        for k in dato:
-            for j in range(len(k)):
-                f.write(str(k[j]))
-                if(j!=len(k)-1):
-                    f.write(",")
-            f.write("\n")
+        darFormato(dato, f)
     f.close()
 
 def generarEncabezado(muestra, ubicacion, target):
@@ -18,13 +14,17 @@ def generarEncabezado(muestra, ubicacion, target):
     f.write('Class\n')
     f.close()
 
-def exportarArchivoZPL(muestra, ubicacion):
+def exportarArchivoZPL( muestra, ubicacion):
     f = open(ubicacion, "w")
+    darFormato(muestra, f)
+    f.close()
+
+def darFormato(muestra, f):
     for dato in muestra:
         for j in range(len(dato)):
             f.write(str(dato[j]))
             if(j!=len(dato)-1):
                 f.write(",")
         f.write("\n")
-    f.close()
+
 
