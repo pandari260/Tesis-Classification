@@ -2,12 +2,12 @@ from clustering import *
 from pyscipopt import Model
 import muestras as Muestras
 
+
+#TO DO: parametrizar estos parametros
 rutaClase0 = "clase_0.dat"
 rutaClase1 = "clase_1.dat"
-
 rutaCluster0 = "cluster0.dat"
 rutaCluster1 = "cluster1.dat"
-
 dimension = 2
 
 def clasificar(clusterA, clusterB):
