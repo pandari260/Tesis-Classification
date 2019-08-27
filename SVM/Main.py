@@ -4,7 +4,7 @@ import Sample as sample
 import SVM as svm
 import Printer as printer
 import Exporter as exporter
-import ManipuladorMuestral as manipulador
+import TransformSample as transform
 
 
 
@@ -37,7 +37,7 @@ clases2 = [1,0,1]
 #print( coves)
 
 sample = sample.generateSample(mues2, coves2, n2, clases2)
-c0,c1 = manipulador.convertirMuestraZPL(sample)
+c0,c1 = transform.transformSampleZPL(sample)
 exporter.exportSampleZPL(c0,'input/zplC0.csv')
 exporter.exportSampleZPL(c1,'input/zplC1.csv')
 exporter.exportSampleSVM(sample,'input/input.csv')
