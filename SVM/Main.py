@@ -1,6 +1,6 @@
 
 import numpy as np
-import Muestra as muestra
+import Sample as sample
 import SVM as svm
 import Printer as printer
 import Exporter as exporter
@@ -36,13 +36,13 @@ clases2 = [1,0,1]
 # Se espera 0.997272
 #print( coves)
 
-muestra = muestra.generarMuestra(mues2, coves2, n2, clases2)
-c0,c1 = manipulador.convertirMuestraZPL(muestra)
+sample = sample.generateSample(mues2, coves2, n2, clases2)
+c0,c1 = manipulador.convertirMuestraZPL(sample)
 exporter.exportSampleZPL(c0,'input/zplC0.csv')
 exporter.exportSampleZPL(c1,'input/zplC1.csv')
-exporter.exportSampleSVM(muestra,'input/input.csv')
-resultClasificacion, datosPrueba = svm.clasificar('rbf', 'input/input.csv')
-printer.printOutputSVM(resultClasificacion, datosPrueba)
+exporter.exportSampleSVM(sample,'input/input.csv')
+resultClassify, dataTest = svm.classify('rbf', 'input/input.csv')
+printer.printOutputSVM(resultClassify, dataTest)
 
 
 
