@@ -2,8 +2,8 @@
 import numpy as np
 import Muestra as muestra
 import SVM as svm
-import Impresora as impresora
-import ExportadorArchivo as exportador
+import Printer as printer
+import Exporter as exporter
 import ManipuladorMuestral as manipulador
 
 
@@ -38,11 +38,11 @@ clases2 = [1,0,1]
 
 muestra = muestra.generarMuestra(mues2, coves2, n2, clases2)
 c0,c1 = manipulador.convertirMuestraZPL(muestra)
-exportador.exportarArchivoZPL(c0,'input/zplC0.csv')
-exportador.exportarArchivoZPL(c1,'input/zplC1.csv')
-exportador.exportarArchivoSVM(muestra,'input/input.csv')
+exporter.exportSampleZPL(c0,'input/zplC0.csv')
+exporter.exportSampleZPL(c1,'input/zplC1.csv')
+exporter.exportSampleSVM(muestra,'input/input.csv')
 resultClasificacion, datosPrueba = svm.clasificar('rbf', 'input/input.csv')
-impresora.imprimirOutSVM(resultClasificacion, datosPrueba)
+printer.printOutputSVM(resultClasificacion, datosPrueba)
 
 
 
