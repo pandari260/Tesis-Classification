@@ -3,30 +3,30 @@
 #parametros
     param n := read "parametros" as "1n" skip 0 use 1; #numero de muestras
     param d := read "parametros" as "1n" skip 1 use 1;#dimecion de las muestras
-    set Ft :={1 to d};#etiquetas para las caracteristicas de cada muestra;
+    set Ft :={0 to d-1};#etiquetas para las caracteristicas de cada muestra;
 
     #muestras de clase 0
     param m0 :=read "parametros" as "1n" skip 2 use 1;#cantidad de muestras de clase 0;
-    set M0 := {1 to m0};#etiquetas para las muestras de clase 0
-    param Class0[M0*Ft] := read "clase_0.dat" as "<1n,2n> 3n"; 
+    set M0 := {0 to m0-1};#etiquetas para las muestras de clase 0
+    param Class0[M0*Ft] := read "clase0.dat" as "<1n,2n> 3n"; 
 
     #muestras de clase 1
     param m1 :=read "parametros" as "1n" skip 3 use 1;#cantidad de muestras de clase 1;
-    set M1 := {1 to m1};#etiquetas para las muestras de clase 1
-    param Class1[M1*Ft] := read "clase_1.dat" as "<1n,2n> 3n"; 
+    set M1 := {0 to m1-1};#etiquetas para las muestras de clase 1
+    param Class1[M1*Ft] := read "clase1.dat" as "<1n,2n> 3n"; 
 
 
     #grupos
     param nk :=read "parametros" as "1n" skip 4 use 1;
-    set K := {1 to nk};#etiquetas para la particion en grupos de clase 1.
+    set K := {0 to nk-1};#etiquetas para la particion en grupos de clase 1.
 
     #clusters
     param k0 :=read "parametros" as "1n" skip 5 use 1;#numero de clusters de clase 0
-    set K0 := {1 to k0};#etiquetas para los clusters de clase 0
+    set K0 := {0 to k0-1};#etiquetas para los clusters de clase 0
     param C0[M0] := read "cluster0.dat" as "<1n> 2n";#cluster de cada muestras de clase 0
  
     param k1 :=read "parametros" as "1n" skip 6 use 1;#numero de clusters de clase 1
-    set K1 := {1 to k1};#etiquetas para los clusters de clase 1
+    set K1 := {0 to k1-1};#etiquetas para los clusters de clase 1
     param C1[M1] := read "cluster1.dat" as "<1n> 2n";#cluster para los clusters de clase 0
 
     param M := read "parametros" as "1n" skip 7 use 1;#un numero positivo muy grande

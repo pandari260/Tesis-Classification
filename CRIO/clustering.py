@@ -57,7 +57,7 @@ def escribirClusterToSamples(ruta, cluster):
     f = open(ruta, "w")
     for p in range(0,tam):
         for n in range(0,tam_p):
-            f.write(str(p+1) + "," + str(n+1) + "," + str(cluster[p][n])+ "\n")
+            f.write(str(p) + "," + str(n) + "," + str(cluster[p][n])+ "\n")
     f.close()
 
 def escribirParametros(ruta, parametros):
@@ -68,8 +68,8 @@ def escribirParametros(ruta, parametros):
 
 def contieneOutlier(Cr, Cs, claseB):
     model = Model()
-    escribirClusterToSamples("clase_A.dat", mergeClusters(Cr,Cs))
-    escribirClusterToSamples("clase_B.dat", claseB)
+    escribirClusterToSamples("claseA.dat", mergeClusters(Cr,Cs))
+    escribirClusterToSamples("claseB.dat", claseB)
     parametros = [len(claseB), (len(Cr) + len(Cs))]
     escribirParametros("parametrosSeparable", parametros)
     model.readProblem("separable.zpl")
@@ -111,7 +111,7 @@ def escribirClusters(ruta, clusters, clase):
     for p in range(0, tam_clase):
         for c in range(0, tam_cluster):
             if clase[p] in clusters[c]:
-                f.write(str(p+1) + "," +str(c+1) + "\n" )
+                f.write(str(p) + "," +str(c) + "\n" )
     f.close()
 
 #transforma un lista de muestras en una lista de clusters, un cluster por muestra
