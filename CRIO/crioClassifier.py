@@ -1,15 +1,18 @@
-from clustering import *
+import clustering as Clusterer
 from pyscipopt import Model
-from Grouper import  *
+import grouper as Grouper
 import muestras as Muestras
+import hiperplaneDefiner as Hiperplane
+
 
 
 #TO DO: parametrizar estos parametros
-routeClase0 = "clase0.dat"
-routeClase1 = "clase1.dat"
-routeCluster0 = "cluster0.dat"
-routeCluster1 = "cluster1.dat"
-routeParameters = "parametros"
+routeClase0 = "model/clase0.dat"
+routeClase1 = "model/clase1.dat"
+routeCluster0 = "model/cluster0.dat"
+routeCluster1 = "model/cluster1.dat"
+routeParameters = "model/parametros"
+routeGroups = "model/grupos"
 dimenssion = 2
 k = 2
 
@@ -19,21 +22,29 @@ def trainClasificator():
     print("escribiendo parametros...")
     #writeParameters()
 
-    print("leyendo muestras...")
+    print("Leyendo muestras...")
     class0 = Muestras.leerMuestras(routeClase0, dimenssion)
     class1 = Muestras.leerMuestras(routeClase1, dimenssion)
 
-    print("creando clusters...")
-    cluster0 = crearClusters(class0,class1)
-    cluster1 = crearClusters(class1,class0)
+    print("Creando clusters...")
+    cluster0 = Clusterer.crearClusters(class0,class1)
+    cluster1 = Clusterer.crearClusters(class1,class0)
 
-    print("escribiendo clusters...")
-    escribirClusters(routeCluster0, cluster0, class0)
-    escribirClusters(routeCluster1, cluster1, class1)
+    print("Escribiendo clusters...")
+    Clusterer.escribirClusters(routeCluster0, cluster0, class0)
+    Clusterer.escribirClusters(routeCluster1, cluster1, class1)
 
-    print("asignando clusters a grupos...")
-    groups = assingGroups(cluster1, k)
-    print(groups)
+    print("Asignando clusters a grupos...")
+    groups = Grouper.assingGroups(cluster1, k)
+    print groups
+
+    print("Definiendo hiperplanos...")
+    Hiperplane.defineHiperplanes(groups, cluster0)
+
+
+
+
+
 
 def main():
     trainClasificator()

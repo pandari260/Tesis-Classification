@@ -1,6 +1,13 @@
 import math
-from pyscipopt import Model
+import scipInterface as scip
 
+routeClassA= "model/claseA.dat"
+routeClassB= "model/claseB.dat"
+routeParams = "model/parametrosSeparable"
+routeModel ="model/clustering.zpl"
+
+
+#toma una matria de distancias y retorna las coordenadas del menor valor de la matriz
 def minimaDistancia(matriz):
     tam = len(matriz)
     minF, minC = 0,0#minima fila y minima columna
@@ -15,12 +22,14 @@ def minimaDistancia(matriz):
                 minC = s
     return minF,minC
 
+# toma dos puntos y retorna la 
 def distanciaEntrePuntos(a,b):
     sum = 0
     for i in range(0,len(a)):
         sum = sum + (a[i] - b[i])**2
     return math.sqrt(sum)
 
+#toma dos clusters y retorna la distancia entre los puntos mas cercanos entre ellos
 def distanciaEntreClusters(clA, clB):
     d = 0
     for pA in clA:
@@ -30,6 +39,7 @@ def distanciaEntreClusters(clA, clB):
                 d = aux
     return d
 
+#toma una lista de clusters y retorna una matriz de distancia entre ellos
 def crearMatrizDistancia(clusters):
     tam = len(clusters)
     matrizDist = []
@@ -42,7 +52,8 @@ def crearMatrizDistancia(clusters):
             distancias.append(dAB)
         matrizDist.append(distancias)
     return matrizDist
-                
+
+#toma dos clusters y los combina    
 def mergeClusters(clusterA,clusterB):
     c = []
     for p in clusterA:
@@ -51,6 +62,7 @@ def mergeClusters(clusterA,clusterB):
         c.append(p)
     return c
 
+#mover a manejor de muestras#############################################
 def escribirClusterToSamples(ruta, cluster):
     tam = len(cluster)
     tam_p = len(cluster[0])
@@ -60,26 +72,28 @@ def escribirClusterToSamples(ruta, cluster):
             f.write(str(p) + "," + str(n) + "," + str(cluster[p][n])+ "\n")
     f.close()
 
+#mover a manejo de archivos##########################
 def escribirParametros(ruta, parametros):
     f = open(ruta,"w")
     for p in parametros:
         f.write(str(p)+ "\n")
     f.close()
 
+#determina si dos cluster de Clase A son linealmente separables respecto de la Clase B
 def contieneOutlier(Cr, Cs, claseB):
-    model = Model()
-    escribirClusterToSamples("claseA.dat", mergeClusters(Cr,Cs))
-    escribirClusterToSamples("claseB.dat", claseB)
+    
+    escribirClusterToSamples(routeClassA, mergeClusters(Cr,Cs))
+    escribirClusterToSamples(routeClassB, claseB)
     parametros = [len(claseB), (len(Cr) + len(Cs))]
-    escribirParametros("parametrosSeparable", parametros)
-    model.readProblem("separable.zpl")
-    model.optimize()
+    escribirParametros(routeParams, parametros)
+    model = scip.solveProblem(routeModel)
     ret = model.getObjVal()
     if ret != 0:
         ret = 1
     return ret
    
-    
+
+#clusterea el conjunto de muestras de clase A
 def crearClusters(cA, cB):#crea clusters para las muestras de cA de clase A    
     c = claseToCluster(cA)
     K = len(c)
@@ -103,14 +117,15 @@ def crearClusters(cA, cB):#crea clusters para las muestras de cA de clase A
             k = 0
         k = k + 1
     return c
-       
-def escribirClusters(ruta, clusters, clase):
-    tam_clase = len(clase)
+
+#recibe una lista de clusters y lo escribe en un archivo interpretable por zimpl 
+def escribirClusters(ruta, clusters, muestras):
+    tam_muestras = len(muestras)
     tam_cluster = len(clusters)
     f = open(ruta, "w")
-    for p in range(0, tam_clase):
+    for p in range(0, tam_muestras):
         for c in range(0, tam_cluster):
-            if clase[p] in clusters[c]:
+            if muestras[p] in clusters[c]:
                 f.write(str(p) + "," +str(c) + "\n" )
     f.close()
 

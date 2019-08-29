@@ -1,23 +1,21 @@
-from pyscipopt import Model
+import scipInterface as scip
 
-routeModel = "crio.zpl"
+
+routeModel = "model/assingGroups.zpl"
 
 #recibe una lista de clusters de clase 1 y asigna cada uno a uno de los k grupos, de acuerdo a los parametros y al modelo dado.
 def assingGroups(cluster1, k):
     cantClusters = len(cluster1)
-    model = Model()
-    model.readProblem(routeModel)
-    model.optimize()
+    model = scip.solveProblem(routeModel)
     arkVars  = model.getVars()[:cantClusters*k]
     groups = dict()
-
-    for t in range(len(arkVars)):
-        print(str(arkVars[t]) + " " + str(model.getVal(arkVars[t])))
+    
     for i in range(0, k):
+        g = []
         for j in range(cantClusters*i, cantClusters*(i+1)):
             if(model.getVal(arkVars[j]) == 1):
-                groups[j%cantClusters] = i
-                print(k)
+                g.append(j%cantClusters)
+        groups[i] = g
 
     return groups
     

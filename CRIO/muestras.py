@@ -1,12 +1,21 @@
-#lee el archivo de muestras en formato zpl indicados en la ruta y retorna un lista de muestras en formato de tuplas.  
+from enum import Enum
 
+#class StringFromats(Enum):
+#    TWO_ITEMS_FORMAT: "%s,%s"
+
+class StringFormats(Enum):
+    TWO_ITEMS_FORMAT = "%s,%s\n"
+
+
+
+#toma un list de string y la transforma en una list de enteros
 def listStringToInteger(list):
     l = list[:]
     for j in range(0, len(l)):
         l[j] = (int(l[j]))
     return l
 
-
+#lee el archivo de muestras en formato zpl indicados en la ruta y retorna un lista de muestras en formato de tuplas.  
 def leerMuestras(ruta, dimension):
     f = open(ruta,"r")
     lineas = f.readlines()
@@ -33,3 +42,12 @@ def leerMuestras(ruta, dimension):
         
     f.close()
     return clase
+
+def writeGroup(group, formatStr, route):
+    f = open(route,"w")
+    for g in group:
+        f.write(formatStr % (g))
+    f.close()
+
+    
+
