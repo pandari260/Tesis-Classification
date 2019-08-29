@@ -1,10 +1,6 @@
-from enum import Enum
-
-#class StringFromats(Enum):
-#    TWO_ITEMS_FORMAT: "%s,%s"
-
-class StringFormats(Enum):
-    TWO_ITEMS_FORMAT = "%s,%s\n"
+ONE_ITEM_FORMAT = "%s\n"
+TWO_ITEMS_FORMAT = "%s,%s\n"
+THREE_ITEMS_FORMAT = "%s,%s,%s\n"
 
 
 
@@ -43,11 +39,36 @@ def leerMuestras(ruta, dimension):
     f.close()
     return clase
 
-def writeGroup(group, formatStr, route):
+def writeGroup(group, route):
     f = open(route,"w")
     for g in group:
-        f.write(formatStr % (g))
+        f.write(TWO_ITEMS_FORMAT % (g))
     f.close()
 
-    
+#recibe una lista de muestras y las escribe en la ruta epecificada 
+def writeSample(samples, route):
+    tam = len(samples)
+    tam_p = len(samples[0])
+    f = open(route, "w")
+    for p in range(0,tam):
+        for n in range(0,tam_p):
+            f.write(THREE_ITEMS_FORMAT % (p,n,samples[p][n]))
+    f.close()
 
+def writeParams(params, route):
+    f = open(route,"w")
+    for p in params:
+        f.write(ONE_ITEM_FORMAT % (p))
+    f.close()
+
+#recibe una lista de clusters y lo escribe en un archivo interpretable por zimpl 
+def escribirClusters(ruta, clusters, muestras):
+    tam_muestras = len(muestras)
+    tam_cluster = len(clusters)
+    f = open(ruta, "w")
+
+    for p in range(0, tam_muestras):
+        for c in range(0, tam_cluster):
+            if muestras[p] in clusters[c]:
+                f.write(TWO_ITEMS_FORMAT % (p,c) )
+    f.close()

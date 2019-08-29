@@ -1,4 +1,4 @@
-import clustering as Clusterer
+import clusteringV2 as Clusterer
 from pyscipopt import Model
 import grouper as Grouper
 import muestras as Muestras
@@ -29,13 +29,17 @@ def trainClasificator():
     print("Creando clusters...")
     cluster0 = Clusterer.crearClusters(class0,class1)
     cluster1 = Clusterer.crearClusters(class1,class0)
+    
 
     print("Escribiendo clusters...")
-    Clusterer.escribirClusters(routeCluster0, cluster0, class0)
-    Clusterer.escribirClusters(routeCluster1, cluster1, class1)
+    Muestras.escribirClusters(routeCluster0, cluster0, class0)
+    Muestras.escribirClusters(routeCluster1, cluster1, class1)
 
     print("Asignando clusters a grupos...")
     groups = Grouper.assingGroups(cluster1, k)
+    print("cluster 0: " + str(cluster0))
+    print("cluster 1: " + str(cluster1))
+
     print groups
 
     print("Definiendo hiperplanos...")

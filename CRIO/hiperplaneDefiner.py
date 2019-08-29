@@ -1,4 +1,3 @@
-from muestras import StringFormats as formats
 
 routeDict = "model/grupo"
 routeModel = "model/defineHiperplanes.zpl"
