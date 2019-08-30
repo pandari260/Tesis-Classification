@@ -8,11 +8,30 @@ routeParams = "model/parametrosSeparable"
 routeModel ="model/clustering.zpl"
 
 class ClusterContainer():
-     def __init__(self, cA,cB):
+    
+    def __init__(self, cA,cB):
         self.clusters = defineClusters(cA,cB)
-        self.cantClusters = len(cA)
+        self.clustersForSamples = invertDic(self.clusters)
+        self.cantClusters = len(self.clusters)
 
-def crearClusters(cA,cB):
+    def getCluster(self):
+        return self.clusters
+    
+    def getCantClusters(self):
+        return self.cantClusters
+    
+    def getSampleKey(self, sample):
+        return self.clustersForSamples[sample]
+        
+
+def invertDic(cluster):
+    ret = dict()
+    for key,samples in cluster.items():
+        for sample in samples:
+            ret[sample] = key
+    return ret
+
+def defineClusters(cA,cB):
     clusters = creatDefaultCluster(cA)
     K = len(clusters)
     k = 0
@@ -25,12 +44,10 @@ def crearClusters(cA,cB):
             k = k + 1
         else:
             newCluster = mergeClusters(clusters[r],clusters[s])
-            print("new: " + str(newCluster) + "cR. " + str(clusters[r]) + "cS. " + str(clusters[s]))
             clusters[len(clusters)] = newCluster
             clusters.pop(s)
             clusters.pop(r)
             clusters = indexKeys(clusters)
-            print("cluster: " +str(clusters) + "r: " + str(r) + "s: " + str(s))
             
 
             K = K - 1
@@ -52,7 +69,6 @@ def creatDefaultCluster(c):
     tam = len(c)
     for i in range(0,tam):
         clusters[i] = [c[i]]
-    print("cluster: " + str(clusters))
     return clusters
 
 #toma una lista de clusters y retorna una matriz de distancia entre ellos
