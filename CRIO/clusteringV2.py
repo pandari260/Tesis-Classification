@@ -26,9 +26,9 @@ class ClusterContainer():
 
 def invertDic(cluster):
     ret = dict()
-    for key,samples in cluster.items():
-        for sample in samples:
-            ret[sample] = key
+    for i in range(0, len(cluster)):
+        for sample in cluster[i]:
+            ret[sample] = i
     return ret
 
 def defineClusters(cA,cB):
@@ -44,11 +44,16 @@ def defineClusters(cA,cB):
             k = k + 1
         else:
             newCluster = mergeClusters(clusters[r],clusters[s])
-            clusters[len(clusters)] = newCluster
-            clusters.pop(s)
-            clusters.pop(r)
-            clusters = indexKeys(clusters)
             
+            if r > s:
+                clusters.pop(r)
+                clusters.pop(s)
+            else:
+                clusters.pop(s)
+                clusters.pop(r)
+
+            clusters.append(newCluster)
+            print("Matriz: " + str(matDist))           
 
             K = K - 1
             k = 0
@@ -65,10 +70,10 @@ def indexKeys(clusters):
 
 
 def creatDefaultCluster(c):
-    clusters = dict()
+    clusters = []
     tam = len(c)
     for i in range(0,tam):
-        clusters[i] = [c[i]]
+        clusters.append([c[i]])
     return clusters
 
 #toma una lista de clusters y retorna una matriz de distancia entre ellos
