@@ -7,7 +7,31 @@ routeClassB= "model/claseB.dat"
 routeParams = "model/parametrosSeparable"
 routeModel ="model/clustering.zpl"
 
-def crearClusters(cA,cB):
+class ClusterContainer():
+    
+    def __init__(self, cA,cB):
+        self.clusters = defineClusters(cA,cB)
+        self.clustersForSamples = invertDic(self.clusters)
+        self.cantClusters = len(self.clusters)
+
+    def getCluster(self):
+        return self.clusters
+    
+    def getCantClusters(self):
+        return self.cantClusters
+    
+    def getSampleKey(self, sample):
+        return self.clustersForSamples[sample]
+        
+
+def invertDic(cluster):
+    ret = dict()
+    for i in range(0, len(cluster)):
+        for sample in cluster[i]:
+            ret[sample] = i
+    return ret
+
+def defineClusters(cA,cB):
     clusters = creatDefaultCluster(cA)
     print(clusters)
     K = len(clusters)
@@ -21,13 +45,16 @@ def crearClusters(cA,cB):
             k = k + 1
         else:
             newCluster = mergeClusters(clusters[r],clusters[s])
-            print("new: " + str(newCluster) + "cR. " + str(clusters[r]) + "cS. " + str(clusters[s]))
-            clusters[len(clusters)] = newCluster
-            clusters.pop(s)
-            clusters.pop(r)
-            clusters = indexKeys(clusters)
-            print("cluster: " +str(clusters) + "r: " + str(r) + "s: " + str(s))
             
+            if r > s:
+                clusters.pop(r)
+                clusters.pop(s)
+            else:
+                clusters.pop(s)
+                clusters.pop(r)
+
+            clusters.append(newCluster)
+            print("Matriz: " + str(matDist))           
 
             K = K - 1
             k = 0
@@ -44,13 +71,10 @@ def indexKeys(clusters):
 
 
 def creatDefaultCluster(c):
-    clusters = dict()
-    for key in c.keys():
-        sample = {}
-        cluster = []
-        sample[key] = c[key]
-        cluster.append(sample)
-        clusters[key] =  cluster
+    clusters = []
+    tam = len(c)
+    for i in range(0,tam):
+        clusters.append([c[i]])
     return clusters
 
 #toma una lista de clusters y retorna una matriz de distancia entre ellos

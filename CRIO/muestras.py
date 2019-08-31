@@ -32,7 +32,7 @@ def leerMuestras(ruta, dimension):
         indice = indice + 1
         muestra.append(d[2])
         if indice == dimension:
-            clase[d[0]] = muestra
+            clase.append(tuple(muestra))
             indice = 0
             muestra = []
         
@@ -62,13 +62,11 @@ def writeParams(params, route):
     f.close()
 
 #recibe una lista de clusters y lo escribe en un archivo interpretable por zimpl 
-def writeCluster(route, clusters, samples):
-    tam_samples = len(samples)
-    tam_cluster = len(clusters)
+def writeClusters(clusters, samples, route):
+    lenSamples = len(samples)
     f = open(route, "w")
 
-    for p in range(0, tam_samples):
-        for c in range(0, tam_cluster):
-            if samples[p] in clusters[c]:
-                f.write(TWO_ITEMS_FORMAT % (p,c) )
+    for s in range(0, lenSamples):
+        key = clusters.getSampleKey(samples[s])
+        f.write(TWO_ITEMS_FORMAT % (s,key))
     f.close()
