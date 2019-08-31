@@ -7,13 +7,9 @@ routeClassB= "model/claseB.dat"
 routeParams = "model/parametrosSeparable"
 routeModel ="model/clustering.zpl"
 
-class ClusterContainer():
-     def __init__(self, cA,cB):
-        self.clusters = defineClusters(cA,cB)
-        self.cantClusters = len(cA)
-
 def crearClusters(cA,cB):
     clusters = creatDefaultCluster(cA)
+    print(clusters)
     K = len(clusters)
     k = 0
     while k < K:
@@ -49,32 +45,33 @@ def indexKeys(clusters):
 
 def creatDefaultCluster(c):
     clusters = dict()
-    tam = len(c)
-    for i in range(0,tam):
-        clusters[i] = [c[i]]
-    print("cluster: " + str(clusters))
+    for key in c.keys():
+        sample = {}
+        cluster = []
+        sample[key] = c[key]
+        cluster.append(sample)
+        clusters[key] =  cluster
     return clusters
 
 #toma una lista de clusters y retorna una matriz de distancia entre ellos
 def crearMatrizDistancia(clusters):
-    tam = len(clusters)
     matrizDist = []
-    for clA in range(0, tam):
+    for keyA in clusters.keys():
         distancias = []
-        for clB in range(clA,tam):
+        for keyB in clusters.keys():
             dAB = 0
-            if clA !=clB:
-                dAB = distanciaEntreClusters(clusters[clA], clusters[clB]) 
+            if keyA !=keyB:
+                dAB = distanciaEntreClusters(clusters[keyA], clusters[keyB]) 
             distancias.append(dAB)
         matrizDist.append(distancias)
     return matrizDist
 
 #toma dos clusters y retorna la distancia entre los puntos mas cercanos entre ellos
-def distanciaEntreClusters(clA, clB):
+def distanciaEntreClusters(clusterA, clusterB):
     d = 0
-    for pA in clA:
-        for pB in clB:
-            aux = distanciaEntrePuntos(pA,pB)
+    for pA in clusterA:
+        for pB in clusterA:
+            aux = distanciaEntrePuntos(pA[pA.keys()[0]],pB[pB.keys()[0]])
             if aux > d:
                 d = aux
     return d

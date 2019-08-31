@@ -29,21 +29,23 @@ def trainClasificator():
     print("Creando clusters...")
     cluster0 = Clusterer.crearClusters(class0,class1)
     cluster1 = Clusterer.crearClusters(class1,class0)
+
+    #print cluster0
+    #print cluster1
     
-
     print("Escribiendo clusters...")
-    Muestras.escribirClusters(routeCluster0, cluster0, class0)
-    Muestras.escribirClusters(routeCluster1, cluster1, class1)
+    #Muestras.writeCluster(routeCluster0, cluster0, class0)
+    #Muestras.writeCluster(routeCluster1, cluster1, class1)
 
-    print("Asignando clusters a grupos...")
-    groups = Grouper.assingGroups(cluster1, k)
-    print("cluster 0: " + str(cluster0))
-    print("cluster 1: " + str(cluster1))
+    #print("Asignando clusters a grupos...")
+    #groups = Grouper.assingGroups(cluster1, k)
+    #print("cluster 0: " + str(cluster0))
+    #print("cluster 1: " + str(cluster1))
 
-    print groups
+    #print groups
 
-    print("Definiendo hiperplanos...")
-    Hiperplane.defineHiperplanes(groups, cluster0)
+    #print("Definiendo hiperplanos...")
+    #Hiperplane.defineHiperplanes(groups, cluster0)
 
 
 

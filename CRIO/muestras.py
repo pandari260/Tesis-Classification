@@ -25,14 +25,14 @@ def leerMuestras(ruta, dimension):
         fila = listStringToInteger(fila)
         datos.append(fila)   
     
-    clase = []
+    clase = dict()
     indice = 0
     muestra=[]
     for d in datos:
         indice = indice + 1
         muestra.append(d[2])
         if indice == dimension:
-            clase.append(muestra)
+            clase[d[0]] = muestra
             indice = 0
             muestra = []
         
@@ -62,13 +62,13 @@ def writeParams(params, route):
     f.close()
 
 #recibe una lista de clusters y lo escribe en un archivo interpretable por zimpl 
-def escribirClusters(ruta, clusters, muestras):
-    tam_muestras = len(muestras)
+def writeCluster(route, clusters, samples):
+    tam_samples = len(samples)
     tam_cluster = len(clusters)
-    f = open(ruta, "w")
+    f = open(route, "w")
 
-    for p in range(0, tam_muestras):
+    for p in range(0, tam_samples):
         for c in range(0, tam_cluster):
-            if muestras[p] in clusters[c]:
+            if samples[p] in clusters[c]:
                 f.write(TWO_ITEMS_FORMAT % (p,c) )
     f.close()
