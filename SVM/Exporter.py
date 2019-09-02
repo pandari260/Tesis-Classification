@@ -1,30 +1,26 @@
 
     
-def exportSampleSVM(sample, location):
-    generateHeader(sample, location, "w")        
+def exportSampleSVM(sample, format, location):
+    generateHeader(sample[0], location, "w")        
     file = open(location, "a")
     for data in sample:
-        setFormat(data, file)
+        setFormat(data, format, file)
     file.close()
 
-def exportSampleZPL(sample, location):
+def exportSampleZPL(sample, format, location):
     file = open(location, "w")
-    setFormat(sample, file)
+    setFormat(sample, format, file)
     file.close()
 
 def generateHeader(sample, location, target):
     file = open(location, target)
-    for i in range(len(sample[0][0])-1):
+    for i in range(len(sample[0])-1):
         file.write("Feature"+str(i+1)+",")
     file.write('Class\n')
     file.close()
 
-def setFormat(sample, file):
+def setFormat(sample, format, file):
     for data in sample:
-        for j in range(len(data)):
-            file.write(str(data[j]))
-            if(j!=len(data)-1):
-                file.write(",")
-        file.write("\n")
+        file.write(format % tuple(data))
 
 
