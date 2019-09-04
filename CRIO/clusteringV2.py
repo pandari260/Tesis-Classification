@@ -33,7 +33,6 @@ def invertDic(cluster):
 
 def defineClusters(cA,cB):
     clusters = creatDefaultCluster(cA)
-    print(clusters)
     K = len(clusters)
     k = 0
     while k < K:
@@ -79,23 +78,24 @@ def creatDefaultCluster(c):
 
 #toma una lista de clusters y retorna una matriz de distancia entre ellos
 def crearMatrizDistancia(clusters):
+    tam = len(clusters)
     matrizDist = []
-    for keyA in clusters.keys():
+    for clA in range(0, tam):
         distancias = []
-        for keyB in clusters.keys():
+        for clB in range(clA,tam):
             dAB = 0
-            if keyA !=keyB:
-                dAB = distanciaEntreClusters(clusters[keyA], clusters[keyB]) 
+            if clA !=clB:
+                dAB = distanciaEntreClusters(clusters[clA], clusters[clB]) 
             distancias.append(dAB)
         matrizDist.append(distancias)
     return matrizDist
 
 #toma dos clusters y retorna la distancia entre los puntos mas cercanos entre ellos
-def distanciaEntreClusters(clusterA, clusterB):
+def distanciaEntreClusters(clA, clB):
     d = 0
-    for pA in clusterA:
-        for pB in clusterA:
-            aux = distanciaEntrePuntos(pA[pA.keys()[0]],pB[pB.keys()[0]])
+    for pA in clA:
+        for pB in clB:
+            aux = distanciaEntrePuntos(pA,pB)
             if aux > d:
                 d = aux
     return d
