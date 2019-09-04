@@ -42,8 +42,9 @@ def trainClasificator():
     print ("grupos: " + str(groups.getGroups()))
 
     print("Definiendo hiperplanos...")
-    regiones = {}
-    print(Hiperplane.defineHiperplanes(groups, clusterContainer0))
+    regiones = Hiperplane.defineHiperplanes(groups, clusterContainer0)
+    for i in regiones.items():
+        print i
     
 
 def main():
