@@ -41,8 +41,9 @@ def leerMuestras(ruta, dimension):
 
 def writeGroup(group, route):
     f = open(route,"w")
-    for g in group:
-        f.write(TWO_ITEMS_FORMAT % (g))
+    for i in range(0,len(group)):
+        for number in group[i]: 
+            f.write(TWO_ITEMS_FORMAT % (i,number))
     f.close()
 
 #recibe una lista de muestras y las escribe en la ruta epecificada 
@@ -61,7 +62,7 @@ def writeParams(params, route):
         f.write(ONE_ITEM_FORMAT % (p))
     f.close()
 
-#recibe una lista de clusters y lo escribe en un archivo interpretable por zimpl 
+#recibe un objeto ClusterContainer y lo escribe en un archivo interpretable por zimpl 
 def writeClusters(clusters, samples, route):
     lenSamples = len(samples)
     f = open(route, "w")

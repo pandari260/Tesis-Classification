@@ -3,9 +3,21 @@ import scipInterface as scip
 
 routeModel = "model/assingGroups.zpl"
 
+class GroupContainer():
+    def __init__(self, c,k):
+        self.assings = assingGroups(c, k)
+        self.groups = defineGroups(c.getClusters(), self.assings)
+        self.cantGroups = len(self.groups)
+    
+    def getGroups(self):
+        return self.groups
+    
+    def getNumberGroups(self):
+        return self.cantGroups
+
 #recibe una lista de clusters de clase 1 y asigna cada uno a uno de los k grupos, de acuerdo a los parametros y al modelo dado.
-def assingGroups(cluster1, k):
-    cantClusters = cluster1.getCantClusters()
+def assingGroups(cluster, k):
+    cantClusters = cluster.getCantClusters()
     model = scip.solveProblem(routeModel)
     arkVars  = model.getVars()[:cantClusters*k]
     groups = dict()
@@ -18,7 +30,13 @@ def assingGroups(cluster1, k):
         groups[i] = g
 
     return groups
-    
-    
 
-
+#toma una lista de clusters y los agrupa de acuerdo al grupo asignado en assings
+def defineGroups(clusters, assings):
+    groups=[]
+    for value in assings.values():
+        samples=[]
+        for i in value:
+            samples = samples + clusters[i]
+        groups.append(tuple(samples))
+    return groups

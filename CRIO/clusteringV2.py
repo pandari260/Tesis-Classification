@@ -14,7 +14,7 @@ class ClusterContainer():
         self.clustersForSamples = invertDic(self.clusters)
         self.cantClusters = len(self.clusters)
 
-    def getCluster(self):
+    def getClusters(self):
         return self.clusters
     
     def getCantClusters(self):
