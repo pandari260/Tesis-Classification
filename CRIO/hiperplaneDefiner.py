@@ -1,4 +1,4 @@
-from muestras import writeSample, writeParams
+from muestras import writeSample, writeParameters
 from scipInterface import solveProblem
 
 
@@ -20,10 +20,10 @@ def defineHiperplanes(groupContainer, clusterContainer):
             hiperplane = []
             writeSample(g,routeGroup)
             writeSample(c,routeCluster)
-            writeParams((len(g), len(c)), routeParams)
+            writeParameters((len(g), len(c)), routeParams)
             model = solveProblem(routeModel)
             hiperplaneVars = model.getVars()
-            for var in hiperplaneVars:
+            for var in hiperplaneVars[:-1]:
                 hiperplane.append(model.getVal(var))
             region.append(hiperplane)
         regions[g] = region

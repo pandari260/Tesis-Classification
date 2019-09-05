@@ -12,7 +12,7 @@ def listStringToInteger(list):
     return l
 
 #lee el archivo de muestras en formato zpl indicados en la ruta y retorna un lista de muestras en formato de tuplas.  
-def leerMuestras(ruta, dimension):
+def readSamples(ruta, dimension):
     f = open(ruta,"r")
     lineas = f.readlines()
     datos = []
@@ -55,7 +55,7 @@ def writeSample(samples, route):
             f.write(THREE_ITEMS_FORMAT % (p,n,samples[p][n]))
     f.close()
 
-def writeParams(params, route):
+def writeParameters(params, route):
     f = open(route,"w")
     for p in params:
         f.write(ONE_ITEM_FORMAT % (p))

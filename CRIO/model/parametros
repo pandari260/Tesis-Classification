@@ -1,10 +1,8 @@
-12 # numero de muestras.
-2  # dimension de las muestras
-6  # numero de muestras de clase 0
-6  # numero de muestras de clase 1
-2  # numero de grupos
-1  # nuemro de cluster de clase 0
-2  # nuemro de cluster de clase 1
-1000000  # cota positiva grande
-
-
+13
+2
+6
+7
+2
+2
+2
+1000000

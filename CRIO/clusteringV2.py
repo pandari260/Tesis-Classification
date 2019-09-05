@@ -1,6 +1,6 @@
 import math
 import scipInterface as scip
-from muestras import writeSample, writeParams
+from muestras import writeSample, writeParameters
 
 routeClassA= "model/claseA.dat"
 routeClassB= "model/claseB.dat"
@@ -42,9 +42,18 @@ def defineClusters(cA,cB):
 
         if contieneOutlier(clusters[r],clusters[s],cB) == 0:
             k = k + 1
+            print("\n\nclusters: " + str(clusters) + "-------------------------------------------\n\n") 
+            print("r: " + str(r) + ", s: " + str(s) + "------------------------------------------------\n\n")
+            print("Matriz: ---------------------------------------------------------------------------\n\n")
+            for row in matDist:
+                print(str(row) + "\n\n")  
         else:
-            newCluster = mergeClusters(clusters[r],clusters[s])
-            
+            newCluster = mergeClusters(clusters[r],clusters[s])            
+            print("\n\nclusters antes: " + str(clusters) + "-------------------------------------------\n\n") 
+            print("Matriz: ---------------------------------------------------------------------------\n\n")
+            for row in matDist:
+                print(str(row) + "\n\n")  
+            print("r: " + str(r) + ", s: " + str(s) + "------------------------------------------------\n\n")
             if r > s:
                 clusters.pop(r)
                 clusters.pop(s)
@@ -53,7 +62,9 @@ def defineClusters(cA,cB):
                 clusters.pop(r)
 
             clusters.append(newCluster)
-            print("Matriz: " + str(matDist))           
+            
+            
+            print("clusters despues: " + str(clusters) + "---------------------------------------------------------\n\n")         
 
             K = K - 1
             k = 0
@@ -82,7 +93,7 @@ def crearMatrizDistancia(clusters):
     matrizDist = []
     for clA in range(0, tam):
         distancias = []
-        for clB in range(clA,tam):
+        for clB in range(0,tam):
             dAB = 0
             if clA !=clB:
                 dAB = distanciaEntreClusters(clusters[clA], clusters[clB]) 
@@ -127,9 +138,9 @@ def contieneOutlier(Cr, Cs, claseB):
     
     writeSample( mergeClusters(Cr,Cs),routeClassA)
     writeSample(claseB, routeClassB)
-    params = [len(claseB), (len(Cr) + len(Cs))]
+    parameters = [len(claseB), (len(Cr) + len(Cs))]
 
-    writeParams(params, routeParams)
+    writeParameters(parameters, routeParams)
     model = scip.solveProblem(routeModel)
     ret = model.getObjVal()
     if ret != 0:
@@ -145,3 +156,8 @@ def mergeClusters(clusterA,clusterB):
         c.append(p)
     return c
 
+
+def main():
+    print(distanciaEntreClusters([(6,7)], [(8,9)]))
+
+main()
