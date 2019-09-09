@@ -50,10 +50,12 @@ def trainClasificator():
 
     print("-----------------------------------------------------------------------------------------------------------\n")
     for key, value in regiones.items():
-        print("Region: " + str(key) + ", \n Hiperplanos:\n ")
+        print("Region: " + str(key) + " \n Hiperplanos:\n ")
+        print("cantidad: " + str(len(key)))
         for hiperplano in value:
                 print(str(hiperplano) + "\n")
         print("-----------------------------------------------------------------------------------------------------------\n")
+
     
 
 def main():

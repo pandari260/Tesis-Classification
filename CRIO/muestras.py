@@ -48,6 +48,7 @@ def writeGroup(group, route):
 #recibe una lista de muestras y las escribe en la ruta epecificada 
 def writeSample(samples, route):
     tam = len(samples)
+    print(samples)
     tam_p = len(samples[0])
     f = open(route, "w")
     for p in range(0,tam):
@@ -69,4 +70,20 @@ def writeClusters(clusters, samples, route):
     for s in range(0, lenSamples):
         key = clusters.getSampleKey(samples[s])
         f.write(TWO_ITEMS_FORMAT % (s,key))
+    f.close()
+
+def writeRegion(region, t0, route):
+    f = open(route, "w")
+    f.write(ONE_ITEM_FORMAT % (t0))
+    lenReg = len(region)
+    lenHiper = len(region[0])
+    for i in range(0,lenReg):
+        for j in range(0, lenHiper-1):
+            f.write(THREE_ITEMS_FORMAT % (i,j,region[i][j]))
+    
+    for i in range(0,lenReg):
+        f.write(TWO_ITEMS_FORMAT % (i, region[i][2]))
+    
+    
+
     f.close()
