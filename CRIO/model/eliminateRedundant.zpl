@@ -1,12 +1,12 @@
 #parametros
-    param routeParams := "parametros";
-    param routeData := "region";
-    param n := read routeParams as "1n" skip 0 use 1; #numero de muestras
-    param d := read routeParams as "1n" skip 1 use 1;#dimecion de las muestras
+    param routeParam := "globalParameters";
+    param routeData := "eliminateRedundatCurrentRegion";
+    param n := read routeParam as "1n" skip 0 use 1; #numero de muestras
+    param d := read routeParam as "1n" skip 1 use 1;#dimecion de las muestras
     set Ft :={0 to d-1};#etiquetas para las caracteristicas de cada muestra;
 
     #clusters
-    param k0 :=read routeParams as "1n" skip 5 use 1;#numero de clusters de clase 0
+    param k0 :=read routeParam as "1n" skip 5 use 1;#numero de clusters de clase 0
     set K0 := {0 to k0-1};#etiquetas para los clusters de clase 0
 
     param t0 := read routeData as "1n" use 1;

@@ -1,10 +1,10 @@
 import math
 import scipInterface as scip
-from muestras import writeSample, writeParameters
+from fileManager import writeSample, writeParameters
 
-routeClassA= "model/claseA.dat"
-routeClassB= "model/claseB.dat"
-routeParams = "model/parametrosSeparable"
+routeClassA= "model/clusteringClassA.dat"
+routeClassB= "model/clusteringClassB.dat"
+routeParams = "model/clusteringParameters"
 routeModel ="model/clustering.zpl"
 
 class ClusterContainer():

@@ -1,15 +1,15 @@
 #parametros
-    param routeParams := "parametrosHiperplanes";
+    param routeParam := "defineHiperplanesParameters";
     param d := 2;
     set Ft := {0 to d-1};
 
-    param nk := read routeParams as "1n" skip 0 use 1; 
+    param nk := read routeParam as "1n" skip 0 use 1; 
     set K := {0 to nk-1};
-    param group[K*Ft] := read "grupo" as "<1n,2n> 3n";#leer el grupo actual
+    param group[K*Ft] := read "defineHiperplanesCurrentGruop" as "<1n,2n> 3n";#leer el grupo actual
 
-    param k0 := read routeParams as "1n" skip 1 use 1; 
+    param k0 := read routeParam as "1n" skip 1 use 1; 
     set K0 := {0 to k0-1};
-    param C0[K0*Ft] := read "cluster" as "<1n,2n> 3n";
+    param C0[K0*Ft] := read "defineHiperplanesCurrentCluster" as "<1n,2n> 3n";
 
 #variables
 

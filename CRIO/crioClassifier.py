@@ -1,18 +1,16 @@
 from clusteringV2 import ClusterContainer 
 from pyscipopt import Model
 from grouper import GroupContainer
-from muestras import writeClusters,writeParameters, readSamples
+from fileManager import writeClusters,writeParameters, readSamples
 import hiperplaneDefiner as Hiperplane
 
 
-
 #TO DO: parametrizar estos parametros
-routeClase0 = "model/clase0.dat"
-routeClase1 = "model/clase1.dat"
+routeClase0 = "model/class0.dat"
+routeClase1 = "model/class1.dat"
 routeCluster0 = "model/cluster0.dat"
 routeCluster1 = "model/cluster1.dat"
-routeParameters = "model/parametros"
-routeGroups = "model/grupos"
+routeParameters = "model/globalParameters"
 dimenssion = 2
 k = 2
 M = 1000000

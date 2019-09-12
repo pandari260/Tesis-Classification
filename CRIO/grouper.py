@@ -17,6 +17,8 @@ class GroupContainer():
 
 #recibe una lista de clusters de clase 1 y asigna cada uno a uno de los k grupos, de acuerdo a los parametros y al modelo dado.
 def assingGroups(clusterContainer, k):
+    
+    
     model = scip.solveProblem(routeModel)
     cantClusters = clusterContainer.getCantClusters()
     arkVars  = model.getVars()[:cantClusters*k]

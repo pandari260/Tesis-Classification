@@ -1,13 +1,13 @@
-from muestras import writeSample, writeParameters, writeRegion
+from fileManager import writeSample, writeParameters, writeRegion
 from scipInterface import solveProblem
 
 
-routeGroup = "model/grupo"
-routeCluster ="model/cluster"
+routeGroup = "model/defineHiperplanesCurrentGruop"
+routeCluster ="model/defineHiperplanesCurrentCluster"
 routeModelDefineHiperplanes = "model/defineHiperplanes.zpl"
 routeModelEliminateRedundat = "model/eliminateRedundant.zpl"
-routeParams= "model/parametrosHiperplanes"
-routeRegion = "model/region"
+routeParams= "model/defineHiperplanesParameters"
+routeRegion = "model/eliminateRedundatCurrentRegion"
 
 
 def defineHiperplanes(groupContainer, clusterContainer):
