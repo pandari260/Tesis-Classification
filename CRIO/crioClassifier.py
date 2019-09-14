@@ -37,11 +37,6 @@ def trainClasificator():
     print("Asignando clusters a grupos...")
     groups = GroupContainer(clusterContainer1, k)
     
-    print("clase 0: " + str(class0))
-    print("clase 1: " + str(class1))
-    print("cluster 0: " + str(clusterContainer0.getClusters()))
-    print("cluster 1: " + str(clusterContainer1.getClusters()))
-    print ("grupos: " + str(groups.getGroups()))
 
     print("Definiendo hiperplanos...")
     regiones = Hiperplane.defineHiperplanes(groups, clusterContainer0)

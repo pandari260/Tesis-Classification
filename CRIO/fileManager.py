@@ -12,23 +12,23 @@ def listStringToInteger(list):
     return l
 
 #lee el archivo de muestras en formato zpl indicados en la ruta y retorna un lista de muestras en formato de tuplas.  
-def readSamples(ruta, dimension):
-    f = open(ruta,"r")
-    lineas = f.readlines()
-    datos = []
+def readSamples(route, dimension):
+    f = open(route,"r")
+    lines = f.readlines()
+    data = []
     
     #eliminar los saltos de linea del final
-    for i in range(0,len(lineas)):
-        fila = lineas[i].split(",")
-        if i < len(lineas) -1:
-            fila[2] = fila[2][:-1]
-        fila = listStringToInteger(fila)
-        datos.append(fila)   
+    
+    lines = list(map(lambda line: line[:-1], lines))
+    lines = list(map(lambda line: line.split(","), lines))
+    data = list(map(lambda line: listStringToInteger(line), lines))
+        
+    print("data: " + str(data))
     
     clase = []
     indice = 0
     muestra=[]
-    for d in datos:
+    for d in data:
         indice = indice + 1
         muestra.append(d[2])
         if indice == dimension:
