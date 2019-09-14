@@ -15,27 +15,15 @@ def listStringToInteger(list):
 def readSamples(route, dimension):
     f = open(route,"r")
     lines = f.readlines()
-    data = []
-    
-    #eliminar los saltos de linea del final
     
     lines = list(map(lambda line: line[:-1], lines))
     lines = list(map(lambda line: line.split(","), lines))
-    data = list(map(lambda line: listStringToInteger(line), lines))
-        
-    print("data: " + str(data))
-    
+    data = list(map(lambda line: listStringToInteger(line), lines))        
+   
     clase = []
-    indice = 0
-    muestra=[]
-    for d in data:
-        indice = indice + 1
-        muestra.append(d[2])
-        if indice == dimension:
-            clase.append(tuple(muestra))
-            indice = 0
-            muestra = []
-        
+    for i in range(0, len(data) -1,2):
+        clase.append(tuple(list(zip(data[i],data[i+1]))[2]))
+
     f.close()
     return clase
 

@@ -9,9 +9,9 @@ routeModel ="model/clustering.zpl"
 
 class ClusterContainer():
     
-    def __init__(self, cA,cB):
-        self.clusters = defineClusters(cA,cB)
-        self.clustersForSamples = invertDic(self.clusters)
+    def __init__(self, classA,classB):
+        self.clusters = defineClusters(classA,classB)
+        self.clustersForSamples = indexKeyDict(self.clusters)
         self.cantClusters = len(self.clusters)
 
     def getClusters(self):
@@ -24,85 +24,50 @@ class ClusterContainer():
         return self.clustersForSamples[sample]
         
 
-def invertDic(cluster):
+def indexKeyDict(cluster):
     ret = dict()
     for i in range(0, len(cluster)):
         for sample in cluster[i]:
             ret[sample] = i
     return ret
 
-def defineClusters(cA,cB):
-    clusters = creatDefaultCluster(cA)
+def defineClusters(classA,classB):
+    clusters = creatDefaultCluster(classA)
     K = len(clusters)
     k = 0
     while k < K:
-        matDist = crearMatrizDistancia(clusters)
-        
+        matDist = crearMatrizDistancia(clusters)        
         r,s = minimaDistancia(matDist)
-
-        if contieneOutlier(clusters[r],clusters[s],cB) == 0:
-            k = k + 1
-            print("\n\nclusters: " + str(clusters) + "-------------------------------------------\n\n") 
-            print("r: " + str(r) + ", s: " + str(s) + "------------------------------------------------\n\n")
-            print("Matriz: ---------------------------------------------------------------------------\n\n")
-            for row in matDist:
-                print(str(row) + "\n\n")  
+        if contieneOutlier(clusters[r],clusters[s],classB) == 0:
+            k = k + 1            
         else:
-            newCluster = mergeClusters(clusters[r],clusters[s])            
-            print("\n\nclusters antes: " + str(clusters) + "-------------------------------------------\n\n") 
-            print("Matriz: ---------------------------------------------------------------------------\n\n")
-            for row in matDist:
-                print(str(row) + "\n\n")  
-            print("r: " + str(r) + ", s: " + str(s) + "------------------------------------------------\n\n")
-            if r > s:
-                clusters.pop(r)
-                clusters.pop(s)
-            else:
-                clusters.pop(s)
-                clusters.pop(r)
-
-            clusters.append(newCluster)
-            
-            
-            print("clusters despues: " + str(clusters) + "---------------------------------------------------------\n\n")         
-
+            newCluster = clusters[r] + clusters[s] 
+            clusters.append(newCluster)   
+            clusters.remove(clusters[r])
+            clusters.remove(clusters[s])               
             K = K - 1
             k = 0
         k = k + 1
     return clusters
 
-def indexKeys(clusters):
-    ret = dict()
-    index = 0
-    for key, value in clusters.items():
-        ret[index] = value
-        index = index + 1
-    return ret
-
-
 def creatDefaultCluster(c):
-    clusters = []
-    tam = len(c)
-    for i in range(0,tam):
-        clusters.append([c[i]])
-    return clusters
+    return list(map(lambda sample: [sample], c))
+
 
 #toma una lista de clusters y retorna una matriz de distancia entre ellos
 def crearMatrizDistancia(clusters):
     tam = len(clusters)
     matrizDist = []
-    for clA in range(0, tam):
+    for clusterA in range(0, tam):
         distancias = []
-        for clB in range(0,tam):
-            dAB = 0
-            if clA !=clB:
-                dAB = distanciaEntreClusters(clusters[clA], clusters[clB]) 
-            distancias.append(dAB)
+        for clusterB in range(0,clusterA):
+            distanceAB = distanceBtwClusters(clusters[clusterA], clusters[clusterB]) 
+            distancias.append(distanceAB)
         matrizDist.append(distancias)
     return matrizDist
 
 #toma dos clusters y retorna la distancia entre los puntos mas cercanos entre ellos
-def distanciaEntreClusters(clA, clB):
+def distanceBtwClusters(clA, clB):
     d = 0
     for pA in clA:
         for pB in clB:
@@ -125,7 +90,7 @@ def minimaDistancia(matriz):
     min = float("inf")
 
     for r in range(0,tam):
-        for s in range(0,(tam-r)):
+        for s in range(0,r):
             n = matriz[r][s]
             if n != 0 and n < min:
                 min = n
@@ -136,7 +101,7 @@ def minimaDistancia(matriz):
 #determina si dos cluster de Clase A son linealmente separables respecto de la Clase B
 def contieneOutlier(Cr, Cs, claseB):
     
-    writeSample( mergeClusters(Cr,Cs),routeClassA)
+    writeSample( Cr + Cs,routeClassA)
     writeSample(claseB, routeClassB)
     parameters = [len(claseB), (len(Cr) + len(Cs))]
 
@@ -147,17 +112,4 @@ def contieneOutlier(Cr, Cs, claseB):
         ret = 1
     return ret
 
-#toma dos clusters y los combina    
-def mergeClusters(clusterA,clusterB):
-    c = []
-    for p in clusterA:
-        c.append(p)
-    for p in clusterB:
-        c.append(p)
-    return c
 
-
-def main():
-    print(distanciaEntreClusters([(6,7)], [(8,9)]))
-
-main()
