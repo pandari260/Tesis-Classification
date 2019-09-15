@@ -22,6 +22,9 @@ class ClusterContainer():
     
     def getSampleKey(self, sample):
         return self.clustersForSamples[sample]
+    
+    def removeSample(self, sample):
+        self.clusters[self.getSampleKey(sample)].remove(sample)
         
 
 def indexKeyDict(cluster):

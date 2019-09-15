@@ -1,6 +1,6 @@
 from clusteringV2 import ClusterContainer 
 from pyscipopt import Model
-from grouper import GroupContainer
+import grouper as Grouper
 from fileManager import writeClusters,writeParameters, readSamples
 import hiperplaneDefiner as Hiperplane
 
@@ -12,7 +12,7 @@ routeCluster0 = "model/cluster0.dat"
 routeCluster1 = "model/cluster1.dat"
 routeParameters = "model/globalParameters"
 dimenssion = 2
-k = 2
+k = 1
 M = 1000000
 
 def trainClasificator():
@@ -23,7 +23,11 @@ def trainClasificator():
 
     print("Creando clusters...")
     clusterContainer0 = ClusterContainer(class0,class1)
-    clusterContainer1 = ClusterContainer(class1,class0)    
+    clusterContainer1 = ClusterContainer(class1,class0) 
+    
+    print("cluster 0: " + str(clusterContainer0.getClusters()) + "\n")  
+    print("cluster 1: " + str(clusterContainer1.getClusters()) + "\n")   
+ 
 
     print("Escribiendo clusters...")
     writeClusters(clusterContainer0, class0,routeCluster0)
@@ -35,11 +39,17 @@ def trainClasificator():
 
 
     print("Asignando clusters a grupos...")
-    groups = GroupContainer(clusterContainer1, k)
+    groupContainer = Grouper.GroupContainer(class1, clusterContainer1, k)
+    Grouper.deleteOutliers(class0, clusterContainer0, groupContainer.model.e0Vals)
+    
+    
+    for i  in range(len(groupContainer.getGroups())):
+        print("grupo " + str(i) + ": " + str(groupContainer.getGroups()[i]) + "\n")   
+    
     
 
     print("Definiendo hiperplanos...")
-    regiones = Hiperplane.defineHiperplanes(groups, clusterContainer0)
+    regiones = Hiperplane.defineHiperplanes(groupContainer, clusterContainer0)
 
     print("-----------------------------------------------------------------------------------------------------------\n")
     for key, value in regiones.items():

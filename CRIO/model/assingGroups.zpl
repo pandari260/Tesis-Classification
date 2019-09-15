@@ -34,7 +34,6 @@
 
 #variables
     var a[K*K1] binary;#1 si el cluster r en K1 pertenece al grupo k en K, 0 si no.
-    var delta >=-infinity;
     var e0[M0] >=-infinity;#margen de error para cada punto de clase 0
     var e1[M1] >= -infinity;#margen de error para cada punto de clase 1
     var p[K*K0*Ft] >= -infinity;#rectas que dividen cada grupos de clase 0 con cada grupo de clase 1

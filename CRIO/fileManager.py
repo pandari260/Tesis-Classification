@@ -36,7 +36,6 @@ def writeGroup(group, route):
 #recibe una lista de muestras y las escribe en la ruta epecificada 
 def writeSample(samples, route):
     tam = len(samples)
-    print(samples)
     tam_p = len(samples[0])
     f = open(route, "w")
     for p in range(0,tam):
