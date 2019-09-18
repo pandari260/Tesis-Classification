@@ -23,6 +23,7 @@ def readSamples(route, dimension):
     clase = []
     for i in range(0, len(data) -1,2):
         clase.append(tuple(list(zip(data[i],data[i+1]))[2]))
+        #clase.append(np.array((list(zip(data[i],data[i+1]))[2])))
 
     f.close()
     return clase

@@ -12,7 +12,7 @@ routeCluster0 = "model/cluster0.dat"
 routeCluster1 = "model/cluster1.dat"
 routeParameters = "model/globalParameters"
 dimenssion = 2
-k = 1
+k = 2
 M = 1000000
 
 def trainClasificator():
@@ -20,6 +20,9 @@ def trainClasificator():
     print("Leyendo muestras...")
     class0 = readSamples(routeClase0, dimenssion)
     class1 = readSamples(routeClase1, dimenssion)
+    
+    print("\n clase0: " + str(class0))
+    print("\n clase1: " + str(class1))
 
     print("Creando clusters...")
     clusterContainer0 = ClusterContainer(class0,class1)

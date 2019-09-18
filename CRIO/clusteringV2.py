@@ -1,11 +1,13 @@
 import math
 import scipInterface as scip
 from fileManager import writeSample, writeParameters
+from gtk.keysyms import exclamdown
 
 routeClassA= "model/clusteringClassA.dat"
 routeClassB= "model/clusteringClassB.dat"
 routeParams = "model/clusteringParameters"
 routeModel ="model/clustering.zpl"
+import numpy as np
 
 class ClusterContainer():
     
@@ -74,17 +76,20 @@ def distanceBtwClusters(clA, clB):
     d = 0
     for pA in clA:
         for pB in clB:
-            aux = distanciaEntrePuntos(pA,pB)
+            aux = distanceBtwSamples(pA,pB)
             if aux > d:
                 d = aux
     return d
 
 # toma dos puntos y retorna la 
-def distanciaEntrePuntos(a,b):
+"""def distanceBtwSamples(a,b):
     sum = 0
     for i in range(0,len(a)):
         sum = sum + (a[i] - b[i])**2
-    return math.sqrt(sum)
+    return math.sqrt(sum)"""
+
+def distanceBtwSamples(sampleA, sampleB):
+    return np.linalg.norm(list(map(lambda x: x[0] - x[1],list(zip(sampleA,sampleB)))))
 
 #toma una matria de distancias y retorna las coordenadas del menor valor de la matriz
 def minimaDistancia(matriz):
