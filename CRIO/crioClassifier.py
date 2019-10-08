@@ -1,11 +1,10 @@
 from clusteringV2 import ClusterContainer 
-from pyscipopt import Model
 import grouper as Grouper
 from fileManager import writeClusters,writeParameters, readSamples
 import hiperplaneDefiner as Hiperplane
 from astroid.__pkginfo__ import classifiers
 from __builtin__ import False
-
+import functools
 
 #TO DO: parametrizar estos parametros
 #routeClase0 = "model/class0.dat"
@@ -53,7 +52,7 @@ class Classifier():
     
         
     
-    def classify(self, sample):
+    """def classify(self, sample):
         
         ret = self.tag0
         index = 0
@@ -66,8 +65,20 @@ class Classifier():
             if bool_acount:
                 ret = self.tag1
                 break
-        return ret
+        return ret"""
     
+    def classify(self, sample):
+        ret = self.tag0
+        for value in self.regions.values():
+            results = list(map(lambda hiperplane: hiperplane[0]*sample[0] + hiperplane[1]*sample[1] <= hiperplane[2], value))
+            print("resultados: " + str(results) + "\n")
+            if reduce(lambda a,b: a and b, results):
+                ret = self.tag1
+                break
+        return ret
+        
+        
+        
     def printRegions(self):
         print("-----------------------------------------------------------------------------------------------------------\n")
         for key, value in self.regions.items():
