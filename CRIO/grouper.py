@@ -55,7 +55,6 @@ def deleteOutliers(class1, clusterContainer, eVals):
     
     for e in range(0, len(eVals)):
         if eVals[e] > 1:
-            print("PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPpara eliminar: " + str(class1[e]))
             clusterContainer.removeSample(class1[e])
     
     

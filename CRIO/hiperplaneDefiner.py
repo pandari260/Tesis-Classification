@@ -29,15 +29,7 @@ def defineHiperplanes(groupContainer, clusterContainer):
                 hiperplane.append(model.getVal(var))
             region.append(hiperplane)
         regions[g] = region
-
-    
-    print("-----------------------------------------------------------------------------------------------------------\n")
-    for key, value in regions.items():
-        print("Region: " + str(key) + "\n Hiperplanos:\n ")
-        print("cantidad: " + str(len(key)))
-        for hiperplano in value:
-                print(str(hiperplano) + "\n")
-        print("-----------------------------------------------------------------------------------------------------------\n")
+        
     return eliminateRedundat(clusters, regions)
 
 def eliminateRedundat(clusters, regions):
@@ -46,13 +38,10 @@ def eliminateRedundat(clusters, regions):
         for c in range(0,len(clusters)):
             writeRegion(region, c, routeRegion)
             model = solveProblem(routeModelEliminateRedundat)
-            #print("XXXXXXXXXXXXXXXXXXXXXXXXXxobjetivo: " + str(model.getObjVal()) + " " + "q: " + str(region[c][2]) + "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
 
             if (model.getObjVal() <= region[c][2]):
                 redundant.append(region[c])
-            print("|||||||||||||||||||||| region: " + str(region) + ", c: " + str(c))
-            print("||||||||||||||||||||||x0: " + str(model.getVal(model.getVars()[0])) + "\n")
-            print("||||||||||||||||||||||x1: " + str(model.getVal(model.getVars()[1])))
+            
 
         
         for r in redundant:
