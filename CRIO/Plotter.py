@@ -41,15 +41,12 @@ def graphDataSet(sampleC0, sampleC1, setPlane, scale):
 	graphHyperplane(setPlane, scale)
 	plt.show()
 
-sampleC0 = [(1,1),(2,2),(1.3,1.5),(1.7,1.8)]
-sampleC1 = [(3,3),(5,5),(5.3,5.5),(6.7,6.8)]
-setPlane = [(2,3,10),(0,3,10),(2,0,10)]
+#sampleC0 = [(1,1),(2,2),(1.3,1.5),(1.7,1.8)]
+#sampleC1 = [(3,3),(5,5),(5.3,5.5),(6.7,6.8)]
+#setPlane = [(2,3,10),(0,3,10),(2,0,10)]
 
-#graphSample(sampleC0, sampleC1)
-n = np.linspace(-100,100, 100)
-#graphHyperplane(setPlane, n)
-graphDataSet(sampleC0, sampleC1, setPlane, n)
+#n = np.linspace(-100,100, 100)
+#graphDataSet(sampleC0, sampleC1, setPlane, n)
 
 
-#plt.show()
 
