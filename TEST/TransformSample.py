@@ -32,4 +32,3 @@ def setFormatZPL(sample):
             preSample = []
     return newSample
 
-
