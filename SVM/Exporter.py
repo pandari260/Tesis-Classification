@@ -1,7 +1,7 @@
 
     
 def exportSampleSVM(sample, format, location):
-    generateHeader(sample[0], location, "w")        
+    generateHeader(sample[0], location, "w")    
     file = open(location, "a")
     for data in sample:
         setFormat(data, format, file)

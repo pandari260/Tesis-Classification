@@ -1,14 +1,12 @@
 
-import numpy as np
+import numpy as np  
+import matplotlib.pyplot as plt  
 import Sample as sample
 import SVM as svm
 import Printer as printer
 import Exporter as exporter
 import TransformSample as transform
-
-
-
-
+import Plotter as plotter
 # input ------------------------------------------
 mues = [   [0,0,0],
            [4,4,4],
@@ -18,35 +16,38 @@ coves = [   [[1,0,0],[0,1,0],[0,0,1]],
             [[1,0,0],[0,1,0],[0,0,1]],
             [[1,0,0],[0,1,0],[0,0,1]]  ]
 
-n = [100,100, 100]
+n = [10,10, 10]
 clases = [1,0,1]
 
 
 mues2 = [   [0,0],
-           [3,3],
-           [5,5] ]
+           [6,6] ]
         
 coves2 = [   [[1,0],[0,1]], 
-            [[1,0],[0,1]],
             [[1,0],[0,1]] ]
 
-n2 = [5,5,5]
-clases2 = [1,0,1]
+n2 = [10,10]
+clases2 = [1,0]
 
 # Se espera 0.997272
 # print( coves)
 
-sample = sample.generateSample(mues2, coves2, n2, clases2)
-#c0,c1 = transform.transformSampleZPL(sample)
+sample = sample.generateSample(mues, coves, n, clases)
+#c0, c1 = transform.transformSampleZPL(sample)
+#plotter.graphSample(sample[0], sample[1])
+#plt.show()
 
-
-
-#exporter.exportSampleZPL(c0,'%s,%s,%s \n', 'input/zplC0.csv')
-#exporter.exportSampleZPL(c1,'%s,%s,%s \n', 'input/zplC1.csv')
+format = '%s,%s,%s \n'
+#exporter.exportSampleZPL(c0, format, 'input/zplC0.csv')
+#exporter.exportSampleZPL(c1, format, 'input/zplC1.csv')
 #print(c0)
-#exporter.exportSampleSVM(sample,'%s,%s,%s \n','input/input.csv')
-resultClassify, dataTest = svm.classify('rbf', 'input/input.csv')
-printer.printOutputSVM(resultClassify, dataTest)
+format = ""
+for i in range(len(sample[0][0])-1):
+    format += '%s,'
+format += '%s \n'
+exporter.exportSampleSVM(sample,format,'input/input.csv')
+#resultClassify, dataTest = svm.classify('rbf', 'input/input.csv')
+#printer.printOutputSVM(resultClassify, dataTest)
 
 
 
