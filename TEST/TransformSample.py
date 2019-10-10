@@ -1,11 +1,5 @@
 import pandas as pd
 
-def transformSampleSVM(file):
-    dataSet = pd.read_csv(file)
-    sample = dataSet.drop('Class', axis=1)
-    target = dataSet['Class']
-    return sample, target   
-
 def transformSampleZPL(sample): 
     sampleC0, sampleC1 = divideClass(sample)
     return setFormatZPL(sampleC0), setFormatZPL(sampleC1)

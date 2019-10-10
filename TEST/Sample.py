@@ -5,8 +5,8 @@ import matplotlib.pyplot as plt
 def generateSample(hopes, matCovariance, n, classes):
     sample, preSample = [], []
     for i in range(len(hopes)):
-        #np.random.seed(np.random.randint(1,1001)) #generacion aleatoria
-        np.random.seed(45)
+        np.random.seed(np.random.randint(1,1001)) #generacion aleatoria
+        #np.random.seed(45)
         preSample = np.random.multivariate_normal(hopes[i], matCovariance[i], n[i]).T
         sample.append(transformSample(preSample, classes[i]))
     return sample
