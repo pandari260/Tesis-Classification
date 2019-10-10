@@ -26,27 +26,27 @@ mues2 = [   [0,0],
 coves2 = [   [[1,0],[0,1]], 
             [[1,0],[0,1]] ]
 
-n2 = [1,1]
+n2 = [10,10]
 clases2 = [1,0]
 
 # Se espera 0.997272
 # print( coves)
 
 sample = sample.generateSample(mues2, coves2, n2, clases2)
-#c0, c1 = transform.transformSampleZPL(sample)
+c0, c1 = transform.transformSampleZPL(sample)
 plotter.graphSample(sample[0], sample[1])
 
 
 format = '%s,%s,%s \n'
-#exporter.exportSampleZPL(c0, format, 'input/zplC0.csv')
-#exporter.exportSampleZPL(c1, format, 'input/zplC1.csv')
-#print(c0)
+exporter.exportSampleZPL(c0, format, '../INPUT/CRIO/zplC0.csv')
+exporter.exportSampleZPL(c1, format, '../INPUT/CRIO/zplC1.csv')
 
-#format = ""
-#for i in range(len(sample[0][0])-1):
-#    format += '%s,'
-#format += '%s \n'
-exporter.exportSampleSVM(sample,format,'../INPUT/input.csv')
+
+format = ""
+for i in range(len(sample[0][0])-1):
+    format += '%s,'
+format += '%s \n'
+exporter.exportSampleSVM(sample,format,'../INPUT/SVM/input.csv')
 
 plt.show()
 
