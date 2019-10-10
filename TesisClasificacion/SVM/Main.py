@@ -1,6 +1,7 @@
 import pandas as pd
-import SVM as svm
-import Printer as printer
+import SVM.SVM as svm
+import SVM.Printer as printer
+
 
 file = '../INPUT/SVM/input.csv'
 

@@ -1,14 +1,13 @@
 import math
-import scipInterface as scip
-from fileManager import writeSample, writeParameters
-from gtk.keysyms import exclamdown
-from sympy.physics.quantum.tests.test_qapply import po
+import CRIO.scipInterface as scip
+from CRIO.fileManager import writeSample, writeParameters
 
 routeClassA= "model/clusteringClassA.dat"
 routeClassB= "model/clusteringClassB.dat"
 routeParams = "model/clusteringParameters"
 routeModel ="model/clustering.zpl"
 import numpy as np
+
 
 class ClusterContainer():
     

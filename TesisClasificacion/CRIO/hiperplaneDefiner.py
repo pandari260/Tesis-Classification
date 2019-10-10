@@ -1,5 +1,5 @@
-from fileManager import writeSample, writeParameters, writeRegion
-from scipInterface import solveProblem
+from CRIO.fileManager import writeSample, writeParameters, writeRegion
+from CRIO.scipInterface import solveProblem
 
 
 routeGroup = "model/defineHiperplanesCurrentGruop"

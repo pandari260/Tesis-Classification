@@ -1,4 +1,4 @@
-from scipInterface import solveProblem
+from CRIO.scipInterface import solveProblem
 
 
 routeModel = "model/assingGroups.zpl"
