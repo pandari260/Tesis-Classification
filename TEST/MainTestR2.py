@@ -109,8 +109,8 @@ name = "t11d2-Trivial"
 d = 2
 c0 = [(1,2)]
 c1 = [(3,4)]
-plotter.graphSample(c0, c1)
-plt.show()
+#plotter.graphSample(c0, c1)
+#plt.show()
 
 """
 c0 = [(4.0, 5.0), (4.0, 3.0), (5.0, 4.0)]
