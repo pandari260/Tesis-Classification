@@ -1,6 +1,7 @@
 from Clustering import ClusterContainer 
 from CRIO import Grouper as Grouper
-from CRIO.Exporter import writeClusters,writeParameters, readSamples, writeSolution
+from Exporter import writeClusters,writeParameters, writeSolution
+from Importer import readSamples
 from CRIO import HiperplaneDefiner as Hiperplane
 from astroid.__pkginfo__ import classifiers
 from __builtin__ import False
