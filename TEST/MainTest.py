@@ -101,6 +101,14 @@ name = "t10d2-Piramide"
 d = 2
 c0 = [(5,10),(5,9.8),(4.9,9.8),(5.1,9.8),(5.2,9.8),(4.8,9.8)]
 c1 = [(5,9.9),(4.9,9.9),(5.1,9.9)]
+#plotter.graphSample(c0, c1)
+#plt.show()
+
+
+name = "t11d2-Trivial"
+d = 2
+c0 = [(1,2)]
+c1 = [(3,4)]
 plotter.graphSample(c0, c1)
 plt.show()
 
