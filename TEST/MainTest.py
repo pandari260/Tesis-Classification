@@ -70,8 +70,15 @@ caso6 = caseTest.CaseTest(name, d, n, mMu, mCov, classes)
 name = "t7d2-DiagonalIntercalada"
 d = 2
 n = [500, 500, 500]
-mMu = [[2,10],[8,8],[10,6]]
+mMu = [[2,10],[9,8],[16,6]]
 classes = [1,0,1]
 mCov = []
 caso7 = caseTest.CaseTest(name, d, n, mMu, mCov, classes)
-caso7.runTest()
+#caso7.runTest()
+
+
+c0 = [(4.0, 5.0), (4.0, 3.0), (5.0, 4.0)]
+c1 = [(4.0, 4.0), (6.0, 4.0)]
+h = [(0.0, -1.99999991038, -6.99999968634),(1.9999999, 1.9999999, 16.99999915),(-0.799999960993,-0.399999980101,-5.39999973532),(-1.99999990568, 0.0, -10.9999994659)]
+n = np.linspace(-10,10,3000)
+plotter.graphDataSet(c0,c1,h,n)
