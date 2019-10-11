@@ -94,8 +94,15 @@ mMu = [[0,0],[0,10],[5,5],[5,0],[10,0],[10,10],[5,10], [0,5], [10,5]]
 classes = [1,1,0,1,1,1,1,1,1]
 mCov = []
 caso9 = caseTest.CaseTest(name, d, n, mMu, mCov, classes)
-caso9.runTest()
+#caso9.runTest()
 
+
+name = "t10d2-Piramide"
+d = 2
+c0 = [(5,10),(5,9.8),(4.9,9.8),(5.1,9.8),(5.2,9.8),(4.8,9.8)]
+c1 = [(5,9.9),(4.9,9.9),(5.1,9.9)]
+plotter.graphSample(c0, c1)
+plt.show()
 
 """
 c0 = [(4.0, 5.0), (4.0, 3.0), (5.0, 4.0)]
