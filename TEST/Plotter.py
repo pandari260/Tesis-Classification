@@ -1,16 +1,24 @@
 import numpy as np  
 import matplotlib.pyplot as plt  
+import math
 
 def f(coef, scale):
     return (coef[2] - (coef[0]*scale))  / coef[1]
 
+def isZero(coef):
+	print(0.1-(math.fabs(coef)))
+	if((0.1-(math.fabs(coef))) >= 0.0): 
+		return True
+	else: 
+		return False
+
 def drawHyperPlane(coef, scale):
 	cFill, cLine = 'orange', 'black'
-	if(coef[0] != 0 and coef[1]!=0):
+	if((isZero(coef[0]) == False) and (isZero(coef[1]) == False)):
 		plt.plot(scale, f(coef,scale), color=cLine)
 		plt.fill_between(scale, f(coef,scale), scale[0], color=cFill, alpha=0.2)
 	else:
-		if(coef[0] == 0):
+		if(isZero(coef[0]) == True):
 			y = (coef[2] / coef[1])
 			plt.axhline(y, color=cLine)
 			plt.axhspan(y, scale[0], alpha=0.2, color=cFill)
@@ -30,7 +38,7 @@ def graphSample(sampleC0, sampleC1):
 	
 def drawSample(sample, color):
     x, y = [], []
-    area = np.pi*10
+    area = np.pi*10.0
     for i in sample:
         x.append(i[0])
         y.append(i[1])
