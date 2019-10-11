@@ -1,4 +1,4 @@
-from fileManager import writeSample, writeParameters, writeRegion
+from fileManager import writeSample, writeParameters, writeEliminateRedundantInstance
 from scipInterface import solveProblem
 
 
@@ -36,7 +36,7 @@ def eliminateRedundat(clusters, regions):
     for region in regions.values():
         redundant = []
         for c in range(0,len(clusters)):
-            writeRegion(region, c, routeRegion)
+            writeEliminateRedundantInstance(region, c, routeRegion)
             model = solveProblem(routeModelEliminateRedundat)
 
             if (model.getObjVal() <= region[c][2]):

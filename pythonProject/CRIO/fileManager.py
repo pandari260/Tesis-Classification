@@ -60,7 +60,8 @@ def writeClusters(clusters, samples, route):
         f.write(TWO_ITEMS_FORMAT % (s,key))
     f.close()
 
-def writeRegion(region, t0, route):
+"""TO DO: revisar  """
+def writeEliminateRedundantInstance(region, t0, route):
     f = open(route, "w")
     f.write(ONE_ITEM_FORMAT % (t0))
     lenReg = len(region)
@@ -71,7 +72,15 @@ def writeRegion(region, t0, route):
     
     for i in range(0,lenReg):
         f.write(TWO_ITEMS_FORMAT % (i, region[i][2]))
-    
-    
-
     f.close()
+
+def writeSolution(regions, route):
+    f = open(route, "w")
+    for region in regions.values():
+        for hiperplane in region:
+            f.write(THREE_ITEMS_FORMAT % (hiperplane[0], hiperplane[1], hiperplane[2]))
+        
+    
+    
+    
+    
