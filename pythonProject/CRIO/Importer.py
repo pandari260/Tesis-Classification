@@ -7,7 +7,7 @@ def listStringToInteger(list):
 #lee el archivo de muestras en formato zpl indicados en la ruta y retorna un lista de muestras en formato de tuplas.  
 def readSamples(route, dimension):
     f = open(route,"r")
-    lines = f.readlines()
+    lines = f.readlines()#f
     
     lines = list(map(lambda line: line[:-1], lines))
     lines = list(map(lambda line: line.split(","), lines))
