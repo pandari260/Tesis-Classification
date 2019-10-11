@@ -34,8 +34,10 @@ class Classifier():
     def trainClasificator(self):
         
         class0 = readSamples(self.routeClase0, self.dimenssion)
-        class1 = readSamples(self.routeClase1, self.dimenssion)        
+        class1 = readSamples(self.routeClase1, self.dimenssion) 
         
+        print("clase0: " +str(class0) + "\n")
+        print("clase1: " +str(class1)+ "\n")        
         clusterContainer0 = ClusterContainer(class0,class1)
         clusterContainer1 = ClusterContainer(class1,class0)        
         

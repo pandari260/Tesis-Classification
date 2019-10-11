@@ -24,3 +24,4 @@ def readSamples(route, dimension):
 
     f.close()
     return clase
+

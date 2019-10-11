@@ -17,8 +17,10 @@ def readSamples(route, dimension):
     sample = []
 
     for i in range(0, len(data) -1,dimension):
+        
         for j in range(0, dimension):
-            sample.append(data[i][2])
+            print("data actual: " + str(data[i]) +"\n")
+            sample.append(data[i+j][2])
         clase.append(tuple(sample))
         sample = []
 
