@@ -1,4 +1,3 @@
-import pandas as pd
 
 def transformSampleZPL(sample): 
     sampleC0, sampleC1 = divideClass(sample)
