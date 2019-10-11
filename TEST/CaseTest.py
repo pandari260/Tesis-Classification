@@ -28,14 +28,18 @@ class CaseTest:
 
     def groupClass(self, sample):
         c0, c1 = [], []
-        
+        for i in range(len(sample)):
+            if(self.classes[i] == 0): c0 += sample[i]
+            else: c1 += sample[i]
+        return c0, c1
 
     def runTest(self):
         if not self.mCov:
             self.generateMcov()
         s = sample.generateSample(self.mMu, self.mCov, self.n, self.classes)
         self.createFileOutput(s)  
-        plotter.graphSample(groupClass(s))
+        c0, c1 = self.groupClass(s)
+        plotter.graphSample(c0, c1)
         plt.show()
     
     def createFileOutput(self, sample):
