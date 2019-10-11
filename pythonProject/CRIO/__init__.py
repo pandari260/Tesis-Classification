@@ -1,6 +1,6 @@
 
-from crioClassifier import Classifier
-from fileManager import writeSolution
+from CRIO.Classifier import Classifier
+from CRIO.Exporter import writeSolution
 
 def main():
     classifier = Classifier("model/class0.dat","model/class1.dat",2,2,"azul", "rojo")

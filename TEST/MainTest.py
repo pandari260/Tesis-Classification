@@ -5,7 +5,7 @@ import Sample as sample
 import Exporter as exporter
 import TransformSample as transform
 import Plotter as plotter
-
+"""
 # T1d2
 d = 2
 n = [100, 100]
@@ -57,7 +57,8 @@ exporter.exportSampleSVM(sample,format,'../INPUT/SVM/input.csv')
 plt.show()
 
 #------------------ graficar hyperplanos y muestras -------------#
-"""sampleC0 = [(1,1),(2,2),(1.3,1.5),(1.7,1.8)]
+"""
+sampleC0 = [(1,1),(2,2),(1.3,1.5),(1.7,1.8)]
 sampleC1 = [(3,3),(5,5),(5.3,5.5),(6.7,6.8)]
 setPlane = [(2,3,10),(0,3,10),(2,0,10),(-3,5,30),(-20,4,10)]
 n = np.linspace(-100,100, 100)
@@ -65,4 +66,3 @@ plotter.graphDataSet(sampleC0, sampleC1, setPlane, n)
 
 plt.show()
 
-"""

@@ -1,6 +1,6 @@
 import math
-import scipInterface as scip
-from fileManager import writeSample, writeParameters
+from CRIO import ScipInterface as scip
+from CRIO.Exporter import writeSample, writeParameters
 from gtk.keysyms import exclamdown
 from sympy.physics.quantum.tests.test_qapply import po
 
@@ -73,23 +73,10 @@ def crearMatrizDistancia(clusters):
     return matrizDist
 
 #toma dos clusters y retorna la distancia entre los puntos mas cercanos entre ellos
-"""def distanceBtwClusters(clA, clB):
-    d = 0
-    for pA in clA:
-        for pB in clB:
-            aux = distanceBtwSamples(pA,pB)
-            if aux > d:
-                d = aux
-    return d"""
-# toma dos puntos y retorna la 
-"""def distanceBtwSamples(a,b):
-    sum = 0
-    for i in range(0,len(a)):
-        sum = sum + (a[i] - b[i])**2
-    return math.sqrt(sum)"""
-    
+
 def distanceBtwClusters(clusterA, clusterB):
     return distanceBtwSamples(np.mean(clusterA,0), np.mean(clusterB,0))
+# toma dos puntos y retorna la 
 
 def distanceBtwSamples(sampleA, sampleB):
     return np.linalg.norm(list(map(lambda x: x[0] - x[1],list(zip(sampleA,sampleB)))))
