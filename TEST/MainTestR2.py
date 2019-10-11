@@ -1,13 +1,10 @@
 
-import numpy as np  
 import matplotlib.pyplot as plt  
-import Sample as sample
-import Exporter as exporter
-import TransformSample as transform
 import Plotter as plotter
 import CaseTest as caseTest
+import Exporter as exporter
 
-name = "t1d2-ConjuntosDisjuntos"
+name = "R2/t1d2-ConjuntosDisjuntos"
 d = 2
 n = [500, 500]
 mMu = [[0,0],[6,0]]
@@ -17,7 +14,7 @@ caso1 = caseTest.CaseTest(name, d, n, mMu, mCov, classes)
 #caso1.runTest()
 
 
-name = "t2d2-ConjuntosSolapados"
+name = "R2/t2d2-ConjuntosSolapados"
 d = 2
 n = [500, 500]
 mMu = [[0,0],[3,0]]
@@ -27,7 +24,7 @@ caso2 = caseTest.CaseTest(name, d, n, mMu, mCov, classes)
 #caso2.runTest()
 
 
-name = "t3d2-ConjuntosDiagonalizados"
+name = "R2/t3d2-ConjuntosDiagonalizados"
 d = 2
 n = [500, 500]
 mMu = [[0,0],[0.3,0]]
@@ -38,7 +35,7 @@ caso3 = caseTest.CaseTest(name, d, n, mMu, mCov, classes)
 
 
 
-name = "t4d2-ConjuntosDiagonalizadosSolapados"
+name = "R2/t4d2-ConjuntosDiagonalizadosSolapados"
 d = 2
 n = [500, 500]
 mMu = [[0,0],[0,0]]
@@ -48,7 +45,7 @@ caso4 = caseTest.CaseTest(name, d, n, mMu, mCov, classes)
 #caso4.runTest()
 
 
-name = "t5d2-ConjuntosCruz"
+name = "R2/t5d2-ConjuntosCruz"
 d = 2
 n = [500, 500]
 mMu = [[0,0],[0,0]]
@@ -57,7 +54,7 @@ mCov = [[[10,10],[5000,10]], [[10,10],[1000,1000]]]
 caso5 = caseTest.CaseTest(name, d, n, mMu, mCov, classes)
 #caso5.runTest()
 
-name = "t6d2-CuadranteOpuesto"
+name = "R2/t6d2-CuadranteOpuesto"
 d = 2
 n = [500, 500, 500, 500]
 mMu = [[0,0],[8,0],[0,8],[8,8]]
@@ -67,7 +64,7 @@ caso6 = caseTest.CaseTest(name, d, n, mMu, mCov, classes)
 #caso6.runTest()
 
 
-name = "t7d2-DiagonalIntercalada"
+name = "R2/t7d2-DiagonalIntercalada"
 d = 2
 n = [500, 500, 500]
 mMu = [[2,10],[9,8],[16,6]]
@@ -77,7 +74,7 @@ caso7 = caseTest.CaseTest(name, d, n, mMu, mCov, classes)
 #caso7.runTest()
 
 
-name = "t8d2-DiagonalIntercaladaSolapada"
+name = "R2/t8d2-DiagonalIntercaladaSolapada"
 d = 2
 n = [500, 500, 500]
 mMu = [[2,10],[5,8],[8,6]]
@@ -87,17 +84,17 @@ caso8 = caseTest.CaseTest(name, d, n, mMu, mCov, classes)
 #caso8.runTest()
 
 
-name = "t9d2-Encerrado"
+name = "R2/t9d2-Encerrado"
 d = 2
 n = [500, 500, 500, 500, 500, 500, 500, 500, 500]
 mMu = [[0,0],[0,10],[5,5],[5,0],[10,0],[10,10],[5,10], [0,5], [10,5]]
 classes = [1,1,0,1,1,1,1,1,1]
 mCov = []
 caso9 = caseTest.CaseTest(name, d, n, mMu, mCov, classes)
-#caso9.runTest()
+caso9.runTest()
 
 
-name = "t10d2-Piramide"
+name = "R2/t10d2-Piramide"
 d = 2
 c0 = [(5,10),(5,9.8),(4.9,9.8),(5.1,9.8),(5.2,9.8),(4.8,9.8)]
 c1 = [(5,9.9),(4.9,9.9),(5.1,9.9)]
@@ -105,7 +102,7 @@ c1 = [(5,9.9),(4.9,9.9),(5.1,9.9)]
 #plt.show()
 
 
-name = "t11d2-Trivial"
+name = "R2/t11d2-Trivial"
 d = 2
 c0 = [(1,2)]
 c1 = [(3,4)]
