@@ -26,6 +26,13 @@ class CaseTest:
                 base.append(t)
             self.mCov.append(base)       
 
+    def generateMmu(self, mu):
+        for i in range(len(self.n)):
+            base = []
+            for j in range(self.d):
+                base.append(mu[i])
+            self.mMu.append(base)
+            
     def groupClass(self, sample):
         c0, c1 = [], []
         for i in range(len(sample)):
@@ -34,8 +41,6 @@ class CaseTest:
         return c0, c1
 
     def runTest(self):
-        if not self.mCov:
-            self.generateMcov()
         s = sample.generateSample(self.mMu, self.mCov, self.n, self.classes)
         self.createFileOutput(s)  
         c0, c1 = self.groupClass(s)
@@ -53,3 +58,4 @@ class CaseTest:
             formato += '%s,'
         formato += '%s \n'
         exporter.exportSampleSVM(sample,formato,'../INPUT/SVM/'+self.name+'.csv')
+    
