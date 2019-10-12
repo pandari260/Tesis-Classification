@@ -22,5 +22,16 @@ mMu, mCov = [], []
 classes = [1,0]
 caso2 = caseTest.CaseTest(name, d, n, mMu, mCov, classes)
 caso2.generateMcov()
-caso2.generateMmu([0,3])
-caso2.runTest()
+caso2.generateMmu([0,2.5])
+#caso2.runTest()
+
+
+name = "R3/t3d3-ConjuntosDiagonalizados"
+d = 3
+n = [500, 500]
+mMu = []
+classes = [1,0]
+mCov = [[[10,100,10],[10,100,10],[10,100,10]], [[10,100,10],[10,100,10],[10,100,10]]]
+caso3 = caseTest.CaseTest(name, d, n, mMu, mCov, classes)
+caso3.generateMmu([0,0])
+caso3.runTest()
