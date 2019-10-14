@@ -20,7 +20,11 @@ testd3 = [  "R3/t1d3-ConjuntosDisjuntos",
             "R3/t3d3-ConjuntosDiagonalizados"
         ]
 
-test = testd2
+testd = [   "R2/t3d2-ConjuntosDiagonalizados",
+            "R3/t3d3-ConjuntosDiagonalizados"
+            ]
+
+test = testd
 for i in range(len(test)):
     file = '../INPUT/SVM/'+test[i]+'.csv'
 

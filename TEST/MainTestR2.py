@@ -12,7 +12,7 @@ classes = [1,0]
 mCov = []
 caso1 = caseTest.CaseTest(name, d, n, mMu, mCov, classes)
 caso1.generateMcov()
-caso1.runTest()
+#caso1.runTest()
 
 
 name = "R2/t2d2-ConjuntosSolapados"
@@ -23,7 +23,7 @@ classes = [1,0]
 mCov = []
 caso2 = caseTest.CaseTest(name, d, n, mMu, mCov, classes)
 caso2.generateMcov()
-caso2.runTest()
+#caso2.runTest()
 
 
 name = "R2/t3d2-ConjuntosDiagonalizados"
@@ -31,7 +31,8 @@ d = 2
 n = [500, 500]
 mMu = [[0,0],[0.3,0]]
 classes = [1,0]
-mCov = [[[10,100],[10,100]], [[10,100],[10,100]]]
+#mCov = [[[10,100],[10,100]], [[10,100],[10,100]]]
+mCov = [[[1,10],[1,10]], [[1,10],[1,10]]]
 caso3 = caseTest.CaseTest(name, d, n, mMu, mCov, classes)
 caso3.runTest()
 
@@ -44,7 +45,7 @@ mMu = [[0,0],[0,0]]
 classes = [1,0]
 mCov = [[[10,100],[10,100]], [[10,100],[10,100]]]
 caso4 = caseTest.CaseTest(name, d, n, mMu, mCov, classes)
-caso4.runTest()
+#caso4.runTest()
 
 
 name = "R2/t5d2-ConjuntosCruz"
@@ -54,7 +55,7 @@ mMu = [[0,0],[0,0]]
 classes = [1,0]
 mCov = [[[10,10],[5000,10]], [[10,10],[1000,1000]]]
 caso5 = caseTest.CaseTest(name, d, n, mMu, mCov, classes)
-caso5.runTest()
+#caso5.runTest()
 
 name = "R2/t6d2-CuadranteOpuesto"
 d = 2
@@ -64,7 +65,7 @@ classes = [1,0,0,1]
 mCov = []
 caso6 = caseTest.CaseTest(name, d, n, mMu, mCov, classes)
 caso6.generateMcov()
-caso6.runTest()
+#caso6.runTest()
 
 
 name = "R2/t7d2-DiagonalIntercalada"
@@ -75,7 +76,7 @@ classes = [1,0,1]
 mCov = []
 caso7 = caseTest.CaseTest(name, d, n, mMu, mCov, classes)
 caso7.generateMcov()
-caso7.runTest()
+#caso7.runTest()
 
 
 name = "R2/t8d2-DiagonalIntercaladaSolapada"
@@ -86,7 +87,7 @@ classes = [1,0,1]
 mCov = []
 caso8 = caseTest.CaseTest(name, d, n, mMu, mCov, classes)
 caso8.generateMcov()
-caso8.runTest()
+#caso8.runTest()
 
 
 name = "R2/t9d2-Encerrado"
@@ -97,7 +98,7 @@ classes = [1,1,0,1,1,1,1,1,1]
 mCov = []
 caso9 = caseTest.CaseTest(name, d, n, mMu, mCov, classes)
 caso9.generateMcov()
-caso9.runTest()
+#caso9.runTest()
 
 
 name = "R2/t10d2-Piramide"
