@@ -24,7 +24,6 @@ classes = [1,0]
 caso = caseTest.CaseTest(name, dimension, n, (mMu, seed), classes)
 caso.runTest()
 
-
 name = d+"/t3-CuadranteOpuesto"
 n = [500, 500, 500, 500]
 mMu = [[0,0],[8,0],[0,8],[8,8]]
@@ -38,7 +37,6 @@ mMu = [[0,0],[4,0],[0,4],[4,4]]
 classes = [1,0,0,1]
 caso = caseTest.CaseTest(name, dimension, n, (mMu, seed), classes)
 caso.runTest()
-
 
 name = d+"/t5-Encerrado"
 n = [100, 100, 100, 100, 100, 100, 100, 100, 100]
@@ -54,14 +52,12 @@ classes = [1,1,1,0,1,1,1]
 caso = caseTest.CaseTest(name, dimension, n, (mMu, seed), classes)
 caso.runTest()
 
-
 name = d+"/t7-DiagonalIntercalada"
 n = [500, 500, 500]
 mMu = [[2,10],[9,8],[16,6]]
 classes = [1,0,1]
 caso = caseTest.CaseTest(name, dimension, n, (mMu, seed), classes)
 caso.runTest()
-
 
 name = d+"/t8-DiagonalIntercaladaSolapada"
 n = [500, 500, 500]

@@ -58,6 +58,3 @@ class CaseTest:
             formato += '%s,'
         formato += '%s \n'
         exporter.exportSampleSVM(sample,formato,'../INPUT/SVM/'+self.name+'.csv')
-    
-    def get(self):
-        return self.mMu
