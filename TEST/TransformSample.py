@@ -18,8 +18,8 @@ def setFormatZPL(sample):
     preSample, newSample = [], []
     for i in range(len(sample)):
         for j in range(len(sample[0])-1):
-            preSample.append(i+1)
-            preSample.append(j+1)
+            preSample.append(i)
+            preSample.append(j)
             preSample.append(sample[i][j])
             newSample.append(preSample)
             preSample = []
