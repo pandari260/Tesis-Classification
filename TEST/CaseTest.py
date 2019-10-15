@@ -7,31 +7,31 @@ import Plotter as plotter
 
 class CaseTest:
 
-    def __init__(self, name, d, n, mMu, mCov, classes):
+    def __init__(self, name, d, n, mMu, classes):
         self.name = name
         self.d = d
         self.n = n
-        self.mMu = mMu
-        self.mCov = mCov
+        self.mMu = self.generateMmu(mMu[0],mMu[1])
+        self.mCov = self.generateMcov()
         self.classes = classes
 
     def generateMcov(self):
+        m = []
         for i in range(len(self.n)):
-            base = []
-            for j in range(self.d):
-                t = []
-                for k in range(self.d):
-                    if(k == j): t.append(1)
-                    else: t.append(0)
-                base.append(t)
-            self.mCov.append(base)       
+            base = np.identity(self.d)
+            m.append(base)    
+        return m   
 
-    def generateMmu(self, mu):
-        for i in range(len(self.n)):
+    def generateMmu(self, mu, seed):
+        m = []
+        for i in mu:
             base = []
-            for j in range(self.d):
-                base.append(mu[i])
-            self.mMu.append(base)
+            base.append(i[0])
+            base.append(i[1])
+            for j in range(self.d-2):
+                base.append(seed)
+            m.append(base)
+        return m
             
     def groupClass(self, sample):
         c0, c1 = [], []
@@ -59,3 +59,5 @@ class CaseTest:
         formato += '%s \n'
         exporter.exportSampleSVM(sample,formato,'../INPUT/SVM/'+self.name+'.csv')
     
+    def get(self):
+        return self.mMu
