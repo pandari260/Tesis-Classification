@@ -12,14 +12,12 @@ def readSamples(route, dimension):
     lines = list(map(lambda line: line[:-1], lines))
     lines = list(map(lambda line: line.split(","), lines))
     data = list(map(lambda line: listStringToFloat(line), lines))        
-    print("data: " + str(data))
     clase = []
     sample = []
 
     for i in range(0, len(data) -1,dimension):
         
         for j in range(0, dimension):
-            print("data actual: " + str(data[i]) +"\n")
             sample.append(data[i+j][2])
         clase.append(tuple(sample))
         sample = []

@@ -5,11 +5,12 @@ routeModel = "model/assingGroups.zpl"
 
 class GroupContainer():
     
-    def __init__(self,class1,clusterContainer,k):
-        self.model = ModelSolution(solveProblem(routeModel),clusterContainer.getCantClusters(), 3,2,k)        
+    def __init__(self,class0, class1,clusterContainer,k):
+        self.model = ModelSolution(solveProblem(routeModel),clusterContainer.getCantClusters(), len(class0),len(class1),k)
         deleteOutliers(class1, clusterContainer, self.model.e1Vals)        
         self.groups = defineGroups(clusterContainer,self.model, k)
-        self.cantGroups = len(self.groups)     
+        self.cantGroups = len(self.groups)    
+        
     
     def getGroups(self):
         return self.groups
@@ -19,7 +20,7 @@ class GroupContainer():
 
 
 
-#crea lista de muestras con las muestras contenidas en los cluster correspondientes a cada grupo
+#crea una matriz con las listas de muestras que corresponden a un mismo grupo
 def defineGroups(clusterContainer, model, k):
     
     assings = assingGroups(clusterContainer.getCantClusters(), model, k)
@@ -31,6 +32,7 @@ def defineGroups(clusterContainer, model, k):
         for i in value:
             samples = samples + clusters[i]
         if len(samples) > 0:
+            print("la muestras que se va a agregar es: " + str(tuple(samples))+"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
             groups.append(tuple(samples))
     return groups
 
