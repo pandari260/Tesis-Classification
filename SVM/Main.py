@@ -13,8 +13,8 @@ test = [        "/t1-ConjuntosDisjuntos",
                 "/t7-DiagonalIntercalada",
                 "/t8-DiagonalIntercaladaSolapada"   ]
 
-directory = ["R2", "R3"]
-d=0
+directory = ["R2", "R3", "R20"]
+d=2
 
 for i in range(len(test)):
     file = '../INPUT/SVM/'+directory[d]+test[i]+'.csv'

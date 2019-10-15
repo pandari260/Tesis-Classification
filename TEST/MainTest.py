@@ -6,65 +6,65 @@ import Exporter as exporter
 import numpy as np
 
 seed = 2
-dimension = 3
-d = "R3"
-
+dimension = 2
+d = "R2"
+flag = False
 
 name = d+"/t1-ConjuntosDisjuntos"
 n = [500, 500]
 mMu = [[0,0],[6,0]]
 classes = [1,0]
 caso = caseTest.CaseTest(name, dimension, n, (mMu, seed), classes)
-caso.runTest()
+caso.runTest(flag)
 
 name = d+"/t2-ConjuntosSolapados"
 n = [500, 500]
 mMu = [[0,0],[3,0]]
 classes = [1,0]
 caso = caseTest.CaseTest(name, dimension, n, (mMu, seed), classes)
-caso.runTest()
+caso.runTest(flag)
 
 name = d+"/t3-CuadranteOpuesto"
 n = [500, 500, 500, 500]
 mMu = [[0,0],[8,0],[0,8],[8,8]]
 classes = [1,0,0,1]
 caso = caseTest.CaseTest(name, dimension, n, (mMu, seed), classes)
-caso.runTest()
+caso.runTest(flag)
 
 name = d+"/t4-CuadranteOpuestoSolapado"
 n = [500, 500, 500, 500]
 mMu = [[0,0],[4,0],[0,4],[4,4]]
 classes = [1,0,0,1]
 caso = caseTest.CaseTest(name, dimension, n, (mMu, seed), classes)
-caso.runTest()
+caso.runTest(flag)
 
 name = d+"/t5-Encerrado"
 n = [100, 100, 100, 100, 100, 100, 100, 100, 100]
 mMu = [[0,0], [0,10], [5,5], [5,0], [10,0], [10,10], [5,10], [0,5], [10,5]]
 classes = [1,1,0,1,1,1,1,1,1]
 caso = caseTest.CaseTest(name, dimension, n, (mMu, seed), classes)
-caso.runTest()
+caso.runTest(flag)
 
 name = d+"/t6-EncerradoSolapado"
 n = [100, 100, 100, 500, 100, 100, 100, 100, 100]
 mMu = [[5,0],[2,2],[8,2],[5,4],[2,5], [8,5], [5,7]]
 classes = [1,1,1,0,1,1,1]
 caso = caseTest.CaseTest(name, dimension, n, (mMu, seed), classes)
-caso.runTest()
+caso.runTest(flag)
 
 name = d+"/t7-DiagonalIntercalada"
 n = [500, 500, 500]
 mMu = [[2,10],[9,8],[16,6]]
 classes = [1,0,1]
 caso = caseTest.CaseTest(name, dimension, n, (mMu, seed), classes)
-caso.runTest()
+caso.runTest(flag)
 
 name = d+"/t8-DiagonalIntercaladaSolapada"
 n = [500, 500, 500]
 mMu = [[2,10],[5,8],[8,6]]
 classes = [1,0,1]
 caso = caseTest.CaseTest(name, dimension, n, (mMu, seed), classes)
-caso.runTest()
+caso.runTest(flag)
 
 """
 name = "R2/t9-Piramide"

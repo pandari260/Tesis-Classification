@@ -40,12 +40,13 @@ class CaseTest:
             else: c1 += sample[i]
         return c0, c1
 
-    def runTest(self):
+    def runTest(self, flag):
         s = sample.generateSample(self.mMu, self.mCov, self.n, self.classes)
-        self.createFileOutput(s)  
-        c0, c1 = self.groupClass(s)
-        plotter.graphSample(c0, c1)
-        plt.show()
+        self.createFileOutput(s)
+        if(flag):  
+            c0, c1 = self.groupClass(s)
+            plotter.graphSample(c0, c1)
+            plt.show()
     
     def createFileOutput(self, sample):
         c0, c1 = transform.transformSampleZPL(sample)
