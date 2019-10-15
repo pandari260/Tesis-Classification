@@ -6,6 +6,7 @@ from CRIO import HiperplaneDefiner as Hiperplane
 from astroid.__pkginfo__ import classifiers
 from __builtin__ import False
 import functools
+from CRIO.ScipInterface import solveProblem
 
 #TO DO: parametrizar estos parametros
 #routeClase0 = "model/class0.dat"
@@ -47,7 +48,7 @@ class Classifier():
         parameters = [(len(class0 + class1)), self.dimenssion, len(class0), len(class1), self.numGroups, clusterContainer0.getCantClusters(), clusterContainer1.getCantClusters(),M]
         writeParameters(parameters, routeParameters)
     
-        groupContainer = Grouper.GroupContainer(class1, clusterContainer1, self.numGroups)
+        groupContainer = Grouper.GroupContainer(class0,class1, clusterContainer1, self.numGroups)
         Grouper.deleteOutliers(class0, clusterContainer0, groupContainer.model.e0Vals)
         
         regions = Hiperplane.defineHiperplanes(groupContainer, clusterContainer0)
@@ -55,14 +56,22 @@ class Classifier():
     
    
     def classify(self, sample):
-        ret = self.tag0
-        for value in self.regions.values():
-            results = list(map(lambda hiperplane: hiperplane[0]*sample[0] + hiperplane[1]*sample[1] <= hiperplane[2], value))
-            print("resultados: " + str(results) + "\n")
-            if reduce(lambda a,b: a and b, results):
-                ret = self.tag1
-                break
-        return ret
+        for region in self.regions.values():
+            count = True
+            for hiperplane in region:
+                sum = 0
+                for i in range(0, len(hiperplane )-1):
+                    sum = sum + sample[i]*hiperplane[i]
+                count = count and (sum <= hiperplane[len(hiperplane)-1])
+            if count:
+                return self.tag1
+        return self.tag0
+                    
+                    
+        
+        
+        
+       
         
         
         
@@ -76,8 +85,14 @@ class Classifier():
             print("-----------------------------------------------------------------------------------------------------------\n")
 
         
-        
-        
+def main():
+    c = Classifier("model/class0.dat","model/class1.dat",2,3,"roja", "azul")
+    c.printRegions()
+    print("la muestra (8,4) es: " + str(c.classify((8.0,4.0,0.0)))+ "\n")
+    print("la muestra (4,8) es: " + str(c.classify((4.0,8.0,0.0)))+ "\n")
+    
+   
 
+main()
 
     

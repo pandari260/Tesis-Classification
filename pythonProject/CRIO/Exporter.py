@@ -1,3 +1,6 @@
+from symbol import except_clause
+from CRIO.ErrorMessages import EMPTY_CLASS_ERROR_MESSAGE,\
+    ONE_DIMENTION_ERROR_MESSAGE
 ONE_ITEM_FORMAT = "%s\n"
 TWO_ITEMS_FORMAT = "%s,%s\n"
 THREE_ITEMS_FORMAT = "%s,%s,%s\n"
@@ -16,6 +19,7 @@ def writeGroup(group, route):
 def writeSample(samples, route):
     tam = len(samples)
     tam_p = len(samples[0])
+       
     f = open(route, "w")
     for p in range(0,tam):
         for n in range(0,tam_p):
@@ -25,6 +29,7 @@ def writeSample(samples, route):
 def writeParameters(params, route):
     f = open(route,"w")
     for p in params:
+        print("el parametro es: " + str(p))
         f.write(ONE_ITEM_FORMAT % (p))
     f.close()
 
@@ -49,7 +54,7 @@ def writeEliminateRedundantInstance(region, t0, route):
             f.write(THREE_ITEMS_FORMAT % (i,j,region[i][j]))
     
     for i in range(0,lenReg):
-        f.write(TWO_ITEMS_FORMAT % (i, region[i][2]))
+        f.write(TWO_ITEMS_FORMAT % (i, region[i][lenHiper-1]))
     f.close()
 
 def writeSolution(regions, route):
@@ -60,5 +65,8 @@ def writeSolution(regions, route):
         
     
     
+def main():
     
+    writeSample([(0,0,0),(3,2,6),(2,5,4)], "model/ejemplo")
+main()
     

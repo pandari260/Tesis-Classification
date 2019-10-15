@@ -1,0 +1,5 @@
+EMPTY_MATRIX_ERROR_MESSAGE = "La entrada no tiene ningun elemento"
+NOT_MATRIX_ERROR_MESSAGE = "La entrada no es una matrix"
+EMPTY_CLUSTER_ERROR_MESSAGE = "Existe un cluster sin elementos elementos"
+EMPTY_CLASS_ERROR_MESSAGE = "Una de la clases no tiene elementos"
+ONE_DIMENTION_ERROR_MESSAGE = "las muestras debe tener dimension mayor o igual a 2"

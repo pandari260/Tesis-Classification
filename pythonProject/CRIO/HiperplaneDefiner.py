@@ -22,7 +22,9 @@ def defineHiperplanes(groupContainer, clusterContainer):
             hiperplane = []
             writeSample(g,routeGroup)
             writeSample(c,routeCluster)
-            writeParameters((len(g), len(c)), routeParams)
+            print("grupo: " +str(g) + "----------------")
+            print("cluster" + str(c))
+            writeParameters([len(g), len(c),len(c[0])], routeParams)
             model = solveProblem(routeModelDefineHiperplanes)
             hiperplaneVars = model.getVars()
             for var in hiperplaneVars[:-1]:
@@ -39,7 +41,7 @@ def eliminateRedundat(clusters, regions):
             writeEliminateRedundantInstance(region, c, routeRegion)
             model = solveProblem(routeModelEliminateRedundat)
 
-            if (model.getObjVal() <= region[c][2]):
+            if (model.getObjVal() <= region[c][len(region[c])-1]):
                 redundant.append(region[c])
             
 
