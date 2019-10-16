@@ -6,8 +6,8 @@ import Exporter as exporter
 import numpy as np
 
 seed = 2
-dimension = 2
-d = "R2"
+dimension = 10
+d = "R10"
 flag = False
 
 name = d+"/t1-ConjuntosDisjuntos"
