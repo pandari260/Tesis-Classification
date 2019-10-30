@@ -5,27 +5,20 @@ from sympy.physics.quantum.tests.test_qapply import po
 from ErrorMessages import *
 from CRIO.Importer import readSamples
 
-routeClassA= "model/clusteringClassA.dat"
-routeClassB= "model/clusteringClassB.dat"
+routeClassA = "model/clusteringClassA.dat"
+routeClassB = "model/clusteringClassB.dat"
 routeParams = "model/clusteringParameters"
-routeModel ="model/clustering.zpl"
-
-
-
-
-
-
+routeModel = "model/clustering.zpl"
 
 import numpy as np
 
+
 class ClusterContainer():
     
-    def __init__(self, classA,classB):
-        self.clusters = defineClusters(classA,classB)
+    def __init__(self, classA, classB):
+        self.clusters = defineClusters(classA, classB)
         self.clustersForSamples = sampleKeyDict(self.clusters)
         self.cantClusters = len(self.clusters)
-    
-    
 
     def getClusters(self):
         return self.clusters
@@ -40,8 +33,8 @@ class ClusterContainer():
         self.clusters[self.getSampleKey(sample)].remove(sample)
         
 
-#toma una matriz no vacia y la transforma en un diccionario cuyas claves son los elementos de la matriz y 
-#los valores el indice correspondiente a cada lista
+# toma una matriz no vacia y la transforma en un diccionario cuyas claves son los elementos de la matriz y 
+# los valores el indice correspondiente a cada lista
 def sampleKeyDict(matrix):
     
     try:
@@ -66,8 +59,8 @@ def sampleKeyDict(matrix):
         return None
     
 
-#crea cluster con las muestras de clase A que no contienen muestras de clase B
-def defineClusters(classA,classB):
+# crea cluster con las muestras de clase A que no contienen muestras de clase B
+def defineClusters(classA, classB):
     
     if len(classA) == 1:
         return [classA]
@@ -77,71 +70,74 @@ def defineClusters(classA,classB):
         k = 0
         while k < K:
             matDist = crearMatrizDistancia(clusters)        
-            r,s = minimaDistancia(matDist)
-            if contieneOutlier(clusters[r],clusters[s],classB) == 0:
+            r, s = minimaDistancia(matDist)
+            if contieneOutlier(clusters[r], clusters[s], classB) == 0:
                 k = k + 1            
             else:
-                newCluster = clusters[s] +  clusters[r]
-                print("new cluste : " + str(newCluster) + " r: " + str(clusters[r]) + " s: " + str(clusters[s]) )
+                newCluster = clusters[s] + clusters[r]
                 clusters.append(newCluster)   
                 clusters.remove(clusters[r])    
                 clusters.remove(clusters[s])              
                 
-         
+                print("\n\n\n\n\n\n\n\n\n\n nuevo cluster" + str(newCluster))
+                print("todos los clueter: " + str(clusters) + "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+
                 K = K - 1
                 k = 0
             k = k + 1
         return clusters
 
+
 def creatDefaultCluster(c):
     return list(map(lambda sample: [sample], c))
 
 
-#toma una lista de clusters y retorna una matriz de distancia entre ellos
+# toma una lista de clusters y retorna una matriz de distancia entre ellos
 def crearMatrizDistancia(clusters):
     tam = len(clusters)
     matrizDist = []
     for clusterA in range(0, tam):
         distancias = []
-        for clusterB in range(0,clusterA):
+        for clusterB in range(0, clusterA):
             distanceAB = distanceBtwClusters(clusters[clusterA], clusters[clusterB]) 
-            print("la distancia es: " + str(distanceAB))
             distancias.append(distanceAB)
         matrizDist.append(distancias)
     return matrizDist
 
-#toma dos clusters y retorna la distancia entre los puntos mas cercanos entre ellos
+# toma dos clusters y retorna la distancia entre los puntos mas cercanos entre ellos
+
 
 def distanceBtwClusters(clusterA, clusterB):
-    return distanceBtwSamples(np.mean(clusterA,0), np.mean(clusterB,0))
+    return distanceBtwSamples(np.mean(clusterA, 0), np.mean(clusterB, 0))
 # toma dos puntos y retorna la distancia entre ellos
 
-def distanceBtwSamples(sampleA, sampleB):
-    print("las muestras son. Muestra A:  " + str(sampleA) + " Muestra B: " + str(sampleB))
-    return np.linalg.norm(list(map(lambda x: x[0] - x[1],list(zip(sampleA,sampleB)))))
 
-#toma una matria de distancias y retorna las coordenadas del menor valor de la matriz
+def distanceBtwSamples(sampleA, sampleB):
+    return np.linalg.norm(list(map(lambda x: x[0] - x[1], list(zip(sampleA, sampleB)))))
+
+
+# toma una matria de distancias y retorna las coordenadas del menor valor de la matriz
 def minimaDistancia(matriz):
     tam = len(matriz)
-    minF, minC = -1,-1#minima fila y minima columna
+    minF, minC = -1, -1  # minima fila y minima columna
     min = float("inf")
 
-    for r in range(0,tam):
-        for s in range(0,r):
+    for r in range(0, tam):
+        for s in range(0, r):
             n = matriz[r][s]
             if n != 0 and n < min:
                 min = n
                 minF = r
                 minC = s
-    return minF,minC
+    return minF, minC
 
-#determina si dos cluster de Clase A son linealmente separables respecto de la Clase B
+
+# determina si dos cluster de Clase A son linealmente separables respecto de la Clase B
 def contieneOutlier(Cr, Cs, claseB):
     
-    print("ClaseB: " + str(claseB))
-    writeSample( Cr + Cs,routeClassA)
+    writeSample(Cr + Cs, routeClassA)
     writeSample(claseB, routeClassB)
-    parameters = [len(claseB), (len(Cr) + len(Cs)),len(claseB[0])]
+    parameters = [len(claseB), (len(Cr) + len(Cs)), len(claseB[0])]
 
     writeParameters(parameters, routeParams)
     model = scip.solveProblem(routeModel)
@@ -149,7 +145,4 @@ def contieneOutlier(Cr, Cs, claseB):
     if ret != 0:
         ret = 1
     return ret
-
-
-
 

@@ -29,7 +29,6 @@ def writeSample(samples, route):
 def writeParameters(params, route):
     f = open(route,"w")
     for p in params:
-        print("el parametro es: " + str(p))
         f.write(ONE_ITEM_FORMAT % (p))
     f.close()
 

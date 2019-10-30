@@ -22,8 +22,6 @@ def defineHiperplanes(groupContainer, clusterContainer):
             hiperplane = []
             writeSample(g,routeGroup)
             writeSample(c,routeCluster)
-            print("grupo: " +str(g) + "----------------")
-            print("cluster" + str(c))
             writeParameters([len(g), len(c),len(c[0])], routeParams)
             model = solveProblem(routeModelDefineHiperplanes)
             hiperplaneVars = model.getVars()

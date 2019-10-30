@@ -26,13 +26,14 @@ def defineGroups(clusterContainer, model, k):
     assings = assingGroups(clusterContainer.getCantClusters(), model, k)
     
     clusters = clusterContainer.getClusters()
+    print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nEl cluster es: " +  str(clusters) + "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+
     groups=[]
     for value in assings.values():
         samples=[]
         for i in value:
             samples = samples + clusters[i]
         if len(samples) > 0:
-            print("la muestras que se va a agregar es: " + str(tuple(samples))+"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
             groups.append(tuple(samples))
     return groups
 
@@ -53,12 +54,11 @@ def assingGroups(cantClusters,model, k):
 
     return groups
 
-def deleteOutliers(class1, clusterContainer, eVals):
+def deleteOutliers(samples, clusterContainer, eVals):
     
     for e in range(0, len(eVals)):
         if eVals[e] > 1:
-            clusterContainer.removeSample(class1[e])
-    
+            clusterContainer.removeSample(samples[e])  
     
     return 0
     
