@@ -5,10 +5,10 @@ from __builtin__ import dict
 from CRIO.Exporter import writeSample
 from scipy.cluster._hierarchy import cluster_dist
 
-routeClassA= "model/clusteringClassA.dat"
-routeClassB= "model/clusteringClassB.dat"
-routeParams = "model/clusteringParameters"
-routeModel ="model/clustering.zpl"
+routeClassA= "../CRIO/model/clusteringClassA.dat"
+routeClassB= "../CRIO/model/clusteringClassB.dat"
+routeParams = "../CRIO/model/clusteringParameters"
+routeModel ="../CRIO/model/clustering.zpl"
 
 
 class Test(unittest.TestCase):

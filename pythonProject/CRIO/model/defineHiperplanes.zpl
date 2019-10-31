@@ -1,8 +1,7 @@
 #parametros
     param routeParam := "defineHiperplanesParameters";
     param d := read routeParam as "1n" skip 2 use 1;
-    do print "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDddd";
-    do print d;
+    
     set Ft := {0 to d-1};
 
     param nk := read routeParam as "1n" skip 0 use 1; 

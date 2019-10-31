@@ -7,22 +7,22 @@ import unittest
 from CRIO.ScipInterface import solveProblem
 from wheel.signatures import assertTrue
 
-routeCluster0 = "model/cluster0.dat"
-routeCluster1 = "model/cluster1.dat"
-routeParameters = "model/globalParameters"
+routeCluster0 = "../CRIO/model/cluster0.dat"
+routeCluster1 = "../CRIO/model/cluster1.dat"
+routeParameters = "../CRIO/model/globalParameters"
 M = 1000000
 
 
 def prepare(claseA, claseB, k, d):
-        writeSample(claseA, "model/class1.dat")
-        writeSample(claseB, "model/class0.dat")
+        writeSample(claseA, "../CRIO/model/class1.dat")
+        writeSample(claseB, "../CRIO/model/class0.dat")
         clusterContainerA = ClusterContainer(claseA, claseB)
         clusterContainerB = ClusterContainer(claseB, claseA)
         writeClusters(clusterContainerB, claseB, routeCluster0)
         writeClusters(clusterContainerA, claseA, routeCluster1)
         parameters = [(len(claseB + claseA)), d, len(claseB), len(claseA), k, clusterContainerB.getCantClusters(), clusterContainerA.getCantClusters(), M]
         writeParameters(parameters, routeParameters)
-        model = ModelSolution(solveProblem("model/assingGroups.zpl"), clusterContainerA.getCantClusters(), len(claseB), len(claseA), k)
+        model = ModelSolution(solveProblem("../CRIO/model/assingGroups.zpl"), clusterContainerA.getCantClusters(), len(claseB), len(claseA), k)
         return clusterContainerA, model
 
 

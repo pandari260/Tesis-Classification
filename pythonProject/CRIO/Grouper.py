@@ -26,7 +26,6 @@ def defineGroups(clusterContainer, model, k):
     assings = assingGroups(clusterContainer.getCantClusters(), model, k)
     
     clusters = clusterContainer.getClusters()
-    print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nEl cluster es: " +  str(clusters) + "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
 
     groups=[]
     for value in assings.values():

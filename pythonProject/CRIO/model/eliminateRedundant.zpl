@@ -28,15 +28,5 @@
         (sum <f> in Ft: p[t0,f] * x[f]) <= q[t0] + 1;
         #    -0.79 * x[0] -0.39 * x[1] <= -5.39+1; 
 
-     do forall <t> in K0 with t != t0: print t; 
-        do forall <t> in K0 with t != t0:  print q[t];
-        do forall <t> in K0 with t != t0:  print p[t,0];
-        do forall <t> in K0 with t != t0:  print p[t,1];
-    do print "-----------------------------------------";
-
-    do print t0;
-    do print q[t0];
-    do print p[t0,0];
-    do print p[t0,1];
-    do print "-----------------------------------------";
+     
 

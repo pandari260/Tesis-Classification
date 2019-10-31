@@ -79,8 +79,7 @@ def defineClusters(classA, classB):
                 clusters.remove(clusters[r])    
                 clusters.remove(clusters[s])              
                 
-                print("\n\n\n\n\n\n\n\n\n\n nuevo cluster" + str(newCluster))
-                print("todos los clueter: " + str(clusters) + "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+                
 
                 K = K - 1
                 k = 0

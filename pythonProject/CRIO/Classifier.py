@@ -35,10 +35,13 @@ class Classifier():
     def trainClasificator(self):
         
         class0 = readSamples(self.routeClase0, self.dimenssion)
+        print("clase0: " +str(class0) + "\n")
         class1 = readSamples(self.routeClase1, self.dimenssion) 
         
-        print("clase0: " +str(class0) + "\n")
-        print("clase1: " +str(class1)+ "\n")        
+        print("clase1: " +str(class1)+ "\n")       
+        
+        
+        print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n clusterinr \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n") 
         clusterContainer0 = ClusterContainer(class0,class1)
         clusterContainer1 = ClusterContainer(class1,class0)        
         
@@ -47,10 +50,13 @@ class Classifier():
     
         parameters = [(len(class0 + class1)), self.dimenssion, len(class0), len(class1), self.numGroups, clusterContainer0.getCantClusters(), clusterContainer1.getCantClusters(),M]
         writeParameters(parameters, routeParameters)
-    
+        print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n grupeo \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n") 
+
         groupContainer = Grouper.GroupContainer(class0,class1, clusterContainer1, self.numGroups)
         Grouper.deleteOutliers(class0, clusterContainer0, groupContainer.model.e0Vals)
         
+        print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n definiendo hiperplanos \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n") 
+
         regions = Hiperplane.defineHiperplanes(groupContainer, clusterContainer0)
         return regions
     
@@ -86,10 +92,10 @@ class Classifier():
 
         
 def main():
-    c = Classifier("model/class0.dat","model/class1.dat",2,3,"roja", "azul")
+    c = Classifier("model/class0.dat","model/class1.dat",2,2,"roja", "azul")
     c.printRegions()
-    print("la muestra (8,4) es: " + str(c.classify((8.0,4.0,0.0)))+ "\n")
-    print("la muestra (4,8) es: " + str(c.classify((4.0,8.0,0.0)))+ "\n")
+    writeSolution(c.regions, "model/solution")
+    
     
    
 
