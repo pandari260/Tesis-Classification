@@ -10,6 +10,8 @@
     set K0 := {0 to k0-1};#etiquetas para los clusters de clase 0
 
     param t0 := read routeData as "1n" use 1;
+    do print d;
+    do print k0;
     param p[K0*Ft] := read routeData as "<1n,2n> 3n" skip 1 use (k0*d);
     param q[K0] := read routeData as "<1n> 2n" skip (k0*d+1);
 

@@ -92,8 +92,9 @@ class Classifier():
 
         
 def main():
-    c = Classifier("model/class0.dat","model/class1.dat",2,2,"roja", "azul")
+    c = Classifier("model/class0.dat","model/class1.dat",5,2,"roja", "azul")
     c.printRegions()
+    print("la muestra (2.2885, -0.0772) es: " + str(c.classify((2.2885, -0.0772))))
     writeSolution(c.regions, "model/solution")
     
     

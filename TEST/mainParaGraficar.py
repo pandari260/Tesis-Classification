@@ -1,5 +1,6 @@
 from Importer import readSamples, readHiperplanes
 from Plotter import graphDataSet
+import numpy as np
 
 routeClass0 = "class0.dat"
 routeClass1 = "class1.dat"
@@ -14,7 +15,7 @@ def main():
     print("Clase1: " + str(clase1)  + "\n\n\n\n\n\n")
     print("Hiperplanos: " + str(solution)  + "\n\n\n\n\n\n")
 
-    graphDataSet(clase0,clase1,solution,10.0)
+    graphDataSet(clase0,clase1,solution,np.linspace(-5,5,3000))
 
 
 main()
