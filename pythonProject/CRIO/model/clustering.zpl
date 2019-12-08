@@ -1,6 +1,6 @@
 #parametros
     param routeParam := "clusteringParameters";
-    param d := read routeParam as "1n" skip 2 use 1;#dimecion de las muestras
+    param d := read routeParam as "1n" skip 2 use 1;#dimension de las muestras
 
     
     set Ft :={0 to d-1};#etiquetas para las caracteristicas de cada muestra;

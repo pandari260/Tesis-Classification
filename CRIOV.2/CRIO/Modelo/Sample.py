@@ -10,18 +10,20 @@ class Sample(object):
     '''
 
 
-    def __init__(self, dim,d):
+    def __init__(self,d):
         '''
-        Una muestra contiene una dimension y una tupla de datos de tipo double
+        Una muestra contiene una tupla de datos de tipo double
         '''
-        self.__dimention = dim
         self.__data = d
     
-    def getDimention(self):
-        return self.__dimention
+    def getDimension(self):
+        return len(self.__data)
     
     def getData(self):
         return self.__data
     
     def getFeature(self,index):
-        return self.__data(index)
+        return self.__data[index]
+    
+
+    
