@@ -38,22 +38,12 @@ def isMergeable(clusterA,clusterB,samples):
     ##########################################################################
     
     model.optimize()
-    print model.getObjVal()
 
     return model.getObjVal() > 0
     
     
 
-def main():
-    d = 2
-    cluster_A = Cluster([Sample((0.0,2.0)),Sample((0.0,4.0))], 2)
-    cluster_B = Cluster([Sample((4.0,2.0)),Sample((4.0,4.0))], 2)
-        
-    samples = SampleContainer([Sample((2.0,3.0))],2) 
-    resul = isMergeable(cluster_A, cluster_B, samples)
-    print resul
 
-main()
         
     
     
