@@ -20,19 +20,19 @@ def isMergeable(clusterA,clusterB,samples):
     delta = model.addVar(vtype="C", name="delta",lb=None)   
     
     pVars = {}    
-    for (spl,f) in itertools.product(range(samples_size),range(dimension)):
-        pVars[(spl,f)] = model.addVar(vtype="C", name="p%s%s" % (spl,f),lb=None)
+    for (spl,f) in itertools.product(samples.getData(),range(dimension)):
+        pVars[(spl,f)] = model.addVar(vtype="C", name="p" +str(spl) +"%s" % (f),lb=None)    
     
     qVars = {}
-    for spl in range(samples_size):
-        qVars[spl] = model.addVar(vtype="C", name="q%s"%(spl),lb=None)
+    for spl in samples.getData():
+        qVars[spl] = model.addVar(vtype="C", name="q" + str(spl),lb=None)
         
-    for spl in range(samples_size):
-        model.addCons((qVars[spl] + quicksum(pVars[(spl,j)] * samples.getSample(spl).getFeature(j) for j in range(dimension)))<= -delta,"r%s" % (spl))
+    for spl in samples.getData():
+        model.addCons((qVars[spl] + quicksum(pVars[(spl,j)] * spl.getFeature(j) for j in range(dimension)))<= -delta,"r%s" % (spl))
     
-    for spl in range(samples_size):
-        for clstr_spl in range(samples_in_cluster_size):
-            model.addCons((qVars[spl] + quicksum(pVars[(spl,j)] * samples_in_clusters.getSample(clstr_spl).getFeature(j) for j in range(dimension)))>=delta, "r%s%s" % (spl,clstr_spl))
+    for spl in samples.getData():
+        for clstr_spl in samples_in_clusters.getData():
+            model.addCons((qVars[spl] + quicksum(pVars[(spl,j)] * clstr_spl.getFeature(j) for j in range(dimension)))>=delta, "r%s%s" % (spl,clstr_spl))
                     
     model.setObjective(delta, sense="maximize")
     ##########################################################################

@@ -16,6 +16,9 @@ class Sample(object):
         '''
         self.__data = d
     
+    """def __str__(self, *args, **kwargs):
+        return str(self.__data)"""
+    
     def getDimension(self):
         return len(self.__data)
     
