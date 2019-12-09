@@ -11,20 +11,17 @@ class SampleContainer(object):
     '''
 
 
-    def __init__(self, arr,d):
+    def __init__(self, s,d):
         '''
-        un sampleContainer contiene un array de muestras y la dimension de cada una. Todas deben tener la misma dimension
+        un sampleContainer contiene un conjunto de muestras y la dimension de cada una. Todas deben tener la misma dimension
         '''
-        self.__data = arr
+        self.__data = set(s)
         self.__dimension = d
     
     def getDimension(self):
         return self.__dimension
-    
-    def getSample(self,index):
-        return self.__data[index]
-    
-    def getData(self):
+       
+    def getSamples(self):
         return self.__data
     
     def getSize(self):
