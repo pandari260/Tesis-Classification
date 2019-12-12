@@ -17,8 +17,8 @@ class Sample(object):
         '''
         self.__data = d
     
-    """def __str__(self, *args, **kwargs):
-        return str(self.__data)"""
+    def __str__(self, *args, **kwargs):
+        return str(self.__data)
     def __eq__(self,obj):
         return isinstance(Sample) and self.__data == obj.getData()
         
@@ -29,7 +29,6 @@ class Sample(object):
         return self.__data
     
     def getFeature(self,index):
-        print self.__data
         return self.__data[index]
     
 

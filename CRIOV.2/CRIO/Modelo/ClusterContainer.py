@@ -3,6 +3,7 @@ Created on 11 dic. 2019
 
 @author: javier
 '''
+from CRIO.Modelo.SampleContainer import SampleContainer
 
 class ClusterContainer(object):
     '''
@@ -20,5 +21,29 @@ class ClusterContainer(object):
     def getClusters(self):
         return self.__clusters
     
-    def dimension(self):
+    def getDimension(self):
+        return self.__dimension
+    
+    def getSamples(self):
+        ret = set()
+        for c in self.getClusters():
+            ret = ret | c.getSamples()
+        return SampleContainer(ret,self.getDimension())
+    
+    def getSize(self):
         return len(self.__clusters)
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
