@@ -16,15 +16,15 @@ def isMergeable(clusterA,clusterB,samples):
     ###################### modelo ############################################
     model = Model()
     
-    delta = model.addVar(vtype="C", name="delta",lb=None)   
+    delta = model.addVar(vtype="CONTINUOUS", name="delta",lb=None)   
     
     pVars = {}    
     for (spl,f) in itertools.product(samples.getSamples(),range(dimension)):
-        pVars[(spl,f)] = model.addVar(vtype="C", name="p" +str(spl) +"%s" % (f),lb=None)    
+        pVars[(spl,f)] = model.addVar(vtype="CONTINUOUS", name="p" +str(spl) +"%s" % (f),lb=None)    
     
     qVars = {}
     for spl in samples.getSamples():
-        qVars[spl] = model.addVar(vtype="C", name="q" + str(spl),lb=None)
+        qVars[spl] = model.addVar(vtype="CONTINUOUS", name="q" + str(spl),lb=None)
         
     for spl in samples.getSamples():
         model.addCons((qVars[spl] + quicksum(pVars[(spl,j)] * spl.getFeature(j) for j in range(dimension)))<= -delta,"r%s" % (spl))

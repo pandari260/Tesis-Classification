@@ -34,23 +34,23 @@ def assignClustersToGroups(clusters0, clusters1, num_groups):
     
     aVars = {}    
     for (k,clstr) in itertools.product(range(num_groups), clusters1.getClusters()):
-        aVars[(k,clstr)] = model.addVar(vtype="B", name="a" + "%s" % (k) + str(clstr))
+        aVars[(k,clstr)] = model.addVar(vtype="BINARY", name="a" + "%s" % (k) + str(clstr))
     
     pVars = {}
     for (k,clstr,f) in itertools.product(range(num_groups), clusters0.getClusters(),range(dimension)):
-        pVars[(k,clstr,f)] = model.addVar(vtype="C",name="p" + "%s" % (k) + str(clstr) + "%s" % (f),lb=None)
+        pVars[(k,clstr,f)] = model.addVar(vtype="CONTINUOUS",name="p" + "%s" % (k) + str(clstr) + "%s" % (f),lb=None)
     
     qVars = {}
     for (k,clstr) in itertools.product(range(num_groups), clusters0.getClusters()):
-        qVars[(k,clstr)] = model.addVar(vtype="C", name="q" + "%s" % (k) + str(clstr),lb=None)
+        qVars[(k,clstr)] = model.addVar(vtype="CONTINUOUS", name="q" + "%s" % (k) + str(clstr),lb=None)
     
     e0Vars = {}
     for spl in samples0.getSamples():
-        e0Vars[spl] = model.addVar(vtype="C",name="e0" + str(spl))
+        e0Vars[spl] = model.addVar(vtype="CONTINUOUS",name="e0" + str(spl))
     
     e1Vars = {}
     for spl in samples1.getSamples():
-        e1Vars[spl] = model.addVar(vtype="C", name="e1" + str(spl))
+        e1Vars[spl] = model.addVar(vtype="CONTINUOUS", name="e1" + str(spl))
         
     for k in range(num_groups):
         for clstr in clusters0.getClusters():
@@ -64,7 +64,10 @@ def assignClustersToGroups(clusters0, clusters1, num_groups):
                     model.addCons((qVars[k,clstr0] + quicksum(pVars[k,clstr0,f]*spl.getFeature(f) for f in range(dimension))) >= -M + (M + 1)*aVars[k,clstr1]-e1Vars[spl],"r2%s%s%s%s" % (k,clstr1,spl,clstr0))
     
     for clstr in clusters1.getClusters():
-        model.addCons(quicksum(aVars[k,clstr] for k in range(num_groups)) == 1)
+        model.addCons((quicksum(aVars[k,clstr] for k in range(num_groups))) == 1,"r3%s" %(clstr))
+    
+     
+    
     
     model.setObjective(quicksum(e0Vars[spl] for spl in samples0.getSamples()) + quicksum(e1Vars[spl] for spl in samples1.getSamples()),sense="minimize")
     model.optimize()
