@@ -9,7 +9,7 @@ from __builtin__ import isinstance
 
 class SampleContainer(object):
     '''
-    Clase que da acceso a un array de muestras
+    Clase que da acceso a un conjunto de muestras
     '''
 
 

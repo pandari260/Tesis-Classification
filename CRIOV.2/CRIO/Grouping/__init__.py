@@ -15,9 +15,9 @@ firma: assignClustersToGroups:(samples0:SampleContainer, sample1:SampleContainer
 
 def assignClustersToGroups(clusters0, clusters1, num_groups):
     
-    def getVals(model,dict):
+    def getVals(model,dic):
         ret = {}
-        for key,value in dict.items():
+        for key,value in dic.items():
             ret[key] = model.getVal(value)
         return ret
         
