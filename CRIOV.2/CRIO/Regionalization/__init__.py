@@ -36,21 +36,12 @@ def assingGroupsToRegions(group,cluster):
     model.setObjective(objective,sense="minimize")
     model.optimize()
 
-    return (getVals(model,piVars), model.getVal(alfaVar))
+    return (getVals(model,piVars), model.getVal(alfaVar))    
+    
+    
+    ################################################################## 
 
-def main():
-    d = 2
-    cluster = Cluster([(7.0,4.0)],d)
-    group = Group([(5.0,4.0)],d)
-    
-    (p,q) = assingGroupsToRegions(group, cluster)
-    for k,n in p.items():
-        print("feature: " + str(k) + " valor: " + str(n))
-    
-    print("alfa: " + str(q))
 
-main()    
-    
-    
-    
-    ##################################################################
+
+
+
