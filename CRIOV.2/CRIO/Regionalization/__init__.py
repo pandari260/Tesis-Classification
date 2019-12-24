@@ -41,7 +41,14 @@ def assingGroupsToRegions(group,cluster):
     
     ################################################################## 
 
-
+def isRedundant(region, clusters):
+    
+    def auxiliarModel(region, cluster):
+        pass
+    
+    
+    
+    
 
 
 
