@@ -1,18 +1,18 @@
+import Sample
+
+def transformSample(sampleGenerated, clss):
+    sample, data = [],[]
+    for i in range(len(sampleGenerated[0])): 
+        for j in range(len(sampleGenerated)):
+            data.append(round(sampleGenerated[j][i],4)) #Solo se incluyen hasta los 5 decimales
+        data.append(clss)
+        sample.append(data)
+        data = []
+    return sample    
 
 def transformSampleZPL(sample): 
-    sampleC0, sampleC1 = divideClass(sample)
+    sampleC0, sampleC1 = Sample.divideClass(sample)
     return setFormatZPL(sampleC0), setFormatZPL(sampleC1)
-
-def divideClass(sample):
-    sampleC0, sampleC1 = [], []
-    for item in sample:
-        if(getClass(item[0]) == 0): sampleC0 += item
-        else: sampleC1 += item
-    return sampleC0, sampleC1
-
-def getClass(item):
-    if(item[len(item)-1] == 0): return 0
-    else: return 1
 
 def setFormatZPL(sample):
     preSample, newSample = [], []
