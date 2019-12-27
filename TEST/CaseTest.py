@@ -8,17 +8,17 @@ import Plotter as plotter
 class CaseTest:
 
     def __init__(self, name, d, n, mMu, classes):
-        self.name = name
-        self.d = d
-        self.n = n
-        self.mMu = self.initMu(mMu[0],mMu[1])
-        self.mCov = self.initCov()
-        self.classes = classes
+        self.__name = name
+        self.__d = d
+        self.__n = n
+        self.__mMu = self.initMu(mMu[0],mMu[1])
+        self.__mCov = self.initCov()
+        self.__classes = classes
 
     def initCov(self):
         m = []
-        for i in range(len(self.n)):
-            base = np.identity(self.d)
+        for i in range(len(self.__n)):
+            base = np.identity(self.__d)
             m.append(base)    
         return m   
 
@@ -28,9 +28,9 @@ class CaseTest:
             base = []
             base.append(i[0])
             base.append(i[1])
-            for j in range(self.d-2): base.append(seed)
+            for j in range(self.__d-2): base.append(seed)
             m.append(base)
         return m
 
     def initTest(self):
-        return sample.generateSample(self.mMu, self.mCov, self.n, self.classes)
+        return sample.generateSample(self.__mMu, self.__mCov, self.__n, self.__classes)

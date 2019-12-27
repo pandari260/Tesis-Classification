@@ -29,8 +29,8 @@ test = caseTest.CaseTest(name, dimension, n, (mMu, seed), classes)
 sample = test.initTest()
 c0, c1 = Sample.divideClass(sample)
 exporter.createFileOutput(sample, name)
-#plotter.graphSample(c0,c1) 
-#plt.show()
+plotter.graphSample(c0,c1) 
+plt.show()
 
 name = d+"/t3-CuadranteOpuesto"
 n = [500, 500, 500, 500]
