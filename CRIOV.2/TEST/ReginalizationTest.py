@@ -1,7 +1,7 @@
 '''
 Created on 17 dic. 2019
 
-@author: javier
+@author: javier:v
 '''
 import unittest
 from CRIO.Modelo.Cluster import Cluster
