@@ -3,7 +3,7 @@ from timeit import itertools
 from CRIO.Modelo.Cluster import Cluster
 from CRIO.Modelo.Group import Group
 
-def assingGroupsToRegions(group,cluster):
+def defineHiperplane(group,cluster):
     
     def getVals(model,dic):
         ret = {}

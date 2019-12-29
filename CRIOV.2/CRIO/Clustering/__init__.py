@@ -3,7 +3,6 @@ from CRIO.Modelo.Cluster import mergeClusters
 from CRIO.Modelo.Sample import Sample
 from CRIO.Modelo.SampleContainer import SampleContainer
 import numpy as np
-from prompt_toolkit.layout import dimension
 from timeit import itertools
 
 #determina si hay una muestra perteneciente a "samples" en la componente convexa de entre los clusters A y B 
