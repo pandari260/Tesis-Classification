@@ -5,7 +5,7 @@ Created on 19 dic. 2019
 '''
 from pyscipopt import Model, quicksum
 
-class Hiperplano(object):
+class Hyperplane(object):
     '''
     Esta clase representa a un hiperplano para el metodo CRIO
     '''
@@ -17,6 +17,9 @@ class Hiperplano(object):
         '''
         self.__coefficients = q
         self.__intercept =  o
+    
+    def __eq__(self,obj):
+        return isinstance(Hyperplane) and self.__coefficients == obj.getCoefficient() and self.__intercept == obj.getIntercept()
     
     def getDimension(self):
         return len(self.__coefficients)
@@ -33,14 +36,16 @@ class Hiperplano(object):
         dimension = self.getDimension()
         ############ model ##############################
         model = Model()
+        xVars = {}
         for i in range(dimension):
-            xVars = model.addVar(vtype="CONTINUOUS", name="x[%s]" %(i),lb=None)        
+            xVars[i] = model.addVar(vtype="CONTINUOUS", name="x[%s]" %(i),lb=None)        
         
+        print self
+        for hiperplane in region.getHyperplanes().difference(set([self])):
+            print hiperplane
+            model.addCons(quicksum(hiperplane.getCoefficient(f)*xVars[f] for f in range(dimension)) <= hiperplane.getIntercept(),"r1%s" % (hiperplane))
         
-        for hiperplane in region.getHiperplanes().difference(self):
-            model.addCons(quicksum(hiperplane.getCoefficient(f)*xVars(f) for f in range(dimension)) <= hiperplane.getIntercept(),"r1%s" % (hiperplane))
-        
-        model.addCons(quicksum(self.getCoefficient(f)*xVars[f] for f in range(dimension)) <= self.getIntercept() + 1,"prevent unbound")
+        model.addCons(quicksum(self.getCoefficient(f)*xVars[f] for f in range(dimension)) <= self.getIntercept() + 1.0,"prevent_unbound")
         
         model.setObjective(quicksum(self.getCoefficient(f)*xVars[f] for f in range(dimension)), sense="maximize")  
         model.optimize()

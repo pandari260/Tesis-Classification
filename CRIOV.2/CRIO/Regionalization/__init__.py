@@ -3,7 +3,7 @@ from timeit import itertools
 from CRIO.Modelo.Cluster import Cluster
 from CRIO.Modelo.Group import Group
 
-def defineHiperplane(group,cluster):
+def defineHyperplane(group,cluster):
     
     def getVals(model,dic):
         ret = {}
