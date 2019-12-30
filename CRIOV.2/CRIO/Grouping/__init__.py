@@ -1,10 +1,8 @@
 from pyscipopt import Model, quicksum
 from timeit import itertools
 from CRIO.Modelo.SampleContainer import SampleContainer
-from prometheus_client import samples
 from CRIO.Modelo.Cluster import Cluster
 from CRIO.Modelo.ClusterContainer import ClusterContainer
-from prompt_toolkit.layout import dimension
 from CRIO.Modelo.Sample import Sample
 
 
