@@ -2,7 +2,6 @@ import numpy as np
 import matplotlib.pyplot as plt  
 import Sample as sample
 import Exporter as exporter
-import TransformSample as transform
 import Plotter as plotter
 
 class CaseTest:
@@ -11,18 +10,20 @@ class CaseTest:
         self.__name = name
         self.__d = d
         self.__n = n
-        self.__mMu = self.initMu(mMu[0],mMu[1])
-        self.__mCov = self.initCov()
+        self.__mMu = self.__initMu(mMu[0],mMu[1])
+        self.__mCov = self.__initCov()
         self.__classes = classes
 
-    def initCov(self):
+    #Inicializa la matriz de covarianzas.
+    def __initCov(self):
         m = []
         for i in range(len(self.__n)):
             base = np.identity(self.__d)
             m.append(base)    
         return m   
 
-    def initMu(self, mu, seed):
+    #Inicializa la matriz de esperanzas.
+    def __initMu(self, mu, seed):
         m = []
         for i in mu:
             base = []
@@ -32,5 +33,6 @@ class CaseTest:
             m.append(base)
         return m
 
+    #genera un conjunto de muestras con los parametros indicados.
     def initTest(self):
         return sample.generateSample(self.__mMu, self.__mCov, self.__n, self.__classes)

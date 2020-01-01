@@ -1,29 +1,25 @@
-import TransformSample as transform
+#Guarda en el correspondiente archivo el caso de test generado
+def exportCaseTest(sample, name):
+    formato = ""
+    for i in range(len(sample[0][0])-1): formato += '%s,'
+    formato += '%s \n'
+    __exportSample(sample,formato,"Feature%s,",name)
 
-def exportSampleSVM(sample, format, formathead, location):
+#Escribe en archivo un conjunto de muestras
+def __exportSample(sample, format, formathead, location):
     file = open(location, "w")
     for i in range(len(sample[0][0])-1): file.write(formathead % str(i+1))
     file.write('Class\n')
 
-    for data in sample: setFormat(data, format, file)
+    for data in sample: __setFormat(data, format, file)
     file.close()
 
-def exportSampleZPL(sample, format, location):
-    file = open(location, "w")
-    setFormat(sample, format, file)
-    file.close()
-
-def setFormat(sample, format, file):
+def __setFormat(sample, format, file):
     for data in sample: file.write(format % tuple(data))
 
-def createFileOutput(sample, name):
-    c0, c1 = transform.transformSampleZPL(sample)
-    formato = '%s,%s,%s \n'
-    exportSampleZPL(c0, formato, '../INPUT/CRIO/'+name+'C0.csv')
-    exportSampleZPL(c1, formato, '../INPUT/CRIO/'+name+'C1.csv')
-
+#----En elaboracionn-----
+def createFileOutputReal(c0, c1, name):
     formato = ""
-    for i in range(len(sample[0][0])-1): formato += '%s,'
+    for i in range(0, 3): formato += '%s,'
     formato += '%s \n'
-    exportSampleSVM(sample,formato,"Feature%s,",'../INPUT/SVM/'+name+'.csv')
-
+    __exportSample(c0+c1, formato,"Feature%s,",'../INPUT/REAL/SVM/'+name+'.csv')
