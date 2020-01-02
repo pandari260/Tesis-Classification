@@ -17,9 +17,7 @@ class CaseTest:
     #Inicializa la matriz de covarianzas.
     def __initCov(self):
         m = []
-        for i in range(len(self.__n)):
-            base = np.identity(self.__d)
-            m.append(base)    
+        for i in range(len(self.__n)):  m.append(np.identity(self.__d))    
         return m   
 
     #Inicializa la matriz de esperanzas.
