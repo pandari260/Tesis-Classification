@@ -14,11 +14,11 @@ def generateSample(hopes, matCovariance, n, classes):
 
 #Dado un conjunto de muestras, aplica el formato usado por CRIO y devuleve los conjuntos clase0 y clase1.
 def convertSampleCRIO(sample):
-    c0,c1 = divideClass(sample)
+    c0,c1 = divideForClass(sample)
     return __popClass(c0), __popClass(c1)
 
 #Dado un conjunto de muestras, las separa por clases.
-def divideClass(sample):
+def divideForClass(sample):
     sampleC0, sampleC1 = [], []
     for item in sample:
         if(__getClass(item[0]) == 0): sampleC0 += item

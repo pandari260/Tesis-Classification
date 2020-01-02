@@ -3,10 +3,10 @@ def exportCaseTest(sample, name):
     formato = ""
     for i in range(len(sample[0][0])-1): formato += '%s,'
     formato += '%s \n'
-    __exportSample(sample,formato,"Feature%s,",name)
+    __writeSample(sample,formato,"Feature%s,",name)
 
 #Escribe en archivo un conjunto de muestras
-def __exportSample(sample, format, formathead, location):
+def __writeSample(sample, format, formathead, location):
     file = open(location, "w")
     for i in range(len(sample[0][0])-1): file.write(formathead % str(i+1))
     file.write('Class\n')
@@ -18,8 +18,8 @@ def __setFormat(sample, format, file):
     for data in sample: file.write(format % tuple(data))
 
 #----En elaboracionn-----
-def createFileOutputReal(c0, c1, name):
+def createFileOutputReal(sample, name):
     formato = ""
-    for i in range(0, 3): formato += '%s,'
+    for i in range(len(sample)-1): formato += '%s,'
     formato += '%s \n'
-    __exportSample(c0+c1, formato,"Feature%s,",'../INPUT/REAL/SVM/'+name+'.csv')
+    __writeSample(sample,formato,"Feature%s,",name)
