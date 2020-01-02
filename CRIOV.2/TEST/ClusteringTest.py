@@ -7,7 +7,7 @@ import unittest
 from CRIO.Modelo.Cluster import Cluster,mergeClusters
 from CRIO.Modelo.Sample import Sample
 from CRIO.Modelo.SampleContainer import SampleContainer
-from CRIO.Clustering import containsOutlier,createDistanceGraph
+from CRIO.Clustering import containsOutlier,createDistanceGraph, minimumEdge
 from CRIO.Modelo.ClusterContainer import ClusterContainer
 import networkx as nx
 import matplotlib.pyplot as plt
@@ -205,7 +205,96 @@ class Test(unittest.TestCase):
         self.assertEquals(g.get_edge_data(c2, c3)['weight'],5.0,"la distancia debe ser 5") 
         self.assertEquals(g.get_edge_data(c2, c4)['weight'],3.0,"la distancia debe ser 3") 
         self.assertEquals(g.get_edge_data(c3, c4)['weight'],4.0,"la distancia debe ser 4")
+        
+    def test_minimumDistance_trivial_2d(self):
+        d = 2
+        c1 = Cluster([(0.0,0.0)], d)
+        c2 = Cluster([(1.0,0.0)], d)
+        clusters = ClusterContainer([c1,c2],d)
+        g = createDistanceGraph(clusters.getClusters())
+        
+        (u,v) = minimumEdge(g)
+        self.assertEquals(g[u][v]['weight'], 1.0, "la minima arista tiene peso 1")
+        
+    def test_minimumDistance_trivial_3d(self):
+        d = 3
+        c1 = Cluster([(0.0,0.0,0.0)], d)
+        c2 = Cluster([(1.0,0.0,0.0)], d)
+        clusters = ClusterContainer([c1,c2],d)
+        g = createDistanceGraph(clusters.getClusters())
+        
+        (u,v) = minimumEdge(g)
+        self.assertEquals(g[u][v]['weight'], 1.0, "la minima arista tiene peso 1")
     
+    def test_minimumDistance_trivial_4d(self):
+        d = 4
+        c1 = Cluster([(0.0,0.0,0.0,0.0)], d)
+        c2 = Cluster([(1.0,0.0,0.0,0.0)], d)
+        clusters = ClusterContainer([c1,c2],d)
+        g = createDistanceGraph(clusters.getClusters())
+        
+        (u,v) = minimumEdge(g)
+        self.assertEquals(g[u][v]['weight'], 1.0, "la minima arista tiene peso 1")
+        
+
+        
+    def test_minimunDistanceOnlyOneSamplesForCluster_2D(self):
+        d = 2
+        c1 = Cluster([(2.0,6.0)], d)
+        c2 = Cluster([(2.0,2.0)], d)
+        c3 = Cluster([(5.0,6.0)], d)
+        c4 = Cluster([(5.0,2.0)], d)
+        clusters = ClusterContainer([c1,c2,c3,c4],d)
+        g = createDistanceGraph(clusters.getClusters())
+        (u,v) = minimumEdge(g)
+        self.assertEquals(g[u][v]['weight'], 3.0, "la minima arista tiene peso 3")
+        
+    def test_minimunDistanceOnlyOneSamplesForCluster_3D(self):
+        d = 3
+        c1 = Cluster([(2.0,6.0,0.0)], d)
+        c2 = Cluster([(2.0,2.0,0.0)], d)
+        c3 = Cluster([(5.0,6.0,0.0)], d)
+        c4 = Cluster([(5.0,2.0,0.0)], d)
+        clusters = ClusterContainer([c1,c2,c3,c4],d)
+        g = createDistanceGraph(clusters.getClusters())
+        (u,v) = minimumEdge(g)
+        self.assertEquals(g[u][v]['weight'], 3.0, "la minima arista tiene peso 3")
+        
+    def test_minimunDistanceOnlyOneSamplesForCluster_4D(self):
+        d = 4
+        c1 = Cluster([(2.0,6.0,0.0,0.0)], d)
+        c2 = Cluster([(2.0,2.0,0.0,0.0)], d)
+        c3 = Cluster([(5.0,6.0,0.0,0.0)], d)
+        c4 = Cluster([(5.0,2.0,0.0,0.0)], d)
+        clusters = ClusterContainer([c1,c2,c3,c4],d)
+        g = createDistanceGraph(clusters.getClusters())
+        (u,v) = minimumEdge(g)
+        self.assertEquals(g[u][v]['weight'], 3.0, "la minima arista tiene peso 3")
+    
+    def test_minimumDistance_severalSamplesInClusters_2D(self):
+        d = 2
+        c1 = Cluster([(1.0,7.0),(3.0,7.0),(1.0,5.0),(3.0,5.0)], d)
+        c2 = Cluster([(1.0,3.0),(3.0,3.0),(1.0,1.0),(3.0,1.0)], d)
+        c3 = Cluster([(4.0,7.0),(6.0,5.0),(6.0,7.0),(4.0,5.0)], d)
+        c4 = Cluster([(4.0,3.0),(4.0,1.0),(6.0,1.0),(6.0,3.0)], d)
+        clusters = ClusterContainer([c1,c2,c3,c4],d)
+        g = createDistanceGraph(clusters.getClusters())
+        
+        (u,v) = minimumEdge(g)
+        self.assertEquals(g[u][v]['weight'], 3.0, "la minima arista tiene peso 3")
+    
+    def test_minimumDistance_severalSamplesInClusters_3D(self):
+        d = 4
+        c1 = Cluster([(1.0,7.0,0.0),(3.0,7.0,0.0),(1.0,5.0,0.0),(3.0,5.0,0.0)], d)
+        c2 = Cluster([(1.0,3.0,0.0),(3.0,3.0,0.0),(1.0,1.0,0.0),(3.0,1.0,0.0)], d)
+        c3 = Cluster([(4.0,7.0,0.0),(6.0,5.0,0.0),(6.0,7.0,0.0),(4.0,5.0,0.0)], d)
+        c4 = Cluster([(4.0,3.0,0.0),(4.0,1.0,0.0),(6.0,1.0,0.0),(6.0,3.0,0.0)], d)
+        clusters = ClusterContainer([c1,c2,c3,c4],d)
+        g = createDistanceGraph(clusters.getClusters())
+        
+        (u,v) = minimumEdge(g)
+        self.assertEquals(g[u][v]['weight'], 3.0, "la minima arista tiene peso 3")
+          
    
         
         

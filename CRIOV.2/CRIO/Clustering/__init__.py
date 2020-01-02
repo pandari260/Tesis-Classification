@@ -6,6 +6,7 @@ import numpy as np
 from timeit import itertools
 from CRIO.Modelo.ClusterContainer import ClusterContainer
 import networkx as nx
+from functools import reduce
 
 
 #resive dos SamplesContainer de clase A y B, y retorna clusters de clase A de acuerdo a clustering por menor distacia promedio
@@ -15,9 +16,17 @@ def createClusters(samplesA, samplesB):
     k = 0
     distances_graph = createDistanceGraph(clusters.getClusters())
     while k < K:
-        pass
+        (u,v) = minimumEdge(distances_graph)
         
         
+
+def minimumEdge(g):
+    return reduce(lambda a,b: a if g[a[0]][a[1]]['weight'] < g[b[0]][b[1]]['weight'] else b , g.edges())
+  
+    
+    
+    
+    
 def createDistanceGraph(elements):
     G = nx.Graph()
     for u in elements:
