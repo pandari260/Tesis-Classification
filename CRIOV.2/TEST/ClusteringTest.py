@@ -154,10 +154,57 @@ class Test(unittest.TestCase):
         self.assertEquals(g.get_edge_data(c2, c3)['weight'],5.0,"la distancia debe ser 5") 
         self.assertEquals(g.get_edge_data(c2, c4)['weight'],3.0,"la distancia debe ser 3") 
         self.assertEquals(g.get_edge_data(c3, c4)['weight'],4.0,"la distancia debe ser 4")  
- 
 
+    def test_createDistanceGraph_severalSamplesInClusters_2D(self):
+        d = 2
+        c1 = Cluster([(1.0,7.0),(3.0,7.0),(1.0,5.0),(3.0,5.0)], d)
+        c3 = Cluster([(4.0,7.0),(6.0,5.0),(6.0,7.0),(4.0,5.0)], d)
+        c2 = Cluster([(1.0,3.0),(3.0,3.0),(1.0,1.0),(3.0,1.0)], d)
+        c4 = Cluster([(4.0,3.0),(4.0,1.0),(6.0,1.0),(6.0,3.0)], d)
+        clusters = ClusterContainer([c1,c2,c3,c4],d)
+        g = createDistanceGraph(clusters.getClusters())
         
+        print(g.get_edge_data(c1, c2)['weight'])
+        self.assertEquals(g.get_edge_data(c1, c2)['weight'],4.0,"la distancia debe ser 4")
+        self.assertEquals(g.get_edge_data(c1, c3)['weight'],3.0,"la distancia debe ser 3") 
+        self.assertEquals(g.get_edge_data(c1, c4)['weight'],5.0,"la distancia debe ser 5") 
+        self.assertEquals(g.get_edge_data(c2, c3)['weight'],5.0,"la distancia debe ser 5") 
+        self.assertEquals(g.get_edge_data(c2, c4)['weight'],3.0,"la distancia debe ser 3") 
+        self.assertEquals(g.get_edge_data(c3, c4)['weight'],4.0,"la distancia debe ser 4")
         
+    def test_createDistanceGraph_severalSamplesInClusters_3D(self):
+        d = 3
+        c1 = Cluster([(1.0,7.0,0.0),(3.0,7.0,0.0),(1.0,5.0,0.0),(3.0,5.0,0.0)], d)
+        c3 = Cluster([(4.0,7.0,0.0),(6.0,5.0,0.0),(6.0,7.0,0.0),(4.0,5.0,0.0)], d)
+        c2 = Cluster([(1.0,3.0,0.0),(3.0,3.0,0.0),(1.0,1.0,0.0),(3.0,1.0,0.0)], d)
+        c4 = Cluster([(4.0,3.0,0.0),(4.0,1.0,0.0),(6.0,1.0,0.0),(6.0,3.0,0.0)], d)
+        clusters = ClusterContainer([c1,c2,c3,c4],d)
+        g = createDistanceGraph(clusters.getClusters())
+        
+        print(g.get_edge_data(c1, c2)['weight'])
+        self.assertEquals(g.get_edge_data(c1, c2)['weight'],4.0,"la distancia debe ser 4")
+        self.assertEquals(g.get_edge_data(c1, c3)['weight'],3.0,"la distancia debe ser 3") 
+        self.assertEquals(g.get_edge_data(c1, c4)['weight'],5.0,"la distancia debe ser 5") 
+        self.assertEquals(g.get_edge_data(c2, c3)['weight'],5.0,"la distancia debe ser 5") 
+        self.assertEquals(g.get_edge_data(c2, c4)['weight'],3.0,"la distancia debe ser 3") 
+        self.assertEquals(g.get_edge_data(c3, c4)['weight'],4.0,"la distancia debe ser 4")
+
+    def test_createDistanceGraph_severalSamplesInClusters_4D(self):
+        d = 4
+        c1 = Cluster([(1.0,7.0,0.0,0.0),(3.0,7.0,0.0,0.0),(1.0,5.0,0.0,0.0),(3.0,5.0,0.0,0.0)], d)
+        c3 = Cluster([(4.0,7.0,0.0,0.0),(6.0,5.0,0.0,0.0),(6.0,7.0,0.0,0.0),(4.0,5.0,0.0,0.0)], d)
+        c2 = Cluster([(1.0,3.0,0.0,0.0),(3.0,3.0,0.0,0.0),(1.0,1.0,0.0,0.0),(3.0,1.0,0.0,0.0)], d)
+        c4 = Cluster([(4.0,3.0,0.0,0.0),(4.0,1.0,0.0,0.0),(6.0,1.0,0.0,0.0),(6.0,3.0,0.0,0.0)], d)
+        clusters = ClusterContainer([c1,c2,c3,c4],d)
+        g = createDistanceGraph(clusters.getClusters())
+        
+        print(g.get_edge_data(c1, c2)['weight'])
+        self.assertEquals(g.get_edge_data(c1, c2)['weight'],4.0,"la distancia debe ser 4")
+        self.assertEquals(g.get_edge_data(c1, c3)['weight'],3.0,"la distancia debe ser 3") 
+        self.assertEquals(g.get_edge_data(c1, c4)['weight'],5.0,"la distancia debe ser 5") 
+        self.assertEquals(g.get_edge_data(c2, c3)['weight'],5.0,"la distancia debe ser 5") 
+        self.assertEquals(g.get_edge_data(c2, c4)['weight'],3.0,"la distancia debe ser 3") 
+        self.assertEquals(g.get_edge_data(c3, c4)['weight'],4.0,"la distancia debe ser 4")
     
    
         
