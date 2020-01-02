@@ -19,6 +19,8 @@ class SampleContainer(object):
         '''
         self.__data = set(map(lambda spl: spl if isinstance(spl,Sample) else Sample(spl),s))
         self.__dimension = d
+        
+   
     
     def getDimension(self):
         return self.__dimension

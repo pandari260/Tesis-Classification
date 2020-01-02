@@ -33,8 +33,7 @@ class ClusterContainer(object):
     def getSize(self):
         return len(self.__clusters)
             
-            
-            
+    
             
             
             

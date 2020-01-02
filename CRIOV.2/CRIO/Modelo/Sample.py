@@ -20,7 +20,7 @@ class Sample(object):
     def __str__(self, *args, **kwargs):
         return str(self.__data)
     def __eq__(self,obj):
-        return isinstance(Sample) and self.__data == obj.getData()
+        return isinstance(obj,Sample) and self.__data == obj.getData()
         
     def getDimension(self):
         return len(self.__data)
