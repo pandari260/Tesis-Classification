@@ -5,6 +5,7 @@ from sympy.physics.quantum.tests.test_qapply import po
 from ErrorMessages import *
 from CRIO.Importer import readSamples
 
+
 routeClassA = "model/clusteringClassA.dat"
 routeClassB = "model/clusteringClassB.dat"
 routeParams = "model/clusteringParameters"
@@ -66,6 +67,7 @@ def defineClusters(classA, classB):
         return [classA]
     else:
         clusters = creatDefaultCluster(classA)
+        print("default clusters: " + str(clusters))
         K = len(clusters)
         k = 0
         while k < K:
@@ -141,6 +143,7 @@ def contieneOutlier(Cr, Cs, claseB):
     writeParameters(parameters, routeParams)
     model = scip.solveProblem(routeModel)
     ret = model.getObjVal()
+    print("valor objetivo: " + str(model.getObjVal()) + str(Cr + Cs))
     if ret != 0:
         ret = 1
     return ret

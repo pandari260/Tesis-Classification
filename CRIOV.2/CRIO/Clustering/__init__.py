@@ -12,21 +12,54 @@ from functools import reduce
 #resive dos SamplesContainer de clase A y B, y retorna clusters de clase A de acuerdo a clustering por menor distacia promedio
 def createClusters(samplesA, samplesB):
     clusters = createDefaultClusters(samplesA)
-    K = clusters.getSize()
-    k = 0
-    distances_graph = createDistanceGraph(clusters.getClusters())
-    while k < K:
-        (u,v) = minimumEdge(distances_graph)
+    samples = samplesB
+    
+    if samplesA.getSize() == 1:
+        return clusters
+    
+    else:       
+        
+        K = clusters.getSize()
+        k = 0
+        distances_graph = createDistanceGraph(clusters.getClusters())
+        while k < K:
+            #for c in clusters.getClusters():
+             #   print(map(lambda s: s.getData(), c.getSamples()))
+            (u,v) = minimumEdge(distances_graph)
+            merged = mergeClusters(u, v)
+            if containsOutlier(merged, samples):
+                k = k + 1
+                
+            else:
+                clusters = updateClusterContainer(clusters, u, v, merged)
+                distances_graph = updateDistanceGraph(distances_graph, u,v,merged)
+                K = K - 1
+                k = 0
+            k = k + 1
         
         
+        return ClusterContainer(filter(lambda cls: cls.getSize() >= clusters.getSize()*0.01, clusters.getClusters()),clusters.getDimension())
+            
+            
+def updateClusterContainer(clusters, u,v,merged):
+    clusters.remove(u)
+    clusters.remove(v)
+    clusters.add(merged)
+    return clusters
+    
+def updateDistanceGraph(g,u,v,merged):
+    g.remove_node(u)
+    g.remove_node(v)
+    nodes = set(g.nodes)
+    for n in nodes:
+        g.add_edge(merged,n, weight=distance(merged, n))
+    
+    return g
+    
 
 def minimumEdge(g):
     return reduce(lambda a,b: a if g[a[0]][a[1]]['weight'] < g[b[0]][b[1]]['weight'] else b , g.edges())
-  
-    
-    
-    
-    
+
 def createDistanceGraph(elements):
     G = nx.Graph()
     for u in elements:
@@ -68,7 +101,7 @@ def containsOutlier(mergedCluster,samples):
     ##########################################################################
     
     model.optimize()
-
+    print("valor objetivo: " + str(model.getObjVal()) + str(map(lambda s: s.getData(), mergedCluster.getSamples())))
     return model.getObjVal() == 0
     
     

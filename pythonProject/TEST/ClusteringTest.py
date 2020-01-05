@@ -16,7 +16,7 @@ class Test(unittest.TestCase):
     """ SampleKeyDict: toma una matriz no vacia y la transforma en un diccionario cuyas claves 
     son los elementos de la matriz y los valores el indice correspondiente a cada lista """
     
-    def testSampleKeyEmptyMatrix(self):
+    """def testSampleKeyEmptyMatrix(self):
         print("caso matriz vacia:\n")
         matrix = []
         self.assertEquals(None, Clustering.sampleKeyDict(matrix))
@@ -53,7 +53,6 @@ class Test(unittest.TestCase):
         dict = {0.0:0.0,1.0:1.0,2.0:2.0,3.0:3.0}
         self.assertEquals(dict, Clustering.sampleKeyDict(matrix))
         
-    """defineClusters: crea cluster con las muestras de clase A que no contienen muestras de clase B """
     def testDefineClusterNoneOutlier(self):
         classA = [(0.0,0.0),(0.0,1.0),(0.0,2.0),(0.0,3.0)]
         classB = [(0.0,4.0),(0.0,5.0),(0.0,6),(0.0,7)]
@@ -107,15 +106,16 @@ class Test(unittest.TestCase):
         
         print("el cluster: " + str(Clustering.defineClusters(classB,classA)))
         self.assertEquals([[(0.0,1.0,0.0)],[(0.0,3.0,0.0)],[(0.0,5.0,0.0)],[(0.0,7.0,0.0)]], Clustering.defineClusters(classA, classB))
-        self.assertEquals([[(0.0,2.0,0.0)],[(0.0,4.0,0.0)],[(0.0,6.0,0.0)],[(0.0,8.0,0.0)]], Clustering.defineClusters(classB, classA))
+        self.assertEquals([[(0.0,2.0,0.0)],[(0.0,4.0,0.0)],[(0.0,6.0,0.0)],[(0.0,8.0,0.0)]], Clustering.defineClusters(classB, classA))"""
     
     def testDefineClusterOneSampleClusterOnlyOneOutlier(self):
-        classA = [(0.0,0.0),(0.0,1.0),(0.0,2.0),(0.0,3.0)]
-        classB = [(0.0,1.5)]      
-        self.assertEquals([[(0.0,0.0),(0.0,1.0)],[(0.0,2.0),(0.0,3.0)]], Clustering.defineClusters(classA, classB))
-        self.assertEquals([classB], Clustering.defineClusters(classB, classA))
+        classA = [(0.0,0.0),(0.0,10.0),(0.0,11.0),(0.0,30.0)]
+        classB = [(0.0,10.5)]      
+        self.assertEquals([[(0.0,0.0),(0.0,10.0)],[(0.0,11.0),(0.0,3.0)]], Clustering.defineClusters(classA, classB))
+        #self.assertEquals([classB], Clustering.defineClusters(classB, classA))
+        self.assertTrue(False)
         
-        classA = [(0.0,0.0,0.0),(0.0,0.0,1.0),(0.0,0.0,2.0),(0.0,0.0,3.0)]
+        """classA = [(0.0,0.0,0.0),(0.0,0.0,1.0),(0.0,0.0,2.0),(0.0,0.0,3.0)]
         classB = [(0.0,0.0,1.5)]      
         self.assertEquals([[(0.0,0.0,0.0),(0.0,0.0,1.0)],[(0.0,0.0,2.0),(0.0,0.0,3.0)]], Clustering.defineClusters(classA, classB))
         self.assertEquals([classB], Clustering.defineClusters(classB, classA))
@@ -124,8 +124,9 @@ class Test(unittest.TestCase):
         classB = [(0.0,1.5,0.0)]      
         self.assertEquals([[(0.0,0.0,0.0),(0.0,1.0,0.0)],[(0.0,2.0,0.0),(0.0,3.0,0.0)]], Clustering.defineClusters(classA, classB))
         self.assertEquals([classB], Clustering.defineClusters(classB, classA))
+        self.assertTrue(False)"""
     
-    def testDefineClusterExtremeOutliers(self):
+    """def testDefineClusterExtremeOutliers(self):
         classA = [(0.0,0.0),(0.0,1.0),(0.0,2.0),(0.0,3.0)]
         classB = [(0.0,-1.0),(0.0,1.5),(0.0,4.0)]
         self.assertEquals([[(0.0,0.0),(0.0,1.0)],[(0.0,2.0),(0.0,3.0)]], Clustering.defineClusters(classA, classB))
@@ -144,7 +145,6 @@ class Test(unittest.TestCase):
     
 
         
-    """createDefoultCluster: dado un conjunto de muestras retorna una lista de clusters trivial"""
     def testcreateDefoultcluster(self):
         class2 = [(1.0,1.0),(2.0,2.0),(3.0,3.0),(4.0,4.0)]
         self.assertEquals([[(1.0,1.0)],[(2.0,2.0)],[(3.0,3.0)],[(4.0,4.0)]], Clustering.creatDefaultCluster(class2))
@@ -154,7 +154,6 @@ class Test(unittest.TestCase):
         self.assertEquals([[(1.0,1.0,1.0,1.0)],[(2.0,2.0,2.0,2.0)],[(3.0,3.0,3.0,3.0)],[(4.0,4.0,4.0,4.0)]], Clustering.creatDefaultCluster(class3))    
     
     
-    """ crearMatrizDistancia: Tomas una lista cluster y crea una matriz con las disancias entre cada uno """
     def testcrearMatrizDistancia(self):
         clusters= [[(0.0,1.0)],[(0.0,2.0)],[(0.0,3.0)]]
         self.assertEqual([[],[1.0],[2.0,1.0]], Clustering.crearMatrizDistancia(clusters))
@@ -180,7 +179,6 @@ class Test(unittest.TestCase):
         self.assertEqual([], Clustering.crearMatrizDistancia(clusters))
     
 
-    """ distanceBtwSamples: Toma dos muestras y devuelve la distancia entre ellos"""
     def testdistanceBtwSamples(self):
         sampleA = (1.0,0.0)
         sampleB = (2.0,0.0)
@@ -194,9 +192,7 @@ class Test(unittest.TestCase):
         sampleB = (2.0,0.0,0.0,0.0)
         self.assertEquals(1.0, Clustering.distanceBtwSamples(sampleA, sampleB))
     
-    """distanceBtwClusters: Toma dos clusters y calcula la distancia entre los centro de cada uno
-    el centro de un cluster es el 'punto' que se forma al calcular el promedio de cada coordenada
-    de todas las muestras"""
+   
     def testdistanceBtwClusters(self):
         clusterA = [(1.0,2.0),(2.0,2.0),(1.0,3.0),(2.0,3.0)]
         clusterB = [(3.0,1.0),(4.0,1.0),(3.0,2.0),(4.0,2.0)]
@@ -210,7 +206,6 @@ class Test(unittest.TestCase):
         clusterB = [(0.0,0.0,3.0,1.0),(0.0,0.0,4.0,1.0),(0.0,0.0,3.0,2.0),(0.0,0.0,4.0,2.0)]
         self.assertEquals(math.sqrt(5), Clustering.distanceBtwClusters(clusterA, clusterB)) 
     
-    """minimaDistancia: dada una matriz de distancia retorna las coordenadas (fila, columna) del menor valor"""
     def testMinimaDistancia(self):
         matriz = [[],[1.0, 3.0],[1.4,2.0,3.0]]
         self.assertEquals((1,0), Clustering.minimaDistancia(matriz))
@@ -221,7 +216,6 @@ class Test(unittest.TestCase):
         matriz = []
         self.assertEquals((-1,-1), Clustering.minimaDistancia(matriz))
         
-    """contieneOutlier: Determina si hay un outlier que impide que se fucionen dos clusters devuelve uno si no contiene, 0 si contiene"""
     def testcontieneOutlierNoneOutlier(self):
         Cs = [(1.0,1.0),(2.0,2.0),(3.0,1.0)]
         Cr = [(3.0,4.0),(4.0,4.0),(4.0,5.0)]
@@ -257,7 +251,7 @@ class Test(unittest.TestCase):
         Cr = [(0.0,3.0,4.0,0.0),(0.0,4.0,4.0,0.0),(0.0,4.0,5.0,0.0)]
         claseB =[(0.0,3.0,3.0,0.0)]
         
-        self.assertEquals(0, Clustering.contieneOutlier(Cr, Cs, claseB))
+        self.assertEquals(0, Clustering.contieneOutlier(Cr, Cs, claseB))"""
         
         
 

@@ -32,6 +32,13 @@ class ClusterContainer(object):
     
     def getSize(self):
         return len(self.__clusters)
+    
+    def remove(self,c):
+        self.__clusters.remove(c)
+    
+    def add(self,c):
+        self.__clusters.add(c)
+        
             
     
             
