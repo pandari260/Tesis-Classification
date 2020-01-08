@@ -9,6 +9,7 @@ class Group(SampleContainer):
     '''
     Esta clase representa un grupo en el metodo CRIO
     '''
+   
 
 
     

@@ -4,6 +4,7 @@ from CRIO.Modelo.SampleContainer import SampleContainer
 from CRIO.Modelo.Cluster import Cluster
 from CRIO.Modelo.ClusterContainer import ClusterContainer
 from CRIO.Modelo.Sample import Sample
+from CRIO.Modelo.GroupContainer import GroupContainer
 
 
 M = 100000 #parametro grande
@@ -96,26 +97,35 @@ def assignClustersToGroups(clusters0, clusters1, num_groups):
     return (getVals(model, aVars), getVals(model, e0Vars), getVals(model, e1Vars))
     
     
-
-
-def main():
+def createGroups(clusters0,clusters1,num_groups):
     d = 2
-    num_groups = 2
+    (a,e0,e1) = assignClustersToGroups(clusters0, clusters1, num_groups)
     
-    s1 = Sample((5.0,7.0))
-    s2 = Sample((8.0,4.0))
-    s3 = Sample((5.0,4.0))
-    clusters0 = ClusterContainer([Cluster([s1,s2,s3],d)],d)
+    outliers_0 = getOutliers(e0, clusters0)
+    outliers_1 = getOutliers(e1, clusters1)
+    
+    groups = GroupContainer(d)
+    
+    for clstr in clusters1.getClusters():
+        groups.addSamples(getGroupIndex(a, clstr,num_groups), clstr.getSamples() - outliers_1.getSamples())
+        
+    return (groups, removeOutliers(clusters0, outliers_0))
+   
 
-    c1 = Cluster([(3.0,5.0),(4.0,6.0)], d)
-    c2 = Cluster([(6.0,2.0),(7.0,3.0)], d)
-    c3 = Cluster([(7.0,9.0),(10.0,6.0)],d)      
-    clusters1 = ClusterContainer([c1,c2,c3],d)
-    
-    (a,e0,e1) = assignClustersToGroups(clusters0, clusters1, num_groups)   
+def removeOutliers(clusters, outliers):
+    return ClusterContainer(map(lambda clstr: Cluster(clstr.getSamples() - outliers.getSamples(), clstr.getDimension()), clusters.getClusters()), clusters.getDimension())
 
-main()
+def getOutliers(eVar, clusters):
+    return SampleContainer(filter(lambda spl: eVar[spl] > 1, clusters.getSamples().getSamples()), clusters.getDimension()) 
     
+
+def getGroupIndex(dic, cluster, num_groups):
+    ret = -1
+    for i in range(num_groups):
+        if dic[(i,cluster)] > 0.5:
+            ret = i
+    return ret
+
 
         
     

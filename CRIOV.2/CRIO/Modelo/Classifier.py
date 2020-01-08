@@ -32,7 +32,7 @@ def train(class0,class1,dimension,num_groups):
 def createClusters(classA,classB):
     pass
 
-def createGroups(clusters0,clusters1):
+def createGroups(clusters0,clusters1,num_groups):
     pass
 
 def createRegions(groups1,clusters0):

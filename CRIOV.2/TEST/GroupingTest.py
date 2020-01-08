@@ -6,24 +6,26 @@ Created on 12 dic. 2019
 import unittest
 from CRIO.Modelo.ClusterContainer import ClusterContainer
 from CRIO.Modelo.Cluster import Cluster
-from CRIO.Grouping import assignClustersToGroups
+from CRIO.Grouping import assignClustersToGroups, createGroups
 from CRIO.Modelo.Sample import Sample
 
-def getGroup(dic, cluster, num_groups):
+def getGroupIndex(dic, cluster, num_groups):
     ret = -1
     for i in range(num_groups):
-        #print("valor de diccionario: "  + str(dic[(i,cluster)]) + " Valor de guarda: " + str(dic[(i,cluster)] > 0.99) + " tipo de dato " + str(type(dic[(i,cluster)])))
-        if dic[(i,cluster)] > 0.9:
-            #print("entro con %s%s" %(i,cluster) + "con el valor de: "  + str(dic[(i,cluster)]))
+        if dic[(i,cluster)] > 0.5:
             ret = i
-        #if dic[(i,cluster)] != 0 and dic[(i,cluster)] != 1:
-            #print("resultado de la suma de " + str(dic[(i,cluster)]) + " mas 1 es: " + str(dic[(i,cluster)] + 1)) 
     return ret
+
+def getGroup(groups, sample):
+    for g in groups.getGroups():
+        if g.contains(sample):
+            return g
+    return None
 
 def usedGroups(num_groups, clusters1, a):
     used_groups = []
     for c in clusters1.getClusters():
-        used_groups.append(getGroup(a, c, num_groups))
+        used_groups.append(getGroupIndex(a, c, num_groups))
     return set(used_groups)
 
 class ClusteringTest(unittest.TestCase):
@@ -89,8 +91,8 @@ class ClusteringTest(unittest.TestCase):
         self.assertEqual(e0[s2], 0.0)
         self.assertTrue(e0[s3] > 1.0, "Una de las muestras de clase 0 deberia ser reconisida como outlier si la cantidad de grupos es menor a la cantidad de clusters")
         
-        self.assertEqual(getGroup(a,c1,num_groups), getGroup(a,c2,num_groups), "Dos clusters deben pertenercer al mismo grupo si la cantidad de grupos es menor a la catidad de clusters")
-        self.assertNotEqual(getGroup(a,c1,num_groups), getGroup(a,c3,num_groups))
+        self.assertEqual(getGroupIndex(a,c1,num_groups), getGroupIndex(a,c2,num_groups), "Dos clusters deben pertenercer al mismo grupo si la cantidad de grupos es menor a la catidad de clusters")
+        self.assertNotEqual(getGroupIndex(a,c1,num_groups), getGroupIndex(a,c3,num_groups))
     
     def test_assingClustersToGroups_DestectOutlierClass1_2D(self):
         
@@ -119,7 +121,7 @@ class ClusteringTest(unittest.TestCase):
         self.assertTrue(e1[s4] == 0, "la muestra no debe ser detectada como outlier")
         self.assertTrue(e1[s5] == 0, "la muestra no debe ser detectada como outlier")
         
-        self.assertEqual(getGroup(a,cls1_1,num_groups), 0, "el cluster 1 debe estar en el unico grupo definido")
+        self.assertEqual(getGroupIndex(a,cls1_1,num_groups), 0, "el cluster 1 debe estar en el unico grupo definido")
     
     def test_assingClustersToGroups_CombineClusteres_2D(self):
         d = 2
@@ -142,12 +144,12 @@ class ClusteringTest(unittest.TestCase):
         self.assertEqual(e1.values(), [0.0,0.0,0.0,0.0,0.0,0.0,0.0], "ninguno cluster de clase 1 deberia tener outlier ya que es posible combinar dos cluster de clase 1")
         
         for c in clusters1.getClusters():
-            self.assertTrue(getGroup(a,c,num_groups) > -1,"todos los clusters deben tener un grupo asignado")
+            self.assertTrue(getGroupIndex(a,c,num_groups) > -1,"todos los clusters deben tener un grupo asignado")
         
         used_groups = usedGroups(num_groups, clusters1, a)
             
         self.assertEqual(len(used_groups),num_groups ,"Debe haver dos clusters asigndos al mismo grupo")
-        self.assertEqual(getGroup(a,cls1_1,num_groups), getGroup(a,cls1_2,num_groups),"estos dos cluster deben estar en el mismo grupo")
+        self.assertEqual(getGroupIndex(a,cls1_1,num_groups), getGroupIndex(a,cls1_2,num_groups),"estos dos cluster deben estar en el mismo grupo")
         
     def test_assignClustersToGroups_SameNumberOfGroupssAndClusters2D_SeveralClusters(self):
         
@@ -235,16 +237,16 @@ class ClusteringTest(unittest.TestCase):
         for c in clusters1.getClusters():
             #print("")
             #print("trabajando con: " + str(c))
-            #print("el grupo asginado  a: " + str(c)+ " es: " + str(getGroup(a,c,num_groups)))
-            self.assertTrue(getGroup(a,c,num_groups) > -1,"todos los clusters deben tener un grupo asignado")
+            #print("el grupo asginado  a: " + str(c)+ " es: " + str(getGroupIndex(a,c,num_groups)))
+            self.assertTrue(getGroupIndex(a,c,num_groups) > -1,"todos los clusters deben tener un grupo asignado")
         #print("")
         used_groups = usedGroups(num_groups, clusters1, a)
             #
         #print("grupos usados:" + str(used_groups))
         self.assertEqual(len(used_groups),num_groups ,"Debe haver 3 grupos con dos clusters")
-        self.assertEqual(getGroup(a,cls1_1,num_groups), getGroup(a,cls1_2,num_groups), "el cls1_1 debe estar en el mismo grupo que el cls1_2")
-        self.assertEqual(getGroup(a,cls1_4,num_groups), getGroup(a,cls1_5,num_groups), "el cls1_1 debe estar en el mismo grupo que el cls1_2")
-        self.assertEqual(getGroup(a,cls1_6,num_groups), getGroup(a,cls1_7,num_groups), "el cls1_1 debe estar en el mismo grupo que el cls1_2")
+        self.assertEqual(getGroupIndex(a,cls1_1,num_groups), getGroupIndex(a,cls1_2,num_groups), "el cls1_1 debe estar en el mismo grupo que el cls1_2")
+        self.assertEqual(getGroupIndex(a,cls1_4,num_groups), getGroupIndex(a,cls1_5,num_groups), "el cls1_1 debe estar en el mismo grupo que el cls1_2")
+        self.assertEqual(getGroupIndex(a,cls1_6,num_groups), getGroupIndex(a,cls1_7,num_groups), "el cls1_1 debe estar en el mismo grupo que el cls1_2")
         #self.assertTrue(False)
 
     def test_assignClustersToGroups_SameNumberOfGroupssAndClusters3D(self):   
@@ -305,8 +307,8 @@ class ClusteringTest(unittest.TestCase):
         self.assertTrue(e0[s3] > 1.0, "Una de las muestras de clase 0 deberia ser reconosida como outlier si la cantidad de grupos es menor a la cantidad de clusters")
 
         
-        self.assertEqual(getGroup(a,c1,num_groups), getGroup(a,c2,num_groups), "Dos clusters deben pertenercer al mismo grupo si la cantidad de grupos es menor a la catidad de clusters")
-        self.assertNotEqual(getGroup(a,c1,num_groups), getGroup(a,c3,num_groups))
+        self.assertEqual(getGroupIndex(a,c1,num_groups), getGroupIndex(a,c2,num_groups), "Dos clusters deben pertenercer al mismo grupo si la cantidad de grupos es menor a la catidad de clusters")
+        self.assertNotEqual(getGroupIndex(a,c1,num_groups), getGroupIndex(a,c3,num_groups))
     
     def test_assingClustersToGroups_DestectOutlierClass1_3D(self):
         
@@ -335,7 +337,7 @@ class ClusteringTest(unittest.TestCase):
         self.assertTrue(e1[s4] == 0, "la muestra no debe ser detectada como outlier")
         self.assertTrue(e1[s5] == 0, "la muestra no debe ser detectada como outlier")
         
-        self.assertEqual(getGroup(a,cls1_1,num_groups), 0, "el cluster 1 debe estar en el unico grupo definido")
+        self.assertEqual(getGroupIndex(a,cls1_1,num_groups), 0, "el cluster 1 debe estar en el unico grupo definido")
 
     def test_assingClustersToGroups_CombineClusteres_3D(self):
         d = 3
@@ -358,14 +360,14 @@ class ClusteringTest(unittest.TestCase):
         self.assertEqual(e1.values(), [0.0,0.0,0.0,0.0,0.0,0.0,0.0], "ninguno cluster de clase 1 deberia tener outlier ya que es posible combinar dos cluster de clase 1")
         
         for c in clusters1.getClusters():
-            self.assertTrue(getGroup(a,c,num_groups) > -1,"todos los clusters deben tener un grupo asignado")
+            self.assertTrue(getGroupIndex(a,c,num_groups) > -1,"todos los clusters deben tener un grupo asignado")
         
         used_groups = usedGroups(num_groups, clusters1, a)
             
         self.assertEqual(len(used_groups),num_groups ,"Debe haver dos clusters asigndos al mismo grupo")
-        self.assertEqual(getGroup(a,cls1_1,num_groups), getGroup(a,cls1_2,num_groups),"estos dos cluster deben estar en el mismo grupo")
+        self.assertEqual(getGroupIndex(a,cls1_1,num_groups), getGroupIndex(a,cls1_2,num_groups),"estos dos cluster deben estar en el mismo grupo")
         
-    def test_assignClustersToGroups_SameNumberOfGroupssAndClusters2D_SeveralClusters_3D(self):
+    def test_assignClustersToGroups_SameNumberOfGroupssAndClusters_SeveralClusters_3D(self):
         
         d = 3
         num_groups = 5
@@ -451,16 +453,16 @@ class ClusteringTest(unittest.TestCase):
         for c in clusters1.getClusters():
             #print("")
             #print("trabajando con: " + str(c))
-            #print("el grupo asginado  a: " + str(c)+ " es: " + str(getGroup(a,c,num_groups)))
-            self.assertTrue(getGroup(a,c,num_groups) > -1,"todos los clusters deben tener un grupo asignado")
+            #print("el grupo asginado  a: " + str(c)+ " es: " + str(getGroupIndex(a,c,num_groups)))
+            self.assertTrue(getGroupIndex(a,c,num_groups) > -1,"todos los clusters deben tener un grupo asignado")
         #print("")
         used_groups = usedGroups(num_groups, clusters1, a)
             #
         #print("grupos usados:" + str(used_groups))
         self.assertEqual(len(used_groups),num_groups ,"Debe haver 3 grupos con dos clusters")
-        self.assertEqual(getGroup(a,cls1_1,num_groups), getGroup(a,cls1_2,num_groups), "el cls1_1 debe estar en el mismo grupo que el cls1_2")
-        self.assertEqual(getGroup(a,cls1_4,num_groups), getGroup(a,cls1_5,num_groups), "el cls1_1 debe estar en el mismo grupo que el cls1_2")
-        self.assertEqual(getGroup(a,cls1_6,num_groups), getGroup(a,cls1_7,num_groups), "el cls1_1 debe estar en el mismo grupo que el cls1_2")
+        self.assertEqual(getGroupIndex(a,cls1_1,num_groups), getGroupIndex(a,cls1_2,num_groups), "el cls1_1 debe estar en el mismo grupo que el cls1_2")
+        self.assertEqual(getGroupIndex(a,cls1_4,num_groups), getGroupIndex(a,cls1_5,num_groups), "el cls1_1 debe estar en el mismo grupo que el cls1_2")
+        self.assertEqual(getGroupIndex(a,cls1_6,num_groups), getGroupIndex(a,cls1_7,num_groups), "el cls1_1 debe estar en el mismo grupo que el cls1_2")
         #self.assertTrue(False)
     
     def test_assignClustersToGroups_SameNumberOfGroupssAndClusters4D(self):   
@@ -521,8 +523,8 @@ class ClusteringTest(unittest.TestCase):
         self.assertTrue(e0[s3] > 1.0, "Una de las muestras de clase 0 deberia ser reconosida como outlier si la cantidad de grupos es menor a la cantidad de clusters")
 
         
-        self.assertEqual(getGroup(a,c1,num_groups), getGroup(a,c2,num_groups), "Dos clusters deben pertenercer al mismo grupo si la cantidad de grupos es menor a la catidad de clusters")
-        self.assertNotEqual(getGroup(a,c1,num_groups), getGroup(a,c3,num_groups))
+        self.assertEqual(getGroupIndex(a,c1,num_groups), getGroupIndex(a,c2,num_groups), "Dos clusters deben pertenercer al mismo grupo si la cantidad de grupos es menor a la catidad de clusters")
+        self.assertNotEqual(getGroupIndex(a,c1,num_groups), getGroupIndex(a,c3,num_groups))
     
     def test_assingClustersToGroups_DestectOutlierClass1_4D(self):
         
@@ -551,7 +553,7 @@ class ClusteringTest(unittest.TestCase):
         self.assertTrue(e1[s4] == 0, "la muestra no debe ser detectada como outlier")
         self.assertTrue(e1[s5] == 0, "la muestra no debe ser detectada como outlier")
         
-        self.assertEqual(getGroup(a,cls1_1,num_groups), 0, "el cluster 1 debe estar en el unico grupo definido")
+        self.assertEqual(getGroupIndex(a,cls1_1,num_groups), 0, "el cluster 1 debe estar en el unico grupo definido")
 
     def test_assingClustersToGroups_CombineClusteres_4D(self):
         d = 4
@@ -574,12 +576,12 @@ class ClusteringTest(unittest.TestCase):
         self.assertEqual(e1.values(), [0.0,0.0,0.0,0.0,0.0,0.0,0.0], "ninguno cluster de clase 1 deberia tener outlier ya que es posible combinar dos cluster de clase 1")
         
         for c in clusters1.getClusters():
-            self.assertTrue(getGroup(a,c,num_groups) > -1,"todos los clusters deben tener un grupo asignado")
+            self.assertTrue(getGroupIndex(a,c,num_groups) > -1,"todos los clusters deben tener un grupo asignado")
         
         used_groups = usedGroups(num_groups, clusters1, a)
             
         self.assertEqual(len(used_groups),num_groups ,"Debe haver dos clusters asigndos al mismo grupo")
-        self.assertEqual(getGroup(a,cls1_1,num_groups), getGroup(a,cls1_2,num_groups),"estos dos cluster deben estar en el mismo grupo")
+        self.assertEqual(getGroupIndex(a,cls1_1,num_groups), getGroupIndex(a,cls1_2,num_groups),"estos dos cluster deben estar en el mismo grupo")
         
     def test_assignClustersToGroups_SameNumberOfGroupssAndClusters_SeveralClusters_4D(self):
         
@@ -667,19 +669,38 @@ class ClusteringTest(unittest.TestCase):
         for c in clusters1.getClusters():
             #print("")
             #print("trabajando con: " + str(c))
-            #print("el grupo asginado  a: " + str(c)+ " es: " + str(getGroup(a,c,num_groups)))
-            self.assertTrue(getGroup(a,c,num_groups) > -1,"todos los clusters deben tener un grupo asignado")
+            #print("el grupo asginado  a: " + str(c)+ " es: " + str(getGroupIndex(a,c,num_groups)))
+            self.assertTrue(getGroupIndex(a,c,num_groups) > -1,"todos los clusters deben tener un grupo asignado")
         #print("")
         used_groups = usedGroups(num_groups, clusters1, a)
             #
         #print("grupos usados:" + str(used_groups))
         self.assertEqual(len(used_groups),num_groups ,"Debe haver 3 grupos con dos clusters")
-        self.assertEqual(getGroup(a,cls1_1,num_groups), getGroup(a,cls1_2,num_groups), "el cls1_1 debe estar en el mismo grupo que el cls1_2")
-        self.assertEqual(getGroup(a,cls1_4,num_groups), getGroup(a,cls1_5,num_groups), "el cls1_1 debe estar en el mismo grupo que el cls1_2")
-        self.assertEqual(getGroup(a,cls1_6,num_groups), getGroup(a,cls1_7,num_groups), "el cls1_1 debe estar en el mismo grupo que el cls1_2")
-        #self.assertTrue(False)
+        self.assertEqual(getGroupIndex(a,cls1_1,num_groups), getGroupIndex(a,cls1_2,num_groups), "el cls1_1 debe estar en el mismo grupo que el cls1_2")
+        self.assertEqual(getGroupIndex(a,cls1_4,num_groups), getGroupIndex(a,cls1_5,num_groups), "el cls1_1 debe estar en el mismo grupo que el cls1_2")
+        self.assertEqual(getGroupIndex(a,cls1_6,num_groups), getGroupIndex(a,cls1_7,num_groups), "el cls1_1 debe estar en el mismo grupo que el cls1_2")
     
+    def test_createGroups_SameNumberOfGroupssAndClusters2D(self):      
         
+            
+        d = 2
+        num_groups = 2
+
+        clusters1 = ClusterContainer([Cluster([(2.0,5.0),(3.0,6.0),(2.0,6.0)],d),Cluster([(7.0,2.0),(8.0,1.0),(8.0,2.0),(7.0,1.0)],d)],d)
+        clusters0 = ClusterContainer([Cluster([(4.0,4.0),(5.0,4.0),(4.0,3.0),(5.0,3.0)],d)],d)
+        
+        (groups, clusters0) = createGroups(clusters0, clusters1, num_groups)
+        
+        for g in groups.getGroups():
+            print("grupo: " + str(g) + " muestras: " + str(map(lambda s : s.getData(),g.getSamples())))
+        
+        for clstr in clusters1.getClusters():
+            self.assertEqual(len(set(map(lambda spl: getGroup(groups,spl),clstr.getSamples()))), 1, "todos las muestras del mismo cluster debe ir al mismo grupo")
+        
+        print(set([Sample((0.0,0.0))]).issubset(set([Sample((0.0,0.0))])))
+        self.assertTrue(False)
+                    
+        pass   
         
         
         

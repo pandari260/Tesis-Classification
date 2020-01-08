@@ -10,6 +10,8 @@ class Cluster(SampleContainer):
     '''
     esta clase representa un cluster para el metodo CRIO
     '''
+    def setSamples(self, samples):
+        self.__data = samples
     
 
 #toma dos clusters y los fusiona. Los clusters deben tener el mismo valor de dimension
@@ -22,5 +24,4 @@ def distance(c1, c2):
     return np.linalg.norm(list(map(lambda x: x[0] - x[1], list(zip(sampleA, sampleB)))))    
     
 
-    
 

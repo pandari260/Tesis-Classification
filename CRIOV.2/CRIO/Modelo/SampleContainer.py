@@ -30,4 +30,7 @@ class SampleContainer(object):
     
     def getSize(self):
         return len(self.__data)
+    
+    def contains(self, sample):
+        return self.__data.__contains__(sample)
         
