@@ -2,6 +2,9 @@ from pyscipopt import Model, quicksum
 from timeit import itertools
 from CRIO.Modelo.Cluster import Cluster
 from CRIO.Modelo.Group import Group
+from CRIO.Modelo.Hyperplane import Hyperplane
+from CRIO.Modelo.Region import Region
+
 
 def defineHyperplane(group,cluster):
     
@@ -11,8 +14,7 @@ def defineHyperplane(group,cluster):
             ret[key] = model.getVal(value)
         return ret
     
-    dimension = cluster.getDimension()
-    
+    dimension = cluster.getDimension()  
     
         
     ################## model #########################################
@@ -36,16 +38,26 @@ def defineHyperplane(group,cluster):
     model.setObjective(objective,sense="minimize")
     model.optimize()
 
-    return (getVals(model,piVars), model.getVal(alfaVar))    
+    return Hyperplane(getVals(model,piVars), model.getVal(alfaVar))    
     
     
     ################################################################## 
 
-def isRedundant(region, clusters):
+def createRegions(groups, clusters):
     
-    def auxiliarModel(region, cluster):
-        pass
+    regions = {}
+    for grp in groups.getGroups():
+        hiperplanes = []
+        for clstr in clusters.getClusters():
+            hiperplanes.append(defineHyperplane)
+        regions.add(Region(hiperplanes,clusters.getDimension()))
     
+    return map(lambda rgn: eliminateRedundant(rgn), regions)
+
+def eliminateRedundant(region):
+    return Region(filter(lambda hypr: hypr.isRedundant(region) == False, region.getHyperplanes())) 
+    
+            
     
     
     
