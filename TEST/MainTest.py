@@ -21,9 +21,9 @@ mMu = [[0,0],[6,0]]
 classes = [0,1]
 test = caseTest.CaseTest(name, dimension, n, (mMu, seed), classes)
 sample = test.initTest()
-print(sample)
+#print(sample)
 exporter.exportCaseTest(sample, name)
-graphTest(sample) 
+#graphTest(sample) 
 
 #c0,c1 = Sample.convertSampleCRIO(sample)
 #print(c0)

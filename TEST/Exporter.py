@@ -1,6 +1,7 @@
 #Guarda en el correspondiente archivo el caso de test generado
 def exportCaseTest(sample, name):
     formato = ""
+
     for i in range(len(sample[0][0])-1): formato += '%s,'
     formato += '%s \n'
     __writeSample(sample,formato,"Feature%s,",name)
@@ -17,9 +18,3 @@ def __writeSample(sample, format, formathead, location):
 def __setFormat(sample, format, file):
     for data in sample: file.write(format % tuple(data))
 
-#----En elaboracionn-----
-def createFileOutputReal(sample, name):
-    formato = ""
-    for i in range(len(sample)-1): formato += '%s,'
-    formato += '%s \n'
-    __writeSample(sample,formato,"Feature%s,",name)
