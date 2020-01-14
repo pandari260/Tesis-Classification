@@ -43,11 +43,10 @@ class ClusterContainer(object):
         self.__clusters.add(c)
         
 def compareSets(a,b):
-    l1 = list(a).sort()
-    l2 = list(b).sort()
-    return l1 == l2        
-    
-            
+    l1 = list(a)
+    l2 = list(b)
+    return all(elem in l1  for elem in l2) and all(elem in l2  for elem in l1)
+
             
             
             

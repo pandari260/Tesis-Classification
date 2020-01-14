@@ -36,6 +36,11 @@ class Sample(object):
     
     def getFeature(self,index):
         return self.__data[index]
+
+
     
+    
+    
+
 
     

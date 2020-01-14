@@ -309,13 +309,8 @@ class Test(unittest.TestCase):
         
         clusters_test = ClusterContainer([Cluster([s1_1,s1_2,s1_3,s1_4,s1_5,s1_6], d)],d)
         clusters = createClusters(class1, class0)
-        print(map(lambda s : s.getData(),clusters.getClusters().pop().getSamples()))
         self.assertEquals(clusters_test, clusters , "todas las muestras deben estar en un unico cluster")
-        
-        #cluster = createClusters(class1, class0).getClusters().pop()
-        
-        #for spl in class1.getSamples():
-         #   self.assertTrue(spl in cluster.getSamples(), "la muestra " + str(spl) + "debe estar en el unico cluster")  
+          
         
     def test_createClusters_allSamplesInTheSameCluster_3D(self):
         d = 3
@@ -325,10 +320,11 @@ class Test(unittest.TestCase):
         class0 = SampleContainer([s0_1,s0_2,s0_3],d)
         class1 = SampleContainer([s1_1,s1_2,s1_3,s1_4,s1_5,s1_6],d)
         
-        cluster = createClusters(class1, class0).getClusters().pop()
-        
-        for spl in class1.getSamples():
-            self.assertTrue(spl in cluster.getSamples(), "la muestra " + str(spl) + "debe estar en el unico cluster") 
+        clusters = createClusters(class1, class0)
+        clusters_test = ClusterContainer([Cluster([s1_1,s1_2,s1_3,s1_4,s1_5,s1_6], d)],d)
+        self.assertEquals(clusters, clusters_test, "todos las muestras deben estar en un unico cluster")        
+       
+
     
     def test_createClusters_allSamplesInTheSameCluster_4D(self):
         d = 4
@@ -338,10 +334,11 @@ class Test(unittest.TestCase):
         class0 = SampleContainer([s0_1,s0_2,s0_3],d)
         class1 = SampleContainer([s1_1,s1_2,s1_3,s1_4,s1_5,s1_6],d)
         
-        cluster = createClusters(class1, class0).getClusters().pop()
+        clusters = createClusters(class1, class0)
+        clusters_test = ClusterContainer([Cluster([s1_1,s1_2,s1_3,s1_4,s1_5,s1_6], d)],d)
+        self.assertEquals(clusters, clusters_test, "todos las muestras deben estar en un unico cluster")
         
-        for spl in class1.getSamples():
-            self.assertTrue(spl in cluster.getSamples(), "la muestra " + str(spl) + "debe estar en el unico cluster")
+       
         
     def test_DefineClusterNoneOutlierOnlyOneSample_2D(self):
         d = 2
@@ -384,14 +381,8 @@ class Test(unittest.TestCase):
         classB = SampleContainer([s0_1,s0_2,s0_3,s0_4],d)
         
         clusters = createClusters(classA, classB)
-        
-        self.assertEqual(clusters.getSize(), 4, "debe haver un cluster por cada muestra")
-        for clstr in clusters.getClusters():
-            self.assertEqual(clstr.getSize(), 1, "todos los cluster deben tener exactamente una muestra")
-        
-        for (c1,c2) in itertools.product(clusters.getClusters(),clusters.getClusters()):
-            if c1 != c2:
-                self.assertEquals(c1.getSamples().intersection(c2.getSamples()), set([]), "cada muestra debe estar en un cluster diferente")
+        clusters_test = ClusterContainer([Cluster([s1_1], d),Cluster([s1_2], d),Cluster([s1_3], d),Cluster([s1_4], d)],d)
+        self.assertEquals(clusters, clusters_test, "debe generarce un cluster para cada muestra")
     
     def test_onlyOneSampleForCluster_3D(self):
         d = 3
@@ -401,14 +392,8 @@ class Test(unittest.TestCase):
         classB = SampleContainer([s0_1,s0_2,s0_3,s0_4],d)
         
         clusters = createClusters(classA, classB)
-        
-        self.assertEqual(clusters.getSize(), 4, "debe haver un cluster por cada muestra")
-        for clstr in clusters.getClusters():
-            self.assertEqual(clstr.getSize(), 1, "todos los cluster deben tener exactamente una muestra")
-        
-        for (c1,c2) in itertools.product(clusters.getClusters(),clusters.getClusters()):
-            if c1 != c2:
-                self.assertEquals(c1.getSamples().intersection(c2.getSamples()), set([]), "cada muestra debe estar en un cluster diferente")
+        clusters_test = ClusterContainer([Cluster([s1_1], d),Cluster([s1_2], d),Cluster([s1_3], d),Cluster([s1_4], d)],d)
+        self.assertEquals(clusters, clusters_test, "debe generarce un cluster para cada muestra")
                
     def test_onlyOneSampleForCluster_4D(self):
         d = 4
@@ -418,27 +403,17 @@ class Test(unittest.TestCase):
         classB = SampleContainer([s0_1,s0_2,s0_3,s0_4],d)
         
         clusters = createClusters(classA, classB)
-        
-        self.assertEqual(clusters.getSize(), 4, "debe haver un cluster por cada muestra")
-        for clstr in clusters.getClusters():
-            self.assertEqual(clstr.getSize(), 1, "todos los cluster deben tener exactamente una muestra")
-        
-        for (c1,c2) in itertools.product(clusters.getClusters(),clusters.getClusters()):
-            if c1 != c2:
-                self.assertEquals(c1.getSamples().intersection(c2.getSamples()), set([]), "cada muestra debe estar en un cluster diferente")
+        clusters_test = ClusterContainer([Cluster([s1_1], d),Cluster([s1_2], d),Cluster([s1_3], d),Cluster([s1_4], d)],d)
+        self.assertEquals(clusters, clusters_test, "debe generarce un cluster para cada muestra")
     
     def test_onlyOneOutlier_2D(self):
         d = 2
         classA = SampleContainer([(0.0,0.0),(0.0,1.0),(0.0,2.0),(0.0,3.0)],d)
         classB = SampleContainer([(0.0,1.5)],d)
         clusters = createClusters(classA, classB)
-        #print("cantidad de clusters: " + str(clusters.getSize()))
-        #self.assertEquals(clusters.getSize(), 2, "deben generarce dos clusters")
-        cls1 = clusters.getClusters().pop()
-        cls2 = clusters.getClusters().pop()
-        #print(map(lambda s: s.getData(), cls1.getSamples()))
-        #print(map(lambda s: s.getData(), cls2.getSamples()))
-        #self.assertTrue(False)
+        clusters_test = ClusterContainer([Cluster([(0.0,2.0),(0.0,3.0)], d),Cluster([(0.0,0.0),(0.0,1.0)], d)],d)
+        self.assertEquals(clusters, clusters_test, "las muestras mergeables deben estar en el mismo cluster")
+
         
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']

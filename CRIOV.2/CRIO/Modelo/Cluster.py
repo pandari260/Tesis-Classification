@@ -15,8 +15,7 @@ class Cluster(SampleContainer):
     def setSamples(self, samples):
         self.__data = samples
 
-    def __eq__(self,obj):
-        return isinstance(obj,Sample) and self.__data == obj.getData()
+    
     
 
 #toma dos clusters y los fusiona. Los clusters deben tener el mismo valor de dimension
