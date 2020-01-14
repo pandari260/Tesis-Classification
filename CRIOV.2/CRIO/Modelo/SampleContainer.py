@@ -43,21 +43,7 @@ class SampleContainer(object):
     
     def contains(self, sample):
         return self.__data.__contains__(sample)
-    
 
-
-def main():
-    s1 = set([SampleContainer([(0.0,0.0)],2), SampleContainer([(1.0,0.0)],2)])
-    s2 = set([SampleContainer([(1.0,0.0)],2), SampleContainer([(0.0,0.0)],2)])
-    
-    l1 = list(s1)
-    l2 = list(s2)
-    
-    print(l2)
-    print(all(elem in l1  for elem in l2))
-    print(all(elem in l2  for elem in l1))
-
-main()
     
     
     

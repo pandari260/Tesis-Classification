@@ -413,6 +413,24 @@ class Test(unittest.TestCase):
         clusters = createClusters(classA, classB)
         clusters_test = ClusterContainer([Cluster([(0.0,2.0),(0.0,3.0)], d),Cluster([(0.0,0.0),(0.0,1.0)], d)],d)
         self.assertEquals(clusters, clusters_test, "las muestras mergeables deben estar en el mismo cluster")
+    
+    def test_onlyOneOutlier_3D(self):
+        d = 3
+        classA = SampleContainer([(0.0,0.0,0.0),(0.0,1.0,0.0),(0.0,2.0,0.0),(0.0,3.0,0.0)],d)
+        classB = SampleContainer([(0.0,1.5,0.0)],d)
+        clusters = createClusters(classA, classB)
+        clusters_test = ClusterContainer([Cluster([(0.0,2.0,0.0),(0.0,3.0,0.0)], d),Cluster([(0.0,0.0,0.0),(0.0,1.0,0.0)], d)],d)
+        self.assertEquals(clusters, clusters_test, "las muestras mergeables deben estar en el mismo cluster")
+    
+    def test_onlyOneOutlier_4D(self):
+        d = 4
+        classA = SampleContainer([(0.0,0.0,0.0,0.0),(0.0,1.0,0.0,0.0),(0.0,2.0,0.0,0.0),(0.0,3.0,0.0,0.0)],d)
+        classB = SampleContainer([(0.0,1.5,0.0,0.0)],d)
+        clusters = createClusters(classA, classB)
+        clusters_test = ClusterContainer([Cluster([(0.0,2.0,0.0,0.0),(0.0,3.0,0.0,0.0)], d),Cluster([(0.0,0.0,0.0,0.0),(0.0,1.0,0.0,0.0)], d)],d)
+        self.assertEquals(clusters, clusters_test, "las muestras mergeables deben estar en el mismo cluster")
+
+
 
         
 if __name__ == "__main__":
