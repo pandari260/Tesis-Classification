@@ -19,6 +19,7 @@ class GroupContainer(object):
         self.__dictionary = {}
         self.__dimension = d
         self.__groups = {}
+
     
     def addSamples(self, key, value):
         if key in self.__dictionary.keys():
