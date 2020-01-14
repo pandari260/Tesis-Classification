@@ -30,6 +30,9 @@ class ClusterContainer(object):
             ret = ret | c.getSamples()
         return SampleContainer(ret,self.getDimension())
     
+    def __eq__(self,obj):
+        return isinstance(obj,ClusterContainer) and compareSets(self.__clusters, obj.getClusters()) and self.__dimension == obj.getDimension()
+    
     def getSize(self):
         return len(self.__clusters)
     
@@ -39,7 +42,10 @@ class ClusterContainer(object):
     def add(self,c):
         self.__clusters.add(c)
         
-            
+def compareSets(a,b):
+    l1 = list(a).sort()
+    l2 = list(b).sort()
+    return l1 == l2        
     
             
             

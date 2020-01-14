@@ -28,7 +28,8 @@ def createClusters(samplesA, samplesB):
             (u,v) = minimumEdge(distances_graph)
             merged = mergeClusters(u, v)
             if containsOutlier(merged, samples):
-                k = k + 1
+                #k = k + 1
+                distances_graph[u][v]['weight'] = float('inf')
                 
             else:
                 clusters = updateClusterContainer(clusters, u, v, merged)
