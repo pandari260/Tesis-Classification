@@ -24,9 +24,7 @@ def assignClustersToGroups(clusters0, clusters1, num_groups):
     samples0 = clusters0.getSamples()
     samples1 = clusters1.getSamples()
     
-    print("dimension: " +str(dimension))
-    print("samples 0: " + str(samples0.getSamples()))
-    print("samples 1:" + str(samples1.getSamples()))
+    
     ############################## Modelo ######################################
     model = Model()
     
@@ -98,7 +96,7 @@ def assignClustersToGroups(clusters0, clusters1, num_groups):
     
     
 def createGroups(clusters0,clusters1,num_groups):
-    d = 2
+    d = clusters1.getDimension()
     (a,e0,e1) = assignClustersToGroups(clusters0, clusters1, num_groups)
     
     outliers_0 = getOutliers(e0, clusters0)

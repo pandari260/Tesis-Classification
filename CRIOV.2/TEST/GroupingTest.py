@@ -8,6 +8,7 @@ from CRIO.Modelo.ClusterContainer import ClusterContainer
 from CRIO.Modelo.Cluster import Cluster
 from CRIO.Grouping import assignClustersToGroups, createGroups
 from CRIO.Modelo.Sample import Sample
+from CRIO.Modelo.GroupContainer import GroupContainer
 
 def getGroupIndex(dic, cluster, num_groups):
     ret = -1
@@ -680,6 +681,7 @@ class ClusteringTest(unittest.TestCase):
         self.assertEqual(getGroupIndex(a,cls1_4,num_groups), getGroupIndex(a,cls1_5,num_groups), "el cls1_1 debe estar en el mismo grupo que el cls1_2")
         self.assertEqual(getGroupIndex(a,cls1_6,num_groups), getGroupIndex(a,cls1_7,num_groups), "el cls1_1 debe estar en el mismo grupo que el cls1_2")
     
+    """createGroups: crea grupos a partir de dos cluster container de diferentes clases"""
     def test_createGroups_SameNumberOfGroupssAndClusters2D(self):      
         
             
@@ -689,18 +691,90 @@ class ClusteringTest(unittest.TestCase):
         clusters1 = ClusterContainer([Cluster([(2.0,5.0),(3.0,6.0),(2.0,6.0)],d),Cluster([(7.0,2.0),(8.0,1.0),(8.0,2.0),(7.0,1.0)],d)],d)
         clusters0 = ClusterContainer([Cluster([(4.0,4.0),(5.0,4.0),(4.0,3.0),(5.0,3.0)],d)],d)
         
-        (groups, clusters0) = createGroups(clusters0, clusters1, num_groups)
+        (groups, clstr0) = createGroups(clusters0, clusters1, num_groups)    
         
-        for g in groups.getGroups():
-            print("grupo: " + str(g) + " muestras: " + str(map(lambda s : s.getData(),g.getSamples())))
+        groups_test= GroupContainer(d)
+        groups_test.addSamples(0, [(2.0,5.0),(3.0,6.0),(2.0,6.0)])
+        groups_test.addSamples(1, [(7.0,2.0),(8.0,1.0),(8.0,2.0),(7.0,1.0)])
+        self.assertEquals(groups, groups_test, "los groups deberia iguales")
+        self.assertEquals(clusters0, clstr0, "los clusters deberias ser iguales")
+    
+    def test_createGroups_SameNumberOfGroupssAndClusters3D(self):   
+        d = 3
+        num_groups = 2
+
+        clusters1 = ClusterContainer([Cluster([(2.0,5.0,0.0),(3.0,6.0,0.0),(2.0,6.0,0.0)],d),Cluster([(7.0,2.0,0.0),(8.0,1.0,0.0),(8.0,2.0,0.0),(7.0,1.0,0.0)],d)],d)
+        clusters0 = ClusterContainer([Cluster([(4.0,4.0,0.0),(5.0,4.0,0.0),(4.0,3.0,0.0),(5.0,3.0,0.0)],d)],d)
         
-        for clstr in clusters1.getClusters():
-            self.assertEqual(len(set(map(lambda spl: getGroup(groups,spl),clstr.getSamples()))), 1, "todos las muestras del mismo cluster debe ir al mismo grupo")
+        (groups, clstr0) = createGroups(clusters0, clusters1, num_groups)    
         
-        print(set([Sample((0.0,0.0))]).issubset(set([Sample((0.0,0.0))])))
-        self.assertTrue(False)
+          
+            
+        groups_test = GroupContainer(d)       
+        
+        groups_test.addSamples(0, [(2.0,5.0,0.0),(3.0,6.0,0.0),(2.0,6.0,0.0)])
+        groups_test.addSamples(1, [(7.0,2.0,0.0),(8.0,1.0,0.0),(8.0,2.0,0.0),(7.0,1.0,0.0)])       
+        
+         
+        self.assertEquals(clusters0, clstr0, "los clusters deberias ser iguales")
+        self.assertEquals(groups, groups_test, "los groups deberia iguales")
+    
+    def test_createGroups_SameNumberOfGroupssAndClusters4D(self):   
+        d = 4
+        num_groups = 2
+
+        clusters1 = ClusterContainer([Cluster([(2.0,5.0,0.0,0.0),(3.0,6.0,0.0,0.0),(2.0,6.0,0.0,0.0)],d),Cluster([(7.0,2.0,0.0,0.0),(8.0,1.0,0.0,0.0),(8.0,2.0,0.0,0.0),(7.0,1.0,0.0,0.0)],d)],d)
+        clusters0 = ClusterContainer([Cluster([(4.0,4.0,0.0,0.0),(5.0,4.0,0.0,0.0),(4.0,3.0,0.0,0.0),(5.0,3.0,0.0,0.0)],d)],d)
+        
+        (groups, clstr0) = createGroups(clusters0, clusters1, num_groups)    
+        
+          
+            
+        groups_test = GroupContainer(d)       
+        
+        groups_test.addSamples(0, [(2.0,5.0,0.0,0.0),(3.0,6.0,0.0,0.0),(2.0,6.0,0.0,0.0)])
+        groups_test.addSamples(1, [(7.0,2.0,0.0,0.0),(8.0,1.0,0.0,0.0),(8.0,2.0,0.0,0.0),(7.0,1.0,0.0,0.0)])       
+        
+         
+        self.assertEquals(clusters0, clstr0, "los clusters deberias ser iguales")
+        self.assertEquals(groups, groups_test, "los groups deberia iguales")
+        
+    def test_createGroups_DestectOutlierClass1_2D(self):
+        
+        d= 2
+        num_groups= 1
+        
+        cls0_0 = Cluster([(6.0,5.0),(6.0,3.0),(3.0,5.0)], d)
+        cls0_1 = Cluster([(4.0,3.0)], d)
+        clusters0 = ClusterContainer([cls0_0,cls0_1],d)
+        
+        s1 = Sample((4.28,3.09))
+        s2 = Sample((11.0,10.0)) 
+        s3 = Sample((11.0,11.0))
+        s4 = Sample((12.0,11.0))
+        s5 = Sample((12.0,11.0))
+        
+        cls1_0 = Cluster([s1], d)
+        cls1_1 = Cluster([s2,s3,s4,s5], d)
+        clusters1 = ClusterContainer([cls1_0,cls1_1],d)
+        
+        (groups, clstr0) = createGroups(clusters0, clusters1, num_groups)    
+        
+        groups_test = GroupContainer(d)
+        groups_test.addSamples(1, [s2,s3,s4,s5]) 
+        
+        self.assertEquals(clusters0, clstr0, "los clusters deberias ser iguales")
+        self.assertEquals(groups, groups_test, "los groups deberia iguales")
+        
+        
+
+        
+       
+        
+        
+       
                     
-        pass   
+           
         
         
         
