@@ -39,8 +39,8 @@ def displayGraph(g):
 
 class Test(unittest.TestCase):
 
-    """isMergeableTest"""
-    def testIsMergeable2D(self):
+    """containsOutlier: determina si un clusters contiene outliers """
+    def test_containsOutliers2D(self):
         d = 2
         cluster_A = Cluster([(0.0,2.0),(0.0,4.0)], d)
         cluster_B = Cluster([(4.0,2.0),(4.0,4.0)], d)
@@ -54,7 +54,7 @@ class Test(unittest.TestCase):
         self.assertEqual(True, resul, "Dos clusters no deberian ser mergeables si forman una componente convexa con outliers")        
         pass
     
-    def testIsMergeable3D(self):
+    def test_containsOutliers3D(self):
         
         d = 3
         cluster_A = Cluster([(3.0,2.0,0.0),(4.0,2.0,0.0),(4.0,1.0,0.0),(3.0,1.0,0.0)], d)
@@ -70,7 +70,7 @@ class Test(unittest.TestCase):
         self.assertEqual(True, resul, "Dos clusters no deberian ser mergeables si forman una componente convexa con outliers en dimension %s" %(d)) 
         
         
-    def testIsMergeable4D(self):
+    def test_containsOutliers4D(self):
         
         d = 4
         cluster_A = Cluster([(0.0,3.0,2.0,0.0),(0.0,4.0,2.0,0.0),(0.0,4.0,1.0,0.0),(0.0,3.0,1.0,0.0)], d)
@@ -84,7 +84,7 @@ class Test(unittest.TestCase):
         resul = containsOutlier(mergeClusters(cluster_A, cluster_B), samples)
         self.assertEqual(True, resul, "Dos clusters no deberian ser mergeables si forman una componente convexa con outliers %s" %(d))
     
-    def testIsMergeable5D(self):
+    def test_containsOutliers5D(self):
         
         d = 5
         cluster_A = Cluster([(0.0,3.0,0.0,2.0,0.0),(0.0,4.0,0.0,2.0,0.0),(0.0,4.0,0.0,1.0,0.0),(0.0,3.0,0.0,1.0,0.0)], d)
@@ -107,7 +107,7 @@ class Test(unittest.TestCase):
         resul = containsOutlier(mergeClusters(cluster_A, cluster_B), samples)
         self.assertEqual(False, resul, "Dos clusters deberian ser mergeables si no hay otras muestras")
     
-    """createDistanceGraph"""
+    """createDistanceGraph: crea el grafo de distancias entre los clusters"""
     
     def test_createDistanceGraph_2D(self):
         d = 2
@@ -208,6 +208,7 @@ class Test(unittest.TestCase):
         self.assertEquals(g.get_edge_data(c2, c4)['weight'],3.0,"la distancia debe ser 3") 
         self.assertEquals(g.get_edge_data(c3, c4)['weight'],4.0,"la distancia debe ser 4")
         
+        "minimumdistance: escuentra la arista de menor peso en el grafo de distancia"
     def test_minimumDistance_trivial_2d(self):
         d = 2
         c1 = Cluster([(0.0,0.0)], d)
@@ -430,7 +431,46 @@ class Test(unittest.TestCase):
         clusters_test = ClusterContainer([Cluster([(0.0,2.0,0.0,0.0),(0.0,3.0,0.0,0.0)], d),Cluster([(0.0,0.0,0.0,0.0),(0.0,1.0,0.0,0.0)], d)],d)
         self.assertEquals(clusters, clusters_test, "las muestras mergeables deben estar en el mismo cluster")
 
-
+    def test_createClusters_severalOutliers2D(self):
+        d = 2
+        s1,s2,s3,s4,s5 = (3.0,7.0),(3.0,6.0),(10.0,7.0),(10.0,6.0),(6.5,6.5)
+        samplesA = SampleContainer([s1,s2,s3,s4,s5],d)
+        samplesB = SampleContainer([(6.0,7.0),(6.0,6.0),(7.0,6.0),(7.0,7.0),(6.0,6.5),(7.0,6.5)],d)
+        c1 = Cluster([s1,s2],d)
+        c2 = Cluster([s4,s3],d)
+        c3 = Cluster([s5],d)
+        
+        container_test = ClusterContainer([c1,c2,c3],d)
+        container = createClusters(samplesA, samplesB)
+        
+        self.assertEquals(container, container_test, "Deben definirse los clusters: [s1,s2],[s3,s4],[s5]")
+    def test_createClusters_severalOutliers3D(self):
+        d = 3
+        s1,s2,s3,s4,s5 = (3.0,7.0,0.0),(3.0,6.0,0.0),(10.0,7.0,0.0),(10.0,6.0,0.0),(6.5,6.5,0.0)
+        samplesA = SampleContainer([s1,s2,s3,s4,s5],d)
+        samplesB = SampleContainer([(6.0,7.0,0.0),(6.0,6.0,0.0),(7.0,6.0,0.0),(7.0,7.0,0.0),(6.0,6.5,0.0),(7.0,6.5,0.0)],d)
+        c1 = Cluster([s1,s2],d)
+        c2 = Cluster([s4,s3],d)
+        c3 = Cluster([s5],d)
+        
+        container_test = ClusterContainer([c1,c2,c3],d)
+        container = createClusters(samplesA, samplesB)
+        
+        self.assertEquals(container, container_test, "Deben definirse los clusters: [s1,s2],[s3,s4],[s5]")
+    
+    def test_createClusters_severalOutliers4D(self):
+        d = 4
+        s1,s2,s3,s4,s5 = (3.0,7.0,0.0,0.0),(3.0,6.0,0.0,0.0),(10.0,7.0,0.0,0.0),(10.0,6.0,0.0,0.0),(6.5,6.5,0.0,0.0)
+        samplesA = SampleContainer([s1,s2,s3,s4,s5],d)
+        samplesB = SampleContainer([(6.0,7.0,0.0,0.0),(6.0,6.0,0.0,0.0),(7.0,6.0,0.0,0.0),(7.0,7.0,0.0,0.0),(6.0,6.5,0.0,0.0),(7.0,6.5,0.0,0.0)],d)
+        c1 = Cluster([s1,s2],d)
+        c2 = Cluster([s4,s3],d)
+        c3 = Cluster([s5],d)
+        
+        container_test = ClusterContainer([c1,c2,c3],d)
+        container = createClusters(samplesA, samplesB)
+        
+        self.assertEquals(container, container_test, "Deben definirse los clusters: [s1,s2],[s3,s4],[s5]")
 
         
 if __name__ == "__main__":
