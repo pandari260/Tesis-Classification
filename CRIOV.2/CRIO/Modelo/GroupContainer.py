@@ -23,9 +23,6 @@ class GroupContainer(object):
     
     def addSamples(self, key, value):
         if key in self.__dictionary.keys():
-            print("clase de value: " + str(value.__class__))
-            print("clase de value key: " + str(self.__dictionary[key].getSamples().__class__))
-
             self.__dictionary[key] = Group(self.__dictionary[key].getSamples() | value, self.__dimension)
         else:
             self.__dictionary[key] = Group(value, self.__dimension)
