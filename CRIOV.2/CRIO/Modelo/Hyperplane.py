@@ -19,7 +19,7 @@ class Hyperplane(object):
         self.__intercept =  o
     
     def __eq__(self,obj):
-        return isinstance(Hyperplane) and self.__coefficients == obj.getCoefficient() and self.__intercept == obj.getIntercept()
+        return isinstance(Hyperplane) and all(abs(self.__coefficients(index) - obj.getHyperplanes().getCoefficient(index)) <= 0.0000000001 for index in range(0,self.getDimension())) and abs(self.__intercept - obj.getIntercept()) <= 0.000000001
     
     def getDimension(self):
         return len(self.__coefficients)

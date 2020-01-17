@@ -45,17 +45,18 @@ def defineHyperplane(group,cluster):
 
 def createRegions(groups, clusters):
     
-    regions = {}
+    regions = set([])
     for grp in groups.getGroups():
         hiperplanes = []
         for clstr in clusters.getClusters():
-            hiperplanes.append(defineHyperplane)
+            hiperplanes.append(defineHyperplane(grp,clstr))
         regions.add(Region(hiperplanes,clusters.getDimension()))
     
     return map(lambda rgn: eliminateRedundant(rgn), regions)
 
 def eliminateRedundant(region):
-    return Region(filter(lambda hypr: hypr.isRedundant(region) == False, region.getHyperplanes())) 
+    print(region.getHyperplanes())
+    return Region(filter(lambda hypr: hypr.isRedundant(region) == False, region.getHyperplanes()),region.getDimension()) 
     
             
     

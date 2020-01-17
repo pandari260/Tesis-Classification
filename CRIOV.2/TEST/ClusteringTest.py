@@ -39,8 +39,8 @@ def displayGraph(g):
 
 class Test(unittest.TestCase):
 
-    """isMergeableTest"""
-    def testIsMergeable2D(self):
+    """containsOutlier: determina si un clusters contiene outliers """
+    def test_containsOutliers2D(self):
         d = 2
         cluster_A = Cluster([(0.0,2.0),(0.0,4.0)], d)
         cluster_B = Cluster([(4.0,2.0),(4.0,4.0)], d)
@@ -54,7 +54,7 @@ class Test(unittest.TestCase):
         self.assertEqual(True, resul, "Dos clusters no deberian ser mergeables si forman una componente convexa con outliers")        
         pass
     
-    def testIsMergeable3D(self):
+    def test_containsOutliers3D(self):
         
         d = 3
         cluster_A = Cluster([(3.0,2.0,0.0),(4.0,2.0,0.0),(4.0,1.0,0.0),(3.0,1.0,0.0)], d)
@@ -70,7 +70,7 @@ class Test(unittest.TestCase):
         self.assertEqual(True, resul, "Dos clusters no deberian ser mergeables si forman una componente convexa con outliers en dimension %s" %(d)) 
         
         
-    def testIsMergeable4D(self):
+    def test_containsOutliers4D(self):
         
         d = 4
         cluster_A = Cluster([(0.0,3.0,2.0,0.0),(0.0,4.0,2.0,0.0),(0.0,4.0,1.0,0.0),(0.0,3.0,1.0,0.0)], d)
@@ -84,7 +84,7 @@ class Test(unittest.TestCase):
         resul = containsOutlier(mergeClusters(cluster_A, cluster_B), samples)
         self.assertEqual(True, resul, "Dos clusters no deberian ser mergeables si forman una componente convexa con outliers %s" %(d))
     
-    def testIsMergeable5D(self):
+    def test_containsOutliers5D(self):
         
         d = 5
         cluster_A = Cluster([(0.0,3.0,0.0,2.0,0.0),(0.0,4.0,0.0,2.0,0.0),(0.0,4.0,0.0,1.0,0.0),(0.0,3.0,0.0,1.0,0.0)], d)
@@ -107,7 +107,7 @@ class Test(unittest.TestCase):
         resul = containsOutlier(mergeClusters(cluster_A, cluster_B), samples)
         self.assertEqual(False, resul, "Dos clusters deberian ser mergeables si no hay otras muestras")
     
-    """createDistanceGraph"""
+    """createDistanceGraph: crea el grafo de distancias entre los clusters"""
     
     def test_createDistanceGraph_2D(self):
         d = 2
@@ -208,6 +208,7 @@ class Test(unittest.TestCase):
         self.assertEquals(g.get_edge_data(c2, c4)['weight'],3.0,"la distancia debe ser 3") 
         self.assertEquals(g.get_edge_data(c3, c4)['weight'],4.0,"la distancia debe ser 4")
         
+        "minimumdistance: escuentra la arista de menor peso en el grafo de distancia"
     def test_minimumDistance_trivial_2d(self):
         d = 2
         c1 = Cluster([(0.0,0.0)], d)
@@ -296,8 +297,10 @@ class Test(unittest.TestCase):
         
         (u,v) = minimumEdge(g)
         self.assertEquals(g[u][v]['weight'], 3.0, "la minima arista tiene peso 3")
+        
+    """crea clusters a partir de un conjunto de muestras"""
     
-    """ def test_createClusters_allSamplesInTheSameCluster_2D(self):
+    def test_createClusters_allSamplesInTheSameCluster_2D(self):
         d = 2
         s0_1,s0_2,s0_3 = Sample((3.0,3.0)),Sample((4.0,4.0)),Sample((3.0,4.0))
         s1_1,s1_2,s1_3,s1_4,s1_5,s1_6 = Sample((0.0,1.0)),Sample((0.0,2.0)),Sample((0.0,3.0)),Sample((1.0,0.0)),Sample((1.0,1.0)),Sample((1.0,2.0))
@@ -305,10 +308,10 @@ class Test(unittest.TestCase):
         class0 = SampleContainer([s0_1,s0_2,s0_3],d)
         class1 = SampleContainer([s1_1,s1_2,s1_3,s1_4,s1_5,s1_6],d)
         
-        cluster = createClusters(class1, class0).getClusters().pop()
-        
-        for spl in class1.getSamples():
-            self.assertTrue(spl in cluster.getSamples(), "la muestra " + str(spl) + "debe estar en el unico cluster")  
+        clusters_test = ClusterContainer([Cluster([s1_1,s1_2,s1_3,s1_4,s1_5,s1_6], d)],d)
+        clusters = createClusters(class1, class0)
+        self.assertEquals(clusters_test, clusters , "todas las muestras deben estar en un unico cluster")
+          
         
     def test_createClusters_allSamplesInTheSameCluster_3D(self):
         d = 3
@@ -318,10 +321,11 @@ class Test(unittest.TestCase):
         class0 = SampleContainer([s0_1,s0_2,s0_3],d)
         class1 = SampleContainer([s1_1,s1_2,s1_3,s1_4,s1_5,s1_6],d)
         
-        cluster = createClusters(class1, class0).getClusters().pop()
-        
-        for spl in class1.getSamples():
-            self.assertTrue(spl in cluster.getSamples(), "la muestra " + str(spl) + "debe estar en el unico cluster") 
+        clusters = createClusters(class1, class0)
+        clusters_test = ClusterContainer([Cluster([s1_1,s1_2,s1_3,s1_4,s1_5,s1_6], d)],d)
+        self.assertEquals(clusters, clusters_test, "todos las muestras deben estar en un unico cluster")        
+       
+
     
     def test_createClusters_allSamplesInTheSameCluster_4D(self):
         d = 4
@@ -331,10 +335,11 @@ class Test(unittest.TestCase):
         class0 = SampleContainer([s0_1,s0_2,s0_3],d)
         class1 = SampleContainer([s1_1,s1_2,s1_3,s1_4,s1_5,s1_6],d)
         
-        cluster = createClusters(class1, class0).getClusters().pop()
+        clusters = createClusters(class1, class0)
+        clusters_test = ClusterContainer([Cluster([s1_1,s1_2,s1_3,s1_4,s1_5,s1_6], d)],d)
+        self.assertEquals(clusters, clusters_test, "todos las muestras deben estar en un unico cluster")
         
-        for spl in class1.getSamples():
-            self.assertTrue(spl in cluster.getSamples(), "la muestra " + str(spl) + "debe estar en el unico cluster")
+       
         
     def test_DefineClusterNoneOutlierOnlyOneSample_2D(self):
         d = 2
@@ -377,14 +382,8 @@ class Test(unittest.TestCase):
         classB = SampleContainer([s0_1,s0_2,s0_3,s0_4],d)
         
         clusters = createClusters(classA, classB)
-        
-        self.assertEqual(clusters.getSize(), 4, "debe haver un cluster por cada muestra")
-        for clstr in clusters.getClusters():
-            self.assertEqual(clstr.getSize(), 1, "todos los cluster deben tener exactamente una muestra")
-        
-        for (c1,c2) in itertools.product(clusters.getClusters(),clusters.getClusters()):
-            if c1 != c2:
-                self.assertEquals(c1.getSamples().intersection(c2.getSamples()), set([]), "cada muestra debe estar en un cluster diferente")
+        clusters_test = ClusterContainer([Cluster([s1_1], d),Cluster([s1_2], d),Cluster([s1_3], d),Cluster([s1_4], d)],d)
+        self.assertEquals(clusters, clusters_test, "debe generarce un cluster para cada muestra")
     
     def test_onlyOneSampleForCluster_3D(self):
         d = 3
@@ -394,14 +393,8 @@ class Test(unittest.TestCase):
         classB = SampleContainer([s0_1,s0_2,s0_3,s0_4],d)
         
         clusters = createClusters(classA, classB)
-        
-        self.assertEqual(clusters.getSize(), 4, "debe haver un cluster por cada muestra")
-        for clstr in clusters.getClusters():
-            self.assertEqual(clstr.getSize(), 1, "todos los cluster deben tener exactamente una muestra")
-        
-        for (c1,c2) in itertools.product(clusters.getClusters(),clusters.getClusters()):
-            if c1 != c2:
-                self.assertEquals(c1.getSamples().intersection(c2.getSamples()), set([]), "cada muestra debe estar en un cluster diferente")
+        clusters_test = ClusterContainer([Cluster([s1_1], d),Cluster([s1_2], d),Cluster([s1_3], d),Cluster([s1_4], d)],d)
+        self.assertEquals(clusters, clusters_test, "debe generarce un cluster para cada muestra")
                
     def test_onlyOneSampleForCluster_4D(self):
         d = 4
@@ -411,27 +404,74 @@ class Test(unittest.TestCase):
         classB = SampleContainer([s0_1,s0_2,s0_3,s0_4],d)
         
         clusters = createClusters(classA, classB)
-        
-        self.assertEqual(clusters.getSize(), 4, "debe haver un cluster por cada muestra")
-        for clstr in clusters.getClusters():
-            self.assertEqual(clstr.getSize(), 1, "todos los cluster deben tener exactamente una muestra")
-        
-        for (c1,c2) in itertools.product(clusters.getClusters(),clusters.getClusters()):
-            if c1 != c2:
-                self.assertEquals(c1.getSamples().intersection(c2.getSamples()), set([]), "cada muestra debe estar en un cluster diferente")
+        clusters_test = ClusterContainer([Cluster([s1_1], d),Cluster([s1_2], d),Cluster([s1_3], d),Cluster([s1_4], d)],d)
+        self.assertEquals(clusters, clusters_test, "debe generarce un cluster para cada muestra")
     
     def test_onlyOneOutlier_2D(self):
         d = 2
         classA = SampleContainer([(0.0,0.0),(0.0,1.0),(0.0,2.0),(0.0,3.0)],d)
         classB = SampleContainer([(0.0,1.5)],d)
         clusters = createClusters(classA, classB)
-        #print("cantidad de clusters: " + str(clusters.getSize()))
-        #self.assertEquals(clusters.getSize(), 2, "deben generarce dos clusters")
-        cls1 = clusters.getClusters().pop()
-        cls2 = clusters.getClusters().pop()
-        #print(map(lambda s: s.getData(), cls1.getSamples()))
-        #print(map(lambda s: s.getData(), cls2.getSamples()))
-        self.assertTrue(False)"""
+        clusters_test = ClusterContainer([Cluster([(0.0,2.0),(0.0,3.0)], d),Cluster([(0.0,0.0),(0.0,1.0)], d)],d)
+        self.assertEquals(clusters, clusters_test, "las muestras mergeables deben estar en el mismo cluster")
+    
+    def test_onlyOneOutlier_3D(self):
+        d = 3
+        classA = SampleContainer([(0.0,0.0,0.0),(0.0,1.0,0.0),(0.0,2.0,0.0),(0.0,3.0,0.0)],d)
+        classB = SampleContainer([(0.0,1.5,0.0)],d)
+        clusters = createClusters(classA, classB)
+        clusters_test = ClusterContainer([Cluster([(0.0,2.0,0.0),(0.0,3.0,0.0)], d),Cluster([(0.0,0.0,0.0),(0.0,1.0,0.0)], d)],d)
+        self.assertEquals(clusters, clusters_test, "las muestras mergeables deben estar en el mismo cluster")
+    
+    def test_onlyOneOutlier_4D(self):
+        d = 4
+        classA = SampleContainer([(0.0,0.0,0.0,0.0),(0.0,1.0,0.0,0.0),(0.0,2.0,0.0,0.0),(0.0,3.0,0.0,0.0)],d)
+        classB = SampleContainer([(0.0,1.5,0.0,0.0)],d)
+        clusters = createClusters(classA, classB)
+        clusters_test = ClusterContainer([Cluster([(0.0,2.0,0.0,0.0),(0.0,3.0,0.0,0.0)], d),Cluster([(0.0,0.0,0.0,0.0),(0.0,1.0,0.0,0.0)], d)],d)
+        self.assertEquals(clusters, clusters_test, "las muestras mergeables deben estar en el mismo cluster")
+
+    def test_createClusters_severalOutliers2D(self):
+        d = 2
+        s1,s2,s3,s4,s5 = (3.0,7.0),(3.0,6.0),(10.0,7.0),(10.0,6.0),(6.5,6.5)
+        samplesA = SampleContainer([s1,s2,s3,s4,s5],d)
+        samplesB = SampleContainer([(6.0,7.0),(6.0,6.0),(7.0,6.0),(7.0,7.0),(6.0,6.5),(7.0,6.5)],d)
+        c1 = Cluster([s1,s2],d)
+        c2 = Cluster([s4,s3],d)
+        c3 = Cluster([s5],d)
+        
+        container_test = ClusterContainer([c1,c2,c3],d)
+        container = createClusters(samplesA, samplesB)
+        
+        self.assertEquals(container, container_test, "Deben definirse los clusters: [s1,s2],[s3,s4],[s5]")
+    def test_createClusters_severalOutliers3D(self):
+        d = 3
+        s1,s2,s3,s4,s5 = (3.0,7.0,0.0),(3.0,6.0,0.0),(10.0,7.0,0.0),(10.0,6.0,0.0),(6.5,6.5,0.0)
+        samplesA = SampleContainer([s1,s2,s3,s4,s5],d)
+        samplesB = SampleContainer([(6.0,7.0,0.0),(6.0,6.0,0.0),(7.0,6.0,0.0),(7.0,7.0,0.0),(6.0,6.5,0.0),(7.0,6.5,0.0)],d)
+        c1 = Cluster([s1,s2],d)
+        c2 = Cluster([s4,s3],d)
+        c3 = Cluster([s5],d)
+        
+        container_test = ClusterContainer([c1,c2,c3],d)
+        container = createClusters(samplesA, samplesB)
+        
+        self.assertEquals(container, container_test, "Deben definirse los clusters: [s1,s2],[s3,s4],[s5]")
+    
+    def test_createClusters_severalOutliers4D(self):
+        d = 4
+        s1,s2,s3,s4,s5 = (3.0,7.0,0.0,0.0),(3.0,6.0,0.0,0.0),(10.0,7.0,0.0,0.0),(10.0,6.0,0.0,0.0),(6.5,6.5,0.0,0.0)
+        samplesA = SampleContainer([s1,s2,s3,s4,s5],d)
+        samplesB = SampleContainer([(6.0,7.0,0.0,0.0),(6.0,6.0,0.0,0.0),(7.0,6.0,0.0,0.0),(7.0,7.0,0.0,0.0),(6.0,6.5,0.0,0.0),(7.0,6.5,0.0,0.0)],d)
+        c1 = Cluster([s1,s2],d)
+        c2 = Cluster([s4,s3],d)
+        c3 = Cluster([s5],d)
+        
+        container_test = ClusterContainer([c1,c2,c3],d)
+        container = createClusters(samplesA, samplesB)
+        
+        self.assertEquals(container, container_test, "Deben definirse los clusters: [s1,s2],[s3,s4],[s5]")
+
         
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']

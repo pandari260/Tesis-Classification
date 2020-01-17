@@ -23,12 +23,12 @@ def createClusters(samplesA, samplesB):
         k = 0
         distances_graph = createDistanceGraph(clusters.getClusters())
         while k < K:
-            #for c in clusters.getClusters():
-             #   print(map(lambda s: s.getData(), c.getSamples()))
+           
             (u,v) = minimumEdge(distances_graph)
             merged = mergeClusters(u, v)
             if containsOutlier(merged, samples):
-                k = k + 1
+                #k = k + 1
+                distances_graph[u][v]['weight'] = float('inf')
                 
             else:
                 clusters = updateClusterContainer(clusters, u, v, merged)

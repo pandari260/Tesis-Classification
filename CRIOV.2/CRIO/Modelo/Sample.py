@@ -16,12 +16,17 @@ class Sample(object):
         Una muestra contiene una tupla de datos de tipo double
         '''
         self.__data = d
+
+    def __hash__(self, *args, **kwargs):
+        return self.__data.__hash__()
+
     
     def __str__(self, *args, **kwargs):
         return " " + str(self.__data)
     
     def __eq__(self,obj):
         return isinstance(obj,Sample) and self.__data == obj.getData()
+    
         
     def getDimension(self):
         return len(self.__data)
@@ -31,6 +36,11 @@ class Sample(object):
     
     def getFeature(self,index):
         return self.__data[index]
+
+
     
+    
+    
+
 
     

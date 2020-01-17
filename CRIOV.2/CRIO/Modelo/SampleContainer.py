@@ -8,10 +8,11 @@ from CRIO.Modelo.Sample import Sample
 from __builtin__ import isinstance
 
 class SampleContainer(object):
+    
     '''
     Clase que da acceso a un conjunto de muestras
     '''
-
+    
 
     def __init__(self, s,d):
         '''
@@ -19,7 +20,16 @@ class SampleContainer(object):
         '''
         self.__data = set(map(lambda spl: spl if isinstance(spl,Sample) else Sample(spl),s))
         self.__dimension = d
-        
+
+    def __str__(self):
+        return  "samples: "  + str(self.__data) + "| dimension: " + str(self.getDimension())
+
+
+    def __eq__(self,obj):
+        return isinstance(obj,SampleContainer) and self.__data == obj.getSamples() and self.__dimension == obj.getDimension()
+    
+    
+    
    
     
     def getDimension(self):
@@ -33,4 +43,11 @@ class SampleContainer(object):
     
     def contains(self, sample):
         return self.__data.__contains__(sample)
+
+    
+    
+    
+    
+    
+    
         

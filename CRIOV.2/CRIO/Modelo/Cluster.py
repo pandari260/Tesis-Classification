@@ -7,11 +7,15 @@ import numpy as np
 from CRIO.Modelo.SampleContainer import SampleContainer
 
 class Cluster(SampleContainer):
+    
     '''
     esta clase representa un cluster para el metodo CRIO
     '''
+
     def setSamples(self, samples):
         self.__data = samples
+
+    
     
 
 #toma dos clusters y los fusiona. Los clusters deben tener el mismo valor de dimension
