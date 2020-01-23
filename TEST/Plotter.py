@@ -3,14 +3,16 @@ import matplotlib.pyplot as plt
 import math
 import Sample
 
+scale = np.linspace(-5,5,3000)
+
 #Dado los conjuntos de clase0,clase1 e hiperplanos, este los grafica en la escala definida.
-def graphDataSet(sampleC0, sampleC1, setPlane, scale):
+def graphDataSet(sampleC0, sampleC1, setPlane):
 	graphSample(sampleC0, sampleC1)
 	graphHyperplane(setPlane, scale)
 	plt.show()
 
 #Grafica el conjunto de hiperplanos pasado por parametro.
-def graphHyperplane(setPlane, scale):
+def graphHyperplane(setPlane):
 	for i in setPlane:	__drawHyperPlane(i, scale)
 
 #Grafica el conjunto de muestras de clase0 y clase1.
@@ -19,7 +21,7 @@ def graphSample(sampleC0, sampleC1):
 	__drawSample(sampleC1, 'blue')
 
 #Dibuja un hiperplano
-def __drawHyperPlane(coef, scale):
+def __drawHyperPlane(coef):
 	cFill, cLine = 'orange', 'black'
 	if((not __isZero(coef[0])) and (not __isZero(coef[1]))):
 		plt.plot(scale, __func(coef,scale), color=cLine)
@@ -44,7 +46,7 @@ def __drawSample(sample, color):
     plt.scatter(x, y, s=area, c=color, alpha=1)
 
 #Funcion de la pinta (c - a) / b
-def __func(coef, scale):
+def __func(coef):
     return (coef[2] - (coef[0]*scale))  / coef[1]
 
 def __isZero(coef):

@@ -4,11 +4,24 @@ import CaseTest as caseTest
 import Exporter as exporter
 import numpy as np
 import Sample
+import pandas as pd
+import csv
+
 
 def graphTest(sample):
 	c0, c1 = Sample.divideForClass(sample)
 	plotter.graphSample(c0, c1)
 	plt.show()
+
+def readFile(name):
+	c0, c1 = [], []
+	with open(name, 'r') as csvfile:
+		set_data = csv.reader(csvfile, delimiter=',')
+		next(set_data)
+		aux_set_data = list(set_data).copy()
+		c0 = list(map(lambda k: tuple(map(lambda i: float(i), k)),  list(map(lambda j: j[:-1], list(filter(lambda l: int(l[-1]) == 0, aux_set_data))))))
+		c1 = list(map(lambda k: tuple(map(lambda i: float(i), k)), list(map(lambda j: j[:-1], list(filter(lambda l: int(l[-1]) == 1, aux_set_data))))))
+	return c0, c1
 
 #------- Configuracion general de los casos de prueba ha generar -----#
 seed = 2
@@ -21,14 +34,13 @@ mMu = [[0,0],[6,0]]
 classes = [0,1]
 test = caseTest.CaseTest(name, dimension, n, (mMu, seed), classes)
 sample = test.initTest()
-#print(sample)
 exporter.exportCaseTest(sample, name)
 #graphTest(sample) 
 
-#c0,c1 = Sample.convertSampleCRIO(sample)
-#print(c0)
-#print(c1)
-
+# ------------ Ejemplo lectura archivo CRIO ----------------
+c0, c1 = readFile(name)
+print(c0)	
+print(c1)  
 
 '''
 name = "../INPUT/SVM/"+d+"/t2-ConjuntosSolapados.csv"
