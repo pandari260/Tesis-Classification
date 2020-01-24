@@ -1144,68 +1144,6 @@ class ClusteringTest(unittest.TestCase):
         
         self.assertEquals(clstr0, clusters0, "los clusters deben ser iguales")
         self.assertEquals(groups, groups_test,"los grupos deben ser iguales") 
-    
-    def test_createGroups_MoreNumberOfGroupssThanClusters3D_SeveralClusters(self):
-        
-        d = 3
-        num_groups = 10
-        
-        cls0_1 = Cluster([(5.0,9.0,0.0),(8.0,8.0,0.0),(6.0,6.0,0.0)], d)
-        cls0_2 = Cluster([(4.0,12.0,0.0),(2.0,10.0,0.0)], d)
-        cls0_3 = Cluster([(6.0,16.0,0.0),(5.0,16.0,0.0)], d)
-        
-        
-        cls1_1 = Cluster([(3.0,7.0,0.0),(4.0,7.0,0.0),(3.0,8.0,0.0)],d)
-        cls1_2 = Cluster([(6.0,11.0,0.0),(7.0,11.0,0.0),(7.0,10.0,0.0)],d)
-        cls1_3 = Cluster([(9.0,5.0,0.0),(9.0,6.0,0.0),(8.0,5.0,0.0)], d)
-        cls1_4 = Cluster([(1.0,13.0,0.0),(2.0,13.0,0.0),(1.0,12.0,0.0)], d)
-        cls1_5 = Cluster([(6.0,17.0,0.0),(5.0,17.0,0.0)],d)
-        
-        clusters0 = ClusterContainer([cls0_1,cls0_2,cls0_3],d)
-        clusters1 = ClusterContainer([cls1_1,cls1_2,cls1_3,cls1_4,cls1_5],d)
-        
-       
-        (groups, clstr0) = createGroups(clusters0, clusters1, num_groups)    
-        groups_test = GroupContainer(d)
-        groups_test.addSamples(1, cls1_1.getSamples())
-        groups_test.addSamples(2, cls1_2.getSamples())
-        groups_test.addSamples(3, cls1_3.getSamples())
-        groups_test.addSamples(4, cls1_4.getSamples())
-        groups_test.addSamples(5, cls1_5.getSamples())
-        
-        self.assertEquals(clstr0, clusters0, "los clusters deben ser iguales")
-        self.assertEquals(groups, groups_test,"los grupos deben ser iguales") 
-    
-    def test_createGroups_MoreNumberOfGroupssThanClusters4D_SeveralClusters(self):
-        
-        d = 4
-        num_groups = 10
-        
-        cls0_1 = Cluster([(5.0,9.0,0.0,0.0),(8.0,8.0,0.0,0.0),(6.0,6.0,0.0,0.0)], d)
-        cls0_2 = Cluster([(4.0,12.0,0.0,0.0),(2.0,10.0,0.0,0.0)], d)
-        cls0_3 = Cluster([(6.0,16.0,0.0,0.0),(5.0,16.0,0.0,0.0)], d)
-        
-        
-        cls1_1 = Cluster([(3.0,7.0,0.0,0.0),(4.0,7.0,0.0,0.0),(3.0,8.0,0.0,0.0)],d)
-        cls1_2 = Cluster([(6.0,11.0,0.0,0.0),(7.0,11.0,0.0,0.0),(7.0,10.0,0.0,0.0)],d)
-        cls1_3 = Cluster([(9.0,5.0,0.0,0.0),(9.0,6.0,0.0,0.0),(8.0,5.0,0.0,0.0)], d)
-        cls1_4 = Cluster([(1.0,13.0,0.0,0.0),(2.0,13.0,0.0,0.0),(1.0,12.0,0.0,0.0)], d)
-        cls1_5 = Cluster([(6.0,17.0,0.0,0.0),(5.0,17.0,0.0,0.0)],d)
-        
-        clusters0 = ClusterContainer([cls0_1,cls0_2,cls0_3],d)
-        clusters1 = ClusterContainer([cls1_1,cls1_2,cls1_3,cls1_4,cls1_5],d)
-        
-       
-        (groups, clstr0) = createGroups(clusters0, clusters1, num_groups)    
-        groups_test = GroupContainer(d)
-        groups_test.addSamples(1, cls1_1.getSamples())
-        groups_test.addSamples(2, cls1_2.getSamples())
-        groups_test.addSamples(3, cls1_3.getSamples())
-        groups_test.addSamples(4, cls1_4.getSamples())
-        groups_test.addSamples(5, cls1_5.getSamples())
-        
-        self.assertEquals(clstr0, clusters0, "los clusters deben ser iguales")
-        self.assertEquals(groups, groups_test,"los grupos deben ser iguales")
 
         
 
