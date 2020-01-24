@@ -20,6 +20,19 @@ class Classifier(object):
     
     def classify(self, sample):
         pass
+    
+    def export(self, route,d):
+        f = open(route,"w")
+        THREE_ITEMS_FORMAT = "%s,%s,%s\n"
+        for r in self.__regions:
+            hiperplanes = r.getHyperplanes()
+            for h in hiperplanes:
+                data = map(lambda index: h.getCoefficient(index), range(0,d))
+                data.append(h.getIntercept())
+            f.write(THREE_ITEMS_FORMAT % tuple(data))
+        f.close()
+        
+        pass
 
 def train(class0,class1,dimension,num_groups):
     
@@ -28,6 +41,7 @@ def train(class0,class1,dimension,num_groups):
     groups1 = createGroups(clusters0,clusters1,num_groups)
     regions = createRegions(groups1,clusters0) 
     return regions
+
 
 def createClusters(classA,classB):
     pass
