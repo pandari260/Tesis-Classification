@@ -17,7 +17,7 @@ class Classifier(object):
         '''
         Un Classifier se compone de 
         '''
-        self.__regions = train(c0,c1,d,k)
+        self.regions = train(c0,c1,d,k)
         self.__dimension = d
         self.__num_groups = k
         self.__tag0= t0
@@ -29,13 +29,24 @@ class Classifier(object):
     def export(self, route,d):
         f = open(route,"w")
         THREE_ITEMS_FORMAT = "%s,%s,%s\n"
-        for r in self.__regions:
+        for r in self.regions:
             hiperplanes = r.getHyperplanes()
             for h in hiperplanes:
                 data = map(lambda index: h.getCoefficient(index), range(0,d))
                 data.append(h.getIntercept())
+                f.write(THREE_ITEMS_FORMAT % tuple(data))
+        f.close()
+        
+    def exportRegion(self,route,d,region):
+        f = open(route,"w")
+        THREE_ITEMS_FORMAT = "%s,%s,%s\n"
+       
+        for h in region.getHyperplanes():
+            data = map(lambda index: h.getCoefficient(index), range(0,d))
+            data.append(h.getIntercept())
             f.write(THREE_ITEMS_FORMAT % tuple(data))
         f.close()
+        
         
         
 
@@ -48,20 +59,23 @@ def train(class0,class1,dimension,num_groups):
     (groups,clusters) = createGroups(clusters0,clusters1,num_groups)
     print("regionalizing...")
     regions = createRegions(groups, clusters) 
+    
+    print("en el cluster 0 quedaron un total de quedaron un total de: " + str(map(lambda c: c.getSize(), clusters.getClusters())))
     return regions
 
 def main():
     d = 2
-    k = 1 
+    k = 1
     #c0 = SampleContainer([(-0.1663, -0.208), (-1.4265, 1.2276), (-0.7036, 1.0372), (0.2668, -1.6665), (0.2529, -1.9605)],d)
     #c1 = SampleContainer([(5.8384, 0.1114), (6.1911, -0.2508), (6.8148, -0.6143), (5.8302, -1.8956), (7.2234, 1.8256)], d)
-    c0,c1 = Importer.readSamples("/home/javier/Documentos/Repositorios Git/Tesis-Classification/INPUT/SVM/R2/t2-ConjuntosSolapados.csv", d)
+    c0,c1 = Importer.readSamples("/home/javier/Documentos/Repositorios Git/Tesis-Classification/INPUT/SVM/R2/t9-Piramide.csv", d)
     
     
     t0 = "rojo"
     t1 = "azul"
     clasifier = Classifier(c0,c1,t0,t1,d,k)
     
+   
     
     clasifier.export("/home/javier/Documents/LiClipse Workspace/Ploteo/TEST/solution", d)
 

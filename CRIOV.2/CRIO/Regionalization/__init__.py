@@ -55,7 +55,6 @@ def createRegions(groups, clusters):
     return map(lambda rgn: eliminateRedundant(rgn), regions)
 
 def eliminateRedundant(region):
-    print(region.getHyperplanes())
     return Region(filter(lambda hypr: hypr.isRedundant(region) == False, region.getHyperplanes()),region.getDimension()) 
     
             
