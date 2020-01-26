@@ -79,6 +79,7 @@ def containsOutlier(mergedCluster,samples):
     dimension = mergedCluster.getDimension()
     ###################### modelo ############################################
     model = Model()
+    model.hideOutput()
     
     delta = model.addVar(vtype="CONTINUOUS", name="delta",lb=None)   
     
@@ -101,7 +102,6 @@ def containsOutlier(mergedCluster,samples):
     ##########################################################################
     
     model.optimize()
-    print("valor objetivo: " + str(model.getObjVal()) + str(map(lambda s: s.getData(), mergedCluster.getSamples())))
     return model.getObjVal() == 0
     
     

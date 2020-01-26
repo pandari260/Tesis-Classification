@@ -20,7 +20,7 @@ def defineHyperplane(group,cluster):
     ################## model #########################################
     
     model = Model()
-    
+    model.hideOutput()
     piVars = {}
     for f in range(dimension):
         piVars[f] = model.addVar(vtype="CONTINUOUS", name="pi[%s]" % (f),lb=None)

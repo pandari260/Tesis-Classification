@@ -43,34 +43,6 @@ def compareSets(a,b):
     
       
     
-    print("")
-    print("")
-    print("mostrando l1")
-    for s in l1:
-        print(str(map(lambda smp: smp.getData(), s.getSamples())))
-        print(s.__class__)
-        
-    print("")
-    print("")
-    print("mostrando l2")
-    for s in l2:
-        print(str(map(lambda smp: smp.getData(), s.getSamples())))
-        print(s.__class__)
-    
-    print("")
-    print("")
-    for s in l1:
-        print(str(map(lambda smp: smp.getData(), s.getSamples())) + " pertenece? : " + str(s in l2))
-        print("clase: " + str(s.__class__))
-    
-    print("")
-    print("")
-    for s in l2:
-        print(str(map(lambda smp: smp.getData(), s.getSamples())) + " pertenece? : " + str(s in l1))
-        print("clase: " + str(s.__class__))
-
-    
-    print("resultado de comparacion " + str(all(elem in l1  for elem in l2) and all(elem in l2  for elem in l1)))
     return all(elem in l1  for elem in l2) and all(elem in l2  for elem in l1)
 
         
