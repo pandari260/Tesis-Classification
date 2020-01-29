@@ -43,7 +43,7 @@ def createClusters(samplesA, samplesB):
             k = k + 1
         
         
-        return ClusterContainer(filter(lambda cls: cls.getSize() >= clusters.getSize()*0.01, clusters.getClusters()),clusters.getDimension())
+        return ClusterContainer(filter(lambda cls: cls.getSize() >= samplesA.getSize()*0.01, clusters.getClusters()),clusters.getDimension())
             
             
 def updateClusterContainer(clusters, u,v,merged):
