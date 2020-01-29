@@ -27,6 +27,7 @@ def assignClustersToGroups(clusters0, clusters1, num_groups):
     
     ############################## Modelo ######################################
     model = Model()
+    model.hideOutput()
     
     
     aVars = {}    
@@ -70,7 +71,7 @@ def assignClustersToGroups(clusters0, clusters1, num_groups):
     model.optimize()
     ###########################################################################
     
-    print("valores de p")
+    """print("valores de p")
     for key in pVars.keys():
         print("clave: " + str(key) + " valor: " + str(model.getVal(pVars[key])))
     
@@ -88,7 +89,7 @@ def assignClustersToGroups(clusters0, clusters1, num_groups):
     
     print("valores de e1")
     for key in e1Vars.keys():
-        print("clave: " + str(key) + " valor: " + str(model.getVal(e1Vars[key])))
+        print("clave: " + str(key) + " valor: " + str(model.getVal(e1Vars[key])))"""
     
     
     

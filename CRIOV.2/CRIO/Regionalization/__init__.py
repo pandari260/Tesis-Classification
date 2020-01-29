@@ -20,7 +20,7 @@ def defineHyperplane(group,cluster):
     ################## model #########################################
     
     model = Model()
-    
+    model.hideOutput()
     piVars = {}
     for f in range(dimension):
         piVars[f] = model.addVar(vtype="CONTINUOUS", name="pi[%s]" % (f),lb=None)
@@ -55,7 +55,6 @@ def createRegions(groups, clusters):
     return map(lambda rgn: eliminateRedundant(rgn), regions)
 
 def eliminateRedundant(region):
-    print(region.getHyperplanes())
     return Region(filter(lambda hypr: hypr.isRedundant(region) == False, region.getHyperplanes()),region.getDimension()) 
     
             

@@ -36,13 +36,12 @@ class Hyperplane(object):
         dimension = self.getDimension()
         ############ model ##############################
         model = Model()
+        model.hideOutput()
         xVars = {}
         for i in range(dimension):
             xVars[i] = model.addVar(vtype="CONTINUOUS", name="x[%s]" %(i),lb=None)        
         
-        print self
         for hiperplane in region.getHyperplanes().difference(set([self])):
-            print hiperplane
             model.addCons(quicksum(hiperplane.getCoefficient(f)*xVars[f] for f in range(dimension)) <= hiperplane.getIntercept(),"r1%s" % (hiperplane))
         
         model.addCons(quicksum(self.getCoefficient(f)*xVars[f] for f in range(dimension)) <= self.getIntercept() + 1.0,"prevent_unbound")
