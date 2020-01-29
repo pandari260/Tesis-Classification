@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import Plotter as plotter
 import Exporter as exporter
 import pandas as pd
+	
 
 def __runTest(file):
     c0, c1, c_ret = [], [], []
@@ -21,6 +22,8 @@ def __runTest(file):
     c_ret.append(c0)
     c_ret.append(c1)
     exporter.exportCaseTest(c_ret, name)
+    plotter.graphSample(c0, c1)
+    plt.show()
 
 
 file = ["C_Easy1_noise01",

@@ -29,13 +29,13 @@ dimension = 2
 d = "R2"
 
 name = "../INPUT/SVM/"+d+"/t1-ConjuntosDisjuntos.csv"
-n = [5, 5]
-mMu = [[0,0],[6,0]]
+n = [100, 100]
+mMu = [[0,0],[6,6]]
 classes = [0,1]
 test = caseTest.CaseTest(name, dimension, n, (mMu, seed), classes)
 sample = test.initTest()
-exporter.exportCaseTest(sample, name)
-#graphTest(sample) 
+#exporter.exportCaseTest(sample, name)
+graphTest(sample) 
 
 # ------------ Ejemplo lectura archivo CRIO ----------------
 c0, c1 = readFile(name)
