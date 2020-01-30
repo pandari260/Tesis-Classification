@@ -9,8 +9,6 @@ def report_to_df(report):
     report_df = pd.read_csv(StringIO("Classes" + report), sep=' ', index_col=0)        
     return(report_df)
 
-
-
 def showResult(i, directory, test, resultClassify, dataTest):
     print("----------- Test nº "+str(i)+" dimension "+directory+" "+str(test)+" -------------\n ")
     print("Accuracy: ", accuracy_score(resultClassify, dataTest))

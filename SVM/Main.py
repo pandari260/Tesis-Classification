@@ -2,7 +2,7 @@ import pandas as pd
 import SVM as svm
 import matplotlib.pyplot as plt
 import SearcherFile as searcher
-import ExportSerial as exportSerial
+import Printer 
 import numpy as np
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score, recall_score
 
@@ -22,7 +22,7 @@ d=0
 for i in range(len(test)):
     dataSet, target = searcher.searchDatafile(directory[d], test[i])
     resultClassify, dataTest = svm.classify('rbf', dataSet, target)
-    exportSerial.showResult(str(i+1), directory[d], test[i], resultClassify, dataTest)
+    Printer.showResult(str(i+1), directory[d], test[i], resultClassify, dataTest)
 
 
 
