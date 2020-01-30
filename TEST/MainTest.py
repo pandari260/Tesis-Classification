@@ -25,8 +25,8 @@ def readFile(name):
 
 #------- Configuracion general de los casos de prueba ha generar -----#
 seed = 2
-dimension = 2
-d = "R2"
+dimension = 5
+d = "R5"
 
 name = "../Resources/"+d+"/t1-ConjuntosDisjuntos.csv"
 n = [500, 500]
