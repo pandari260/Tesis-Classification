@@ -37,19 +37,10 @@ class Classifier(object):
         self.regions = regions       
     
     
-    def classify(self, sample):
-        
-        print("cantidad de regionres: " + str(len(self.regions)))
+    def classify(self, sample):        
         
         for r in self.regions:
-            is_t1 = True
-            print("region: " + str(r))
-            for hyperplane in r.getHyperplanes():
-                print("hiperplano: " + str(hyperplane))
-                result = reduce(lambda x,y: x + y, map(lambda index: sample.getFeature(index) * hyperplane.getCoefficient(index), range(0,self.__dimension)))
-                print("resultado: " + str(result))
-                is_t1 = is_t1 and (result <= hyperplane.getIntercept())
-            if is_t1:
+            if r.contains(sample):
                 return self.__tag1
         
         return self.__tag0
@@ -102,7 +93,7 @@ def main():
 
 
     
-main()
+
 
     
     

@@ -25,6 +25,14 @@ class Region(object):
     def getDimension(self):
         return self.__dimension
     
+    def contains(self, sample):
+        is_contained= True
+        for hyperplane in self.getHyperplanes():
+            result = reduce(lambda x,y: x + y, map(lambda index: sample.getFeature(index) * hyperplane.getCoefficient(index), range(0,self.__dimension)))
+            is_contained = is_contained and (result <= hyperplane.getIntercept())
+
+        return is_contained
+    
     
     
     
