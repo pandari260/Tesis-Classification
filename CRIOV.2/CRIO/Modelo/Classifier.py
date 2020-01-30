@@ -17,14 +17,45 @@ class Classifier(object):
         '''
         Un Classifier se compone de 
         '''
-        self.regions = train(c0,c1,d,k)
+        self.regions = []
         self.__dimension = d
         self.__num_groups = k
-        self.__tag0= t0
+        self.__class1 = c1
+        self.__class0 = c0
+        self.__tag0 = t0
         self.__tag1 = t1
     
+    def train(self):
+        
+        print("clustering...")
+        clusters0 = createClusters(self.__class0,self.__class1)
+        clusters1 = createClusters(self.__class1,self.__class0)
+        print("grouping...")
+        (groups,clusters) = createGroups(clusters0,clusters1,self.__num_groups)
+        print("regionalizing...")
+        regions = createRegions(groups, clusters)         
+        self.regions = regions       
+    
+    
     def classify(self, sample):
-        pass
+        
+        print("cantidad de regionres: " + str(len(self.regions)))
+        
+        for r in self.regions:
+            is_t1 = True
+            print("region: " + str(r))
+            for hyperplane in r.getHyperplanes():
+                print("hiperplano: " + str(hyperplane))
+                result = reduce(lambda x,y: x + y, map(lambda index: sample.getFeature(index) * hyperplane.getCoefficient(index), range(0,self.__dimension)))
+                print("resultado: " + str(result))
+                is_t1 = is_t1 and (result <= hyperplane.getIntercept())
+            if is_t1:
+                return self.__tag1
+        
+        return self.__tag0
+            
+            
+        
     
     def export(self, route,d):
         f = open(route,"w")
@@ -50,30 +81,20 @@ class Classifier(object):
         
         
 
-def train(class0,class1,dimension,num_groups):
-    
-    print("clustering...")
-    clusters0 = createClusters(class0,class1)
-    clusters1 = createClusters(class1,class0)
-    print("grouping...")
-    (groups,clusters) = createGroups(clusters0,clusters1,num_groups)
-    print("regionalizing...")
-    regions = createRegions(groups, clusters) 
-    
-    print("en el cluster 0 quedaron un total de quedaron un total de: " + str(map(lambda c: c.getSize(), clusters.getClusters())))
-    return regions
+   
 
 def main():
     d = 2
     k = 1
     #c0 = SampleContainer([(-0.1663, -0.208), (-1.4265, 1.2276), (-0.7036, 1.0372), (0.2668, -1.6665), (0.2529, -1.9605)],d)
     #c1 = SampleContainer([(5.8384, 0.1114), (6.1911, -0.2508), (6.8148, -0.6143), (5.8302, -1.8956), (7.2234, 1.8256)], d)
-    c0,c1 = Importer.readSamples("/home/javier/Documentos/Repositorios Git/Tesis-Classification/INPUT/SVM/R2/t9-Piramide.csv", d)
+    c0,c1 = Importer.readSamples("/home/javier/Documentos/Repositorios Git/Tesis-Classification/INPUT/SVM/R2/t1-ConjuntosDisjuntos.csv", d)
     
     
     t0 = "rojo"
     t1 = "azul"
     clasifier = Classifier(c0,c1,t0,t1,d,k)
+    clasifier.train()
     
    
     
