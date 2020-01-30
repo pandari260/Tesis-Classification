@@ -40,5 +40,5 @@ target = fdata['Class']
 resultClassify, dataTest = svm.classify('rbf', dataSet, target)
 __showInfo(1, "R2-Real", 5000, resultClassify, dataTest)
 
-
+print("hola mundo")
 '''
