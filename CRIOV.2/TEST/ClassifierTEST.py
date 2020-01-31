@@ -100,7 +100,46 @@ class Test(unittest.TestCase):
         self.assertEquals(t1,classifier.classify(sample_blue2), "la muestra debe ser azul")
 
         self.assertEquals(t0,classifier.classify(sample_red), "la muestra debe ser roja")
+    
+    def test_classify_Polytope(self):
+        d = 2
+        k = 2
+        t0 = "blue"
+        t1 = "red"
+        sample_blue = Sample((-5.0,-5.0))
+        sample_red = Sample((5.0,5.0))
         
+        h1 = Hyperplane({0:1,1:2},5)
+        h2 = Hyperplane({0:1,1:0.5},5)     
+        
+        classifier = Classifier([],[],t0,t1,d,k)
+        classifier.regions = [Region([h1,h2],d)]
+        
+        self.assertEquals(t1,classifier.classify(sample_blue), "la muestra debe ser azul")
+
+        self.assertEquals(t0,classifier.classify(sample_red), "la muestra debe ser roja")
+    
+    def test_classify_twoPolytope(self):
+        d = 2
+        k = 2
+        t0 = "blue"
+        t1 = "red"
+        sample_blue1 = Sample((-10.0,-5.0))
+        sample_blue2 = Sample((40.0,20.0))
+
+        sample_red = Sample((5.0,5.0))
+        
+        h1 = Hyperplane({0:1,1:2},5)
+        h2 = Hyperplane({0:1,1:0.5},5)         
+        h3 = Hyperplane({0:-1,1:-2},-30)
+        h4 = Hyperplane({0:-1,1:-0.5},-30)     
+        
+        classifier = Classifier([],[],t0,t1,d,k)
+        classifier.regions = [Region([h1,h2],d), Region([h3,h4],d)]
+        
+        self.assertEquals(t1,classifier.classify(sample_blue1), "la muestra debe ser azul")
+        self.assertEquals(t1,classifier.classify(sample_blue2), "la muestra debe ser azul")
+        self.assertEquals(t0,classifier.classify(sample_red), "la muestra debe ser roja")
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testClassify']
