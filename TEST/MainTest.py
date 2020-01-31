@@ -99,7 +99,7 @@ classes = [1,0,1]
 test = caseTest.CaseTest(name, dimension, n, (mMu, seed), classes)
 sample = test.initTest()
 exporter.exportCaseTest(sample, name)
-#graphTest(sample) 
+graphTest(sample) 
 
 
 name = "../Resources/"+d+"/t8-DiagonalIntercaladaSolapada.csv"
