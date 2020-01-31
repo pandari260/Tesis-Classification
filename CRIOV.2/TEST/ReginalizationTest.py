@@ -113,7 +113,6 @@ class RegionalizationTest(unittest.TestCase):
         regions = createRegions(groups, clusters)
         hiperplanes = regions[0].getHyperplanes().pop()
         
-        print(hiperplanes.getCoefficient(0))
         self.assertTrue(0.99999995001 < hiperplanes.getCoefficient(0) and 0.99999995002 > hiperplanes.getCoefficient(0),"0.99999995001 debe multiplicar la primer incognita")
         self.assertEquals(0.0,  hiperplanes.getCoefficient(1) ,"0.0 debe multiplicar la segunda incognita")
         self.assertEquals(0.0,  hiperplanes.getCoefficient(2) ,"0.0 debe multiplicar la tercera incognita")
@@ -127,7 +126,6 @@ class RegionalizationTest(unittest.TestCase):
         regions = createRegions(groups, clusters)
         hiperplanes = regions[0].getHyperplanes().pop()
         
-        print(hiperplanes.getIntercept())
         self.assertTrue(0.999999950215 < hiperplanes.getCoefficient(0) and 0.999999950216 > hiperplanes.getCoefficient(0),"0.99999995001 debe multiplicar la primer incognita")
         self.assertEquals(0.0,  hiperplanes.getCoefficient(1) ,"0.0 debe multiplicar la segunda incognita")
         self.assertTrue(5.9999997013 > hiperplanes.getIntercept() and 5.9999997012 < hiperplanes.getIntercept(), "alfa debe ser 5.9999997013")

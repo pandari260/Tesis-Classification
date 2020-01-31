@@ -236,14 +236,9 @@ class ClusteringTest(unittest.TestCase):
         
 
         for c in clusters1.getClusters():
-            #print("")
-            #print("trabajando con: " + str(c))
-            #print("el grupo asginado  a: " + str(c)+ " es: " + str(getGroupIndex(a,c,num_groups)))
+            
             self.assertTrue(getGroupIndex(a,c,num_groups) > -1,"todos los clusters deben tener un grupo asignado")
-        #print("")
         used_groups = usedGroups(num_groups, clusters1, a)
-            #
-        #print("grupos usados:" + str(used_groups))
         self.assertEqual(len(used_groups),num_groups ,"Debe haver 3 grupos con dos clusters")
         self.assertEqual(getGroupIndex(a,cls1_1,num_groups), getGroupIndex(a,cls1_2,num_groups), "el cls1_1 debe estar en el mismo grupo que el cls1_2")
         self.assertEqual(getGroupIndex(a,cls1_4,num_groups), getGroupIndex(a,cls1_5,num_groups), "el cls1_1 debe estar en el mismo grupo que el cls1_2")
@@ -452,14 +447,8 @@ class ClusteringTest(unittest.TestCase):
         
 
         for c in clusters1.getClusters():
-            #print("")
-            #print("trabajando con: " + str(c))
-            #print("el grupo asginado  a: " + str(c)+ " es: " + str(getGroupIndex(a,c,num_groups)))
             self.assertTrue(getGroupIndex(a,c,num_groups) > -1,"todos los clusters deben tener un grupo asignado")
-        #print("")
         used_groups = usedGroups(num_groups, clusters1, a)
-            #
-        #print("grupos usados:" + str(used_groups))
         self.assertEqual(len(used_groups),num_groups ,"Debe haver 3 grupos con dos clusters")
         self.assertEqual(getGroupIndex(a,cls1_1,num_groups), getGroupIndex(a,cls1_2,num_groups), "el cls1_1 debe estar en el mismo grupo que el cls1_2")
         self.assertEqual(getGroupIndex(a,cls1_4,num_groups), getGroupIndex(a,cls1_5,num_groups), "el cls1_1 debe estar en el mismo grupo que el cls1_2")
@@ -668,14 +657,8 @@ class ClusteringTest(unittest.TestCase):
         
 
         for c in clusters1.getClusters():
-            #print("")
-            #print("trabajando con: " + str(c))
-            #print("el grupo asginado  a: " + str(c)+ " es: " + str(getGroupIndex(a,c,num_groups)))
             self.assertTrue(getGroupIndex(a,c,num_groups) > -1,"todos los clusters deben tener un grupo asignado")
-        #print("")
         used_groups = usedGroups(num_groups, clusters1, a)
-            #
-        #print("grupos usados:" + str(used_groups))
         self.assertEqual(len(used_groups),num_groups ,"Debe haver 3 grupos con dos clusters")
         self.assertEqual(getGroupIndex(a,cls1_1,num_groups), getGroupIndex(a,cls1_2,num_groups), "el cls1_1 debe estar en el mismo grupo que el cls1_2")
         self.assertEqual(getGroupIndex(a,cls1_4,num_groups), getGroupIndex(a,cls1_5,num_groups), "el cls1_1 debe estar en el mismo grupo que el cls1_2")

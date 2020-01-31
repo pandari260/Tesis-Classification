@@ -23,7 +23,6 @@ def createClusters(samplesA, samplesB):
         k = 0
         distances_graph = createDistanceGraph(clusters.getClusters())
         #sorted_edges = sorted(distances_graph.edges(data=True), key=lambda x: x[2]['weight'])
-        #print("cantidad de objetos: " + str(len(sorted_edges)))
         while k < K:
            
             #(u,v,w) = sorted_edges[0]
@@ -63,7 +62,6 @@ def updateDistanceGraph(g,u,v,merged):
     
 
 def minimumEdge(g):
-    #print("empeso a buscar")
     return reduce(lambda a,b: a if g[a[0]][a[1]]['weight'] < g[b[0]][b[1]]['weight'] else b , g.edges())
 
 def createDistanceGraph(elements):
@@ -75,10 +73,8 @@ def createDistanceGraph(elements):
 #devulve un ClusterContainer con cada muestra como un cluster
 """TODO: testear"""
 def createDefaultClusters(samples):
-    print("creando por defecto...")
     d = samples.getDimension()
     return ClusterContainer(map(lambda spl: Cluster([spl],d),samples.getSamples()),d)
-    print("terminada la creacion por defecto...")
 
 #determina si hay una muestra perteneciente a "samples" en la componente convexa de entre los clusters A y B 
 #ambos clusters deben tener el mismo valor de dimension

@@ -32,7 +32,7 @@ class Test(unittest.TestCase):
         self.assertEquals(t1,classifier.classify(sample_blue), "la muestra debe ser azul")
         self.assertEquals(t0,classifier.classify(sample_red), "la muestra debe ser roja")
     
-    def test_Classify_squarePolyhedron(self):
+    def test_Classify_irregularPolyhedron(self):
         d = 2
         k = 1
         t0 = "blue"
@@ -52,7 +52,7 @@ class Test(unittest.TestCase):
         self.assertEquals(t1,classifier.classify(sample_blue), "la muestra debe ser azul")
         self.assertEquals(t0,classifier.classify(sample_red), "la muestra debe ser roja")
         
-    def test_Classify_irregularPolyhedron(self):
+    def test_Classify_squarePolyedrom(self):
         d = 2
         k = 1
         t0 = "blue"
@@ -72,7 +72,35 @@ class Test(unittest.TestCase):
         self.assertEquals(t1,classifier.classify(sample_blue), "la muestra debe ser azul")
         self.assertEquals(t0,classifier.classify(sample_red), "la muestra debe ser roja")
 
+    def test_classify_twoSquarePoliedrom(self):
+        d = 2
+        k = 2
+        t0 = "blue"
+        t1 = "red"
+        sample_blue1 = Sample((8.0,8.0))
+        sample_blue2 = Sample((2.0,2.0))
+        sample_red = Sample((5.0,5.0))
+        
+        h1 = Hyperplane({0:1,1:0},4)
+        h2 = Hyperplane({0:-1,1:0},0)
+        h3 = Hyperplane({0:0,1:1},4)
+        h4 = Hyperplane({0:1,1:-1},0)
+        
+        h5 = Hyperplane({0:1,1:0},10)
+        h6 = Hyperplane({0:-1,1:0},-6)
+        h7 = Hyperplane({0:0,1:1},10)
+        h8 = Hyperplane({0:0,1:-1},-6)
 
+
+
+        classifier = Classifier([],[],t0,t1,d,k)
+        classifier.regions = [Region([h1,h2,h3,h4],d),Region([h5,h6,h7,h8],d)]
+        
+        self.assertEquals(t1,classifier.classify(sample_blue1), "la muestra debe ser azul")
+        self.assertEquals(t1,classifier.classify(sample_blue2), "la muestra debe ser azul")
+
+        self.assertEquals(t0,classifier.classify(sample_red), "la muestra debe ser roja")
+        
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testClassify']
