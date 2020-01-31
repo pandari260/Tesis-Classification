@@ -15,7 +15,7 @@ def main():
     print("Clase1: " + str(clase1)  + "\n\n\n\n\n\n")
     print("Hiperplanos: " + str(solution)  + "\n\n\n\n\n\n")
 
-    graphDataSet(clase0,clase1,solution,np.linspace(-5,5,3000))
+    graphDataSet(clase0,clase1,solution)
 
 
 main()

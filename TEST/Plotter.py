@@ -3,17 +3,18 @@ import matplotlib.pyplot as plt
 import math
 import Sample
 
-scale = np.linspace(-5,5,3000)
+scale = np.linspace(-5,5,1000)
 
 #Dado los conjuntos de clase0,clase1 e hiperplanos, este los grafica en la escala definida.
 def graphDataSet(sampleC0, sampleC1, setPlane):
+	plt.axis([-6,6,-6,6])
 	graphSample(sampleC0, sampleC1)
-	graphHyperplane(setPlane, scale)
+	graphHyperplane(setPlane)
 	plt.show()
 
 #Grafica el conjunto de hiperplanos pasado por parametro.
 def graphHyperplane(setPlane):
-	for i in setPlane:	__drawHyperPlane(i, scale)
+	for i in setPlane:	__drawHyperPlane(i)
 
 #Grafica el conjunto de muestras de clase0 y clase1.
 def graphSample(sampleC0, sampleC1):
@@ -23,18 +24,19 @@ def graphSample(sampleC0, sampleC1):
 #Dibuja un hiperplano
 def __drawHyperPlane(coef):
 	cFill, cLine = 'orange', 'black'
+	n = scale[0]*coef[2]
 	if((not __isZero(coef[0])) and (not __isZero(coef[1]))):
-		plt.plot(scale, __func(coef,scale), color=cLine)
-		plt.fill_between(scale, __func(coef,scale), scale[0], color=cFill, alpha=0.2)
+		plt.plot(scale, __func(coef), color=cLine)
+		plt.fill_between(scale, __func(coef), n, color=cFill, alpha=0.1)
 	else:
 		if(__isZero(coef[0])):
 			y = (coef[2] / coef[1])
 			plt.axhline(y, color=cLine)
-			plt.axhspan(y, scale[0], alpha=0.2, color=cFill)
+			plt.axhspan(y, n, alpha=0.1, color=cFill)
 		else: 
 			x = (coef[2] / coef[0])
 			plt.axvline(x, color=cLine)
-			plt.axvspan(x, scale[0], alpha=0.2, color=cFill)
+			plt.axvspan(x, n, alpha=0.1, color=cFill)
 
 #Dibuja un par de coordenadas (x,y)
 def __drawSample(sample, color):
