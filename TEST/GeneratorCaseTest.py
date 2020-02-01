@@ -13,15 +13,7 @@ def graphTest(sample):
 	plotter.graphSample(c0, c1)
 	plt.show()
 
-def readFile(name):
-	c0, c1 = [], []
-	with open(name, 'r') as csvfile:
-		set_data = csv.reader(csvfile, delimiter=',')
-		next(set_data)
-		aux_set_data = list(set_data).copy()
-		c0 = list(map(lambda k: tuple(map(lambda i: float(i), k)),  list(map(lambda j: j[:-1], list(filter(lambda l: int(l[-1]) == 0, aux_set_data))))))
-		c1 = list(map(lambda k: tuple(map(lambda i: float(i), k)), list(map(lambda j: j[:-1], list(filter(lambda l: int(l[-1]) == 1, aux_set_data))))))
-	return c0, c1
+
 
 #------- Configuracion general de los casos de prueba ha generar -----#
 seed = 2
@@ -38,10 +30,6 @@ exporter.exportCaseTest(sample, name)
 #graphTest(sample) 
 
 # ------------ Ejemplo lectura archivo CRIO ----------------
-#c0, c1 = readFile(name)
-#print(c0)	
-#print(c1)  
-
 
 name = "../Resources/"+d+"/t2-ConjuntosSolapados.csv"
 n = [500, 500]
@@ -99,7 +87,7 @@ classes = [1,0,1]
 test = caseTest.CaseTest(name, dimension, n, (mMu, seed), classes)
 sample = test.initTest()
 exporter.exportCaseTest(sample, name)
-graphTest(sample) 
+#graphTest(sample) 
 
 
 name = "../Resources/"+d+"/t8-DiagonalIntercaladaSolapada.csv"

@@ -27,14 +27,11 @@ test_real = [   "/Test-C_Easy1_noise01",
                 "/Test-C_Test_LFPcorr_Easy2_noise015",
                 "/Test-C_Drift_Easy2_noise015"    ]
 
-directory = ["R2", "R3", "R4", "R5", "R6", "R7", "R8", "R9", "R10"]
-directory_real = ["R2-Real"]
-d=0
-
+directory = ["R2", "R2-Real", "R3", "R4", "R5", "R6", "R7", "R8", "R9", "R10"]
+d=1
 test = test_real
-directory = directory_real
 
 for i in range(len(test)):
     dataSet, target = searcher.searchDatafile(directory[d], test[i])
-    resultClassify, dataTest = svm.classify('linear', dataSet, target)
+    resultClassify, dataTest = svm.classify('rbf', dataSet, target)
     Printer.showResult(str(i+1), directory[d], test[i], resultClassify, dataTest)

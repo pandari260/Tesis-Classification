@@ -16,15 +16,15 @@ def showResult(i, directory, test, resultClassify, dataTest):
     print(confusion_matrix(resultClassify, dataTest))
     print("Metrics report: ")
     print(classification_report(resultClassify, dataTest))
+    '''
+        report = classification_report(resultClassify, dataTest,  output_dict=True)
 
-    report = classification_report(resultClassify, dataTest,  output_dict=True)
+        clsf_report = pd.DataFrame(report).transpose()
+        
+        clsf_report.to_csv('outputRunTest.csv', index= False)
 
-    clsf_report = pd.DataFrame(report).transpose()
-    
-    clsf_report.to_csv('outputRunTest.csv', index= False)
-
-    for i, j in clsf_report.iterrows():
-        print(i, j)
-        print()
-
+        for i, j in clsf_report.iterrows():
+            print(i, j)
+            print()
+    '''
     print("\n\n")
