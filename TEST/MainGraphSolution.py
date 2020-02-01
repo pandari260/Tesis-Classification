@@ -42,7 +42,7 @@ routeSolution = "solution"
 idTest = files[0][1]
 direc = directory[0]
 
-name = "../Resources/"+str(direc)+str(idTest)+".csv"
+name = "../Resources/"+direc+idTest+".csv"
 clase0, clase1 = readFile(name)
 solution = readHiperplanes(routeSolution,2)
 
