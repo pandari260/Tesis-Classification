@@ -7,16 +7,16 @@ import numpy as np
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score, recall_score
 
 
-test = [        "/t1-ConjuntosDisjuntos",
+test = [    [   "/t1-ConjuntosDisjuntos",
                 "/t2-ConjuntosSolapados",
                 "/t3-CuadranteOpuesto",
                 "/t4-CuadranteOpuestoSolapado",
                 "/t5-Encerrado",
                 "/t6-EncerradoSolapado",
                 "/t7-DiagonalIntercalada",
-                "/t8-DiagonalIntercaladaSolapada"   ]
+                "/t8-DiagonalIntercaladaSolapada"   ],
 
-test_real = [   "/Test-C_Easy1_noise01",
+            [   "/Test-C_Easy1_noise01",
                 "/Test-C_Easy1_noise02",
                 "/Test-C_Easy1_noise03",
                 "/Test-C_Easy1_noise04",
@@ -25,11 +25,11 @@ test_real = [   "/Test-C_Easy1_noise01",
                 "/Test-C_Easy2_noise02",
                 "/Test-C_Difficult1_noise01",
                 "/Test-C_Test_LFPcorr_Easy2_noise015",
-                "/Test-C_Drift_Easy2_noise015"    ]
+                "/Test-C_Drift_Easy2_noise015"    ]  ]
 
 directory = ["R2", "R2-Real", "R3", "R4", "R5", "R6", "R7", "R8", "R9", "R10"]
-d=1
-test = test_real
+d=0
+test = test[0]
 
 for i in range(len(test)):
     dataSet, target = searcher.searchDatafile(directory[d], test[i])

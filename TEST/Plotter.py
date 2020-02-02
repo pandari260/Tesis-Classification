@@ -7,7 +7,7 @@ scale = np.linspace(-5,5,1000)
 
 #Dado los conjuntos de clase0,clase1 e hiperplanos, este los grafica en la escala definida.
 def graphDataSet(sampleC0, sampleC1, setPlane):
-	plt.axis([-5,5,-5,5])
+	plt.axis([-3,5,-5,5])
 	graphSample(sampleC0, sampleC1)
 	graphHyperplane(setPlane)
 	plt.show()
@@ -20,7 +20,7 @@ def graphHyperplane(setPlane):
 def graphSample(sampleC0, sampleC1):
 	__drawSample(sampleC0, 'red')
 	__drawSample(sampleC1, 'blue')
-
+	
 #Dibuja un hiperplano
 def __drawHyperPlane(coef):
 	cFill, cLine = 'black', 'black'
