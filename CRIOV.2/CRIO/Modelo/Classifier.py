@@ -81,22 +81,29 @@ def main():
     d = 2
     k = 1
     c0 = SampleContainer([(-0.1663, -0.208), (-1.4265, 1.2276), (-0.7036, 1.0372), (0.2668, -1.6665), (0.2529, -1.9605)],d)
-    c1 = SampleContainer([(5.8384, 0.1114), (6.1911, -0.2508), (6.8148, -0.6143), (5.8302, -1.8956), (7.2234, 1.8256)], d)
+    c1 = SampleContainer([(5.8384, 0.1114), (6.8148, -0.6143), (5.8302, -1.8956), (7.2234, 1.8256)], d)
     #c0,c1 = Importer.readSamples("/home/pandari/Escritorio/Tesis-Classification/Resources/R2/t1-ConjuntosDisjuntos.csv", d)
     
-    sample = [(-0.1663, -0.208), (-1.4265, 1.2276), (6.1911, -0.2508), (-0.7036, 1.0372), (0.2668, -1.6665), (0.2529, -1.9605)]
+    sampleC0 = [(-0.1663, -0.208), (-1.4265, 1.2276), (6.1911, -0.2508), (-0.7036, 1.0372), (0.2668, -1.6665), (0.2529, -1.9605)]
+    sampleC1 = [(-0.1663, -0.208), (-1.4265, 1.2276), (6.1911, -0.2508), (-0.7036, 1.0372), (0.2668, -1.6665), (0.2529, -1.9605)]
     
     t0 = "rojo"
     t1 = "azul"
     clasifier = Classifier(c0,c1,t0,t1,d,k)
     clasifier.train()
     
-    for i in sample:
-        print(clasifier.classify(Sample.Sample(i)))
+    TP, FP, TN, FN = 0, 0, 0, 0
     
-
+    for i in sampleC0:
+        if(clasifier.classify(Sample.Sample(i)).__eq__("rojo")):  TP+=1 
+        else: FP+=1
     
-
+    for i in sampleC1:
+        if(clasifier.classify(Sample.Sample(i)).__eq__("azul")):  TN+=1 
+        else: FN+=1
+    
+    print("Valor de TP: %d \nValor de FP: %d \nValor de TN: %d \nValor de FN: %d" % (TP, FP, TN, FN))
+   
 main()
     
     
