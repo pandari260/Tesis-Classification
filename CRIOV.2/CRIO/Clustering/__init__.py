@@ -7,6 +7,7 @@ from timeit import itertools
 from CRIO.Modelo.ClusterContainer import ClusterContainer
 import networkx as nx
 from functools import reduce
+from __builtin__ import False
 
 
 #resive dos SamplesContainer de clase A y B, y retorna clusters de clase A de acuerdo a clustering por menor distacia promedio
@@ -43,7 +44,48 @@ def createClusters(samplesA, samplesB):
         
         
         return ClusterContainer(filter(lambda cls: cls.getSize() >= samplesA.getSize()*0.01, clusters.getClusters()),clusters.getDimension())
+
+def createClusters2(samplesA, samplesB):
+    clusters = createDefaultClusters(samplesA)
+    samples = samplesB
+    
+    if samplesA.getSize() == 1:
+        return clusters
+    
+    else:       
+        
+        K = clusters.getSize()
+        k = 0
+        distances_graph = createDistanceGraph(clusters.getClusters())
+        sorted_edges = sorted(distances_graph.edges(data=True), key=lambda x: x[2]['weight'])
+        has_already_been_merged  = createMap(sorted_edges)
+        
+        while k < K:
             
+            if len(sorted_edges) == 0:
+                sorted_edges = sorted(distances_graph.edges(data=True), key=lambda x: x[2]['weight'])
+            else:
+                (u,v,w) = sorted_edges[0]
+                #(u,v) = minimumEdge(distances_graph)
+                merged = mergeClusters(u, v)
+    
+                if(not has_already_been_merged[v] or not has_already_been_merged[u]):
+                    if not containsOutlier(merged, samples):
+                        clusters = updateClusterContainer(clusters, u, v, merged)
+                        distances_graph = updateDistanceGraph(distances_graph, u,v,merged)
+                        has_already_been_merged[v] = True
+                        has_already_been_merged[u] = True
+                        K = K - 1
+                        k = 0
+                    k = k + 1
+                sorted_edges.remove(sorted_edges[0])
+
+            
+            
+        
+        
+        return ClusterContainer(filter(lambda cls: cls.getSize() >= samplesA.getSize()*0.01, clusters.getClusters()),clusters.getDimension())
+    
             
 def updateClusterContainer(clusters, u,v,merged):
     clusters.remove(u)
@@ -60,6 +102,14 @@ def updateDistanceGraph(g,u,v,merged):
     
     return g
     
+def createMap(values):
+    d = {}
+    for v in values:
+        d[v] = False
+    
+    return d
+
+
 
 def minimumEdge(g):
     return reduce(lambda a,b: a if g[a[0]][a[1]]['weight'] < g[b[0]][b[1]]['weight'] else b , g.edges())

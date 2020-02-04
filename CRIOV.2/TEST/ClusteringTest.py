@@ -37,6 +37,10 @@ def displayGraph(g):
     plt.axis('off')
     plt.show()
 
+
+def displayClusterContainer(c):
+    for cls in c.getClusters():
+        print(map(lambda s: s.getData(), cls.getSamples()))
 class Test(unittest.TestCase):
 
     """containsOutlier: determina si un clusters contiene outliers """
@@ -441,6 +445,8 @@ class Test(unittest.TestCase):
         container = createClusters(samplesA, samplesB)
         
         self.assertEquals(container, container_test, "Deben definirse los clusters: [s1,s2],[s3,s4],[s5]")
+        displayClusterContainer(container)
+        displayClusterContainer(container_test)
     def test_createClusters_severalOutliers3D(self):
         d = 3
         s1,s2,s3,s4,s5 = (3.0,7.0,0.0),(3.0,6.0,0.0),(10.0,7.0,0.0),(10.0,6.0,0.0),(6.5,6.5,0.0)
@@ -468,8 +474,16 @@ class Test(unittest.TestCase):
         container = createClusters(samplesA, samplesB)
         
         self.assertEquals(container, container_test, "Deben definirse los clusters: [s1,s2],[s3,s4],[s5]")
-
+    
+    def test_fallakchiquito(self):
+        d = 2
+        s1,s2,s3,s4,s5 = (1.0,3.0),(3.0,3.0),(-4.0,3.0),(8.0,3.0),(2.0,3.0)
+        samplesA = SampleContainer([s1,s2,s3,s4],d)
+        samplesB = SampleContainer([s5],d)
+        displayClusterContainer(createClusters(samplesA, samplesB))
         
+        self.assertTrue(False)
+
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
     unittest.main()
