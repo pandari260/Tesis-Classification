@@ -46,6 +46,8 @@ def createClusters(samplesA, samplesB):
         return ClusterContainer(filter(lambda cls: cls.getSize() >= samplesA.getSize()*0.01, clusters.getClusters()),clusters.getDimension())
 
 def createClusters2(samplesA, samplesB):
+    
+    
     clusters = createDefaultClusters(samplesA)
     samples = samplesB
     
@@ -58,18 +60,23 @@ def createClusters2(samplesA, samplesB):
         k = 0
         distances_graph = createDistanceGraph(clusters.getClusters())
         sorted_edges = sorted(distances_graph.edges(data=True), key=lambda x: x[2]['weight'])
-        has_already_been_merged  = createMap(sorted_edges)
-        
+        has_already_been_merged  = createMap(distances_graph.nodes)
+        print("Cantidad de aristas " + str(len(sorted_edges)))
         while k < K:
             
             if len(sorted_edges) == 0:
+                print("reordenar")
                 sorted_edges = sorted(distances_graph.edges(data=True), key=lambda x: x[2]['weight'])
+                has_already_been_merged  = createMap(distances_graph.nodes)
+                print("Cantidad de aristas " + str(len(sorted_edges)))
+                print("Cantidad de clusters: " + str(clusters.getSize()))
+
+
             else:
                 (u,v,w) = sorted_edges[0]
-                #(u,v) = minimumEdge(distances_graph)
-                merged = mergeClusters(u, v)
-    
-                if(not has_already_been_merged[v] or not has_already_been_merged[u]):
+                #(u,v) = minimumEdge(distances_graph)    
+                if(not has_already_been_merged[v] and not has_already_been_merged[u]):
+                    merged = mergeClusters(u, v)
                     if not containsOutlier(merged, samples):
                         clusters = updateClusterContainer(clusters, u, v, merged)
                         distances_graph = updateDistanceGraph(distances_graph, u,v,merged)
@@ -79,13 +86,12 @@ def createClusters2(samplesA, samplesB):
                         k = 0
                     k = k + 1
                 sorted_edges.remove(sorted_edges[0])
+                
+        return ClusterContainer(filter(lambda cls: cls.getSize() >= samplesA.getSize()*0.01, clusters.getClusters()),clusters.getDimension())
 
             
             
         
-        
-        return ClusterContainer(filter(lambda cls: cls.getSize() >= samplesA.getSize()*0.01, clusters.getClusters()),clusters.getDimension())
-    
             
 def updateClusterContainer(clusters, u,v,merged):
     clusters.remove(u)

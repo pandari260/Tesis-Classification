@@ -7,7 +7,7 @@ import unittest
 from CRIO.Modelo.Cluster import Cluster,mergeClusters
 from CRIO.Modelo.Sample import Sample
 from CRIO.Modelo.SampleContainer import SampleContainer
-from CRIO.Clustering import containsOutlier,createDistanceGraph, minimumEdge,createClusters
+from CRIO.Clustering import containsOutlier,createDistanceGraph, minimumEdge,createClusters, createClusters2
 from CRIO.Modelo.ClusterContainer import ClusterContainer
 import networkx as nx
 import matplotlib.pyplot as plt
@@ -445,8 +445,7 @@ class Test(unittest.TestCase):
         container = createClusters(samplesA, samplesB)
         
         self.assertEquals(container, container_test, "Deben definirse los clusters: [s1,s2],[s3,s4],[s5]")
-        displayClusterContainer(container)
-        displayClusterContainer(container_test)
+      
     def test_createClusters_severalOutliers3D(self):
         d = 3
         s1,s2,s3,s4,s5 = (3.0,7.0,0.0),(3.0,6.0,0.0),(10.0,7.0,0.0),(10.0,6.0,0.0),(6.5,6.5,0.0)
@@ -475,14 +474,66 @@ class Test(unittest.TestCase):
         
         self.assertEquals(container, container_test, "Deben definirse los clusters: [s1,s2],[s3,s4],[s5]")
     
-    def test_fallakchiquito(self):
+    """Test para el clustering 2"""
+    
+    def test_createClusters2_allSamplesInTheSameCluster_2D(self):
         d = 2
-        s1,s2,s3,s4,s5 = (1.0,3.0),(3.0,3.0),(-4.0,3.0),(8.0,3.0),(2.0,3.0)
-        samplesA = SampleContainer([s1,s2,s3,s4],d)
-        samplesB = SampleContainer([s5],d)
-        displayClusterContainer(createClusters(samplesA, samplesB))
+        s0_1,s0_2,s0_3 = Sample((3.0,3.0)),Sample((4.0,4.0)),Sample((3.0,4.0))
+        s1_1,s1_2,s1_3,s1_4,s1_5,s1_6 = Sample((0.0,1.0)),Sample((0.0,2.0)),Sample((0.0,3.0)),Sample((1.0,0.0)),Sample((1.0,1.0)),Sample((1.0,2.0))
         
-        self.assertTrue(False)
+        class0 = SampleContainer([s0_1,s0_2,s0_3],d)
+        class1 = SampleContainer([s1_1,s1_2,s1_3,s1_4,s1_5,s1_6],d)
+        
+        clusters = createClusters2(class1, class0)
+        
+        for spl in class1.getSamples():
+            self.assertTrue(spl in clusters.getSamples().getSamples())
+            
+            
+    def test_createClusters2_DefineClusterNoneOutlierOnlyOneSample_2D(self):
+        d = 2
+        sA = Sample((0.0,0.0))
+        classA = SampleContainer([sA],d)
+        classB = SampleContainer([(4.0,0.0)], d)
+        
+        clusters = createClusters2(classA, classB)
+        
+        for spl in classA.getSamples():
+            self.assertTrue(spl in clusters.getSamples().getSamples())
+    
+    def test_createClusters2_onlyOneSampleForCluster_2D(self):
+        d = 2
+        s0_1,s0_2,s0_3,s0_4 = (0.0,2.0),(0.0,4.0),(0.0,6.0),(0.0,8.0)
+        s1_1,s1_2,s1_3,s1_4 = (0.0,1.0),(0.0,3.0),(0.0,5.0),(0.0,7.0)        
+        classA = SampleContainer([s1_1,s1_2,s1_3,s1_4],d)
+        classB = SampleContainer([s0_1,s0_2,s0_3,s0_4],d)
+        
+        clusters = createClusters(classA, classB)
+        for spl in classA.getSamples():
+            self.assertTrue(spl in clusters.getSamples().getSamples())
+            
+    def test_createCluster2_onlyOneOutlier_2D(self):
+        d = 2
+        classA = SampleContainer([(0.0,0.0),(0.0,1.0),(0.0,2.0),(0.0,3.0)],d)
+        classB = SampleContainer([(0.0,1.5)],d)
+        clusters = createClusters(classA, classB)
+        for spl in classA.getSamples():
+            self.assertTrue(spl in clusters.getSamples().getSamples())
+    
+    def test_createClusters2_severalOutliers2D(self):
+        d = 2
+        s1,s2,s3,s4,s5 = (3.0,7.0),(3.0,6.0),(10.0,7.0),(10.0,6.0),(6.5,6.5)
+        samplesA = SampleContainer([s1,s2,s3,s4,s5],d)
+        samplesB = SampleContainer([(6.0,7.0),(6.0,6.0),(7.0,6.0),(7.0,7.0),(6.0,6.5),(7.0,6.5)],d)
+        c1 = Cluster([s1,s2],d)
+        c2 = Cluster([s4,s3],d)
+        c3 = Cluster([s5],d)
+        
+        clusters = createClusters(samplesA, samplesB)
+        for spl in samplesA.getSamples():
+            self.assertTrue(spl in clusters.getSamples().getSamples())
+        
+    
 
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testName']
