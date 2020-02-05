@@ -27,15 +27,26 @@ directory = [   "R2",
                 "R2-Real" ]
 
 
+def listStringToFloat(list):
+    l = list[:]
+    for j in range(0, len(l)):
+        l[j] = (float(l[j]))
+    return l
+
+def getListClass(l, clas):
+    lines = list(filter(lambda line: int(line[-1]) == clas, l))
+    lines = list(map(lambda line: line[:-1], lines))
+    return list(map(lambda line: tuple(map(lambda line2: float(line2), line)),  lines))
+
 def readFile(name):
-	c0, c1 = [], []
-	with open(name, 'r') as csvfile:
-		aux_set_data = csv.reader(csvfile, delimiter=',')
-		next(aux_set_data)
-		aux_set_data = list(aux_set_data)
-		c0 = list(map(lambda k: tuple(map(lambda i: float(i), k)),  list(map(lambda j: j[:-1], list(filter(lambda l: int(l[-1]) == 0, aux_set_data))))))
-		c1 = list(map(lambda k: tuple(map(lambda i: float(i), k)), list(map(lambda j: j[:-1], list(filter(lambda l: int(l[-1]) == 1, aux_set_data))))))
-	return c0, c1
+    with open(name, 'r') as csvfile:
+        aux_set_data = csv.reader(csvfile, delimiter=',')
+        next(aux_set_data)
+        aux_set_data = list(aux_set_data)
+        c0 = getListClass(aux_set_data, 0)
+        c1 = getListClass(aux_set_data, 1) 
+        return c0, c1
+       
 
 #Conseguir los hyperplanos -----------------------------------
 routeSolution = "solution"
@@ -45,12 +56,14 @@ direc = directory[0]
 
 name = "../Resources/"+direc+idTest+".csv"
 clase0, clase1 = readFile(name)
+print(clase0)
+print(clase1)
 solution = readHiperplanes(routeSolution,2)
 
-print("Clase0: " + str(clase0)  + "\n\n\n\n\n\n")
-print("Clase1: " + str(clase1)  + "\n\n\n\n\n\n")
-print("Hiperplanos: " + str(solution)  + "\n\n\n\n\n\n")
+#print("Clase0: " + str(clase0)  + "\n\n\n\n\n\n")
+#print("Clase1: " + str(clase1)  + "\n\n\n\n\n\n")
+#print("Hiperplanos: " + str(solution)  + "\n\n\n\n\n\n")
 
-graphDataSet(clase0,clase1,solution)
+#graphDataSet(clase0,clase1,solution)
 
 
