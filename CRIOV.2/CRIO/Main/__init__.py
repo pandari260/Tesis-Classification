@@ -35,11 +35,6 @@ def main():
     train0, test0 = divideProportionally(c0, 0.9)
     train1, test1 = divideProportionally(c1, 0.9)  
     
-    print("train0 %d", len(train0))
-    print("train1 %d", len(train1))
-    print("test0 %d", len(test0))
-    print("test1 %d", len(test1))
-    
     train0 = SampleContainer(train0,d)
     train1 = SampleContainer(train1,d)
     t0 = "rojo"
