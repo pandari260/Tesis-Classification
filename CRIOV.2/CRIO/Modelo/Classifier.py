@@ -91,12 +91,17 @@ def main():
     
     d = 2
     k = 1
-    c0 = SampleContainer([(-0.1663, -0.208), (-1.4265, 1.2276), (-0.7036, 1.0372), (0.2668, -1.6665), (0.2529, -1.9605)],d)
-    c1 = SampleContainer([(5.8384, 0.1114), (6.8148, -0.6143), (5.8302, -1.8956), (7.2234, 1.8256)], d)
-    #c0,c1 = Importer.readSamples("/home/pandari/Escritorio/Tesis-Classification/Resources/R2/t1-ConjuntosDisjuntos.csv", d)
     
-    sampleC0 = [(-0.1663, -0.208), (-1.4265, 1.2276), (-0.7036, 1.0372), (0.2668, -1.6665), (0.2529, -1.9605)]
-    sampleC1 = [(-0.1663, -0.208), (-1.4265, 1.2276), (6.1911, -0.2508), (-0.7036, 1.0372), (0.2668, -1.6665), (0.2529, -1.9605)]
+    c0,c1 = Importer.readSample("/home/pandari/Escritorio/Tesis-Classification/Resources/R2/t1-ConjuntosDisjuntos.csv")
+
+    for k in c0:
+        print (k)    
+        
+    c0 = SampleContainer(c0,d)
+    c1 = SampleContainer(c1,d)
+    
+    sampleC0 = [(-0.1663, -0.208), (-1.4265, 1.2276), (6.8148, -0.6143), (-0.7036, 1.0372), (0.2668, -1.6665), (0.2529, -1.9605)]
+    sampleC1 = [(-0.1663, -0.208), (-1.4265, 1.2276), (-0.7036, 1.0372), (0.2668, -1.6665), (0.2529, -1.9605)]
     
     t0 = "rojo"
     t1 = "azul"
@@ -107,12 +112,17 @@ def main():
     metC0 = Metrics.MetricsClassifier(0, TP, FP, TN, FN)
     metC1 = Metrics.MetricsClassifier(1, FN, TN, FP, TP)
     
-    print ("Titulo del testsss")
-    print ("\nAccuracy: {}\n".format(metC0.getAccuracy()))    
-    print ("Matrix Confuse:\n|{}, {}|\n|{}, {}|\n".format(int(TP), int(FP), int(TN), int(FN)))
-    print ("Report:\n\tClass\tPresicion\tRecall\t\tF1-Score\tSupport\n")
-    metC0.showMetrics()
-    metC1.showMetrics()
+    TITLE_CASETEST ="Titulo del testsss"
+    ACCURACY = "\nAccuracy: {}\n"
+    CONFUSE_MATRIX = "Matrix Confuse:\n|{}, {}|\n|{}, {}|\n"
+    HEADER_METRIC = "Report:\n\tClass\tPresicion\tRecall\t\tF1-Score\tSupport\n"
+    
+    print (TITLE_CASETEST)
+    print (ACCURACY.format(metC0.getAccuracy()))    
+    print (CONFUSE_MATRIX.format(int(TP), int(FP), int(TN), int(FN)))
+    print (HEADER_METRIC)
+    print (metC0.showMetrics())
+    print (metC1.showMetrics())
 
    
 main()

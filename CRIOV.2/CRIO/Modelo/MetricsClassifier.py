@@ -2,6 +2,8 @@
 
 class MetricsClassifier():
     
+    ROW_METRIC = "\t{}\t{:f}\t{:f}\t{:f}\t{}"
+    
     def __init__(self, clas, TP, FP, TN, FN):
         self._clas = clas
         self._TP = TP
@@ -10,8 +12,7 @@ class MetricsClassifier():
         self._FN = FN
     
     def showMetrics(self):
-        print ("\t{}\t{:f}\t{:f}\t{:f}\t{}".format(self._clas, self.__getPresicion(), self.__getRecall(),
-                                             self.__getF1Score(), self.__getSupport()))
+        return self.ROW_METRIC.format(self._clas, self.__getPresicion(), self.__getRecall(), self.__getF1Score(), self.__getSupport())
     
     def getAccuracy(self):
         return (self._TP + self._FN)/(self._TP + self._FP + self._TN + self._FN)
