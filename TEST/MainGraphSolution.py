@@ -27,14 +27,8 @@ directory = [   "R2",
                 "R2-Real" ]
 
 
-def listStringToFloat(list):
-    l = list[:]
-    for j in range(0, len(l)):
-        l[j] = (float(l[j]))
-    return l
-
-def getListClass(l, clas):
-    lines = list(filter(lambda line: int(line[-1]) == clas, l))
+def __getListClass(lines, clas):
+    lines = list(filter(lambda line: int(line[-1]) == clas, lines))
     lines = list(map(lambda line: line[:-1], lines))
     return list(map(lambda line: tuple(map(lambda line2: float(line2), line)),  lines))
 
@@ -43,11 +37,13 @@ def readFile(name):
         aux_set_data = csv.reader(csvfile, delimiter=',')
         next(aux_set_data)
         aux_set_data = list(aux_set_data)
-        c0 = getListClass(aux_set_data, 0)
-        c1 = getListClass(aux_set_data, 1) 
+        c0 = __getListClass(aux_set_data, 0)
+        c1 = __getListClass(aux_set_data, 1) 
         return c0, c1
        
-
+def divideProportionally(lines, porc):
+    p = int(len(lines)*porc)
+    return lines[:p], lines[p:]
 #Conseguir los hyperplanos -----------------------------------
 routeSolution = "solution"
 
@@ -56,8 +52,11 @@ direc = directory[0]
 
 name = "../Resources/"+direc+idTest+".csv"
 clase0, clase1 = readFile(name)
-print(clase0)
-print(clase1)
+print(len(clase0))
+train, test = divideProportionally(clase0, 0.22)
+print(len(train))
+print(len(test))
+#print(clase1)
 solution = readHiperplanes(routeSolution,2)
 
 #print("Clase0: " + str(clase0)  + "\n\n\n\n\n\n")
