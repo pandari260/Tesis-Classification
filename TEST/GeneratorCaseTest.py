@@ -51,7 +51,6 @@ d = "R3"
 def __main__():
 	for i in range(len(files)):
 		name = "../Resources/"+ d + files[i] +".csv"
-		print(name)
 		test = caseTest.CaseTest(name, dimension, n[i], (mMu[i], seed), classes[i])
 		sample = test.initTest()
 		exporter.exportCaseTest(sample, name)
@@ -59,7 +58,6 @@ def __main__():
 		plotter.graphSample(c0, c1)
 		plt.show()
 
-	formato = "--> %s test de dimension %s fueron creados en la carpeta %s."
-	print(formato % tuple((n[0], dimension, d)))
+	print("--> {} test de dimension {} fueron creados en la carpeta {}.".format(n[0], dimension, d))
 
 __main__()
