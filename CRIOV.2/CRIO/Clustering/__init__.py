@@ -58,18 +58,24 @@ def createClusters2(samplesA, samplesB):
         
         K = clusters.getSize()
         k = 0
+        print("creando grafo de distancias...")
         distances_graph = createDistanceGraph(clusters.getClusters())
+        print("ordenando aristas...")
         sorted_edges = sorted(distances_graph.edges(data=True), key=lambda x: x[2]['weight'])
         has_already_been_merged  = createMap(distances_graph.nodes)
         print("Cantidad de aristas " + str(len(sorted_edges)))
+        print("Cantidad de clusters: " + str(clusters.getSize()))
+
         while k < K:
             
             if len(sorted_edges) == 0:
-                print("reordenar")
+                print("re-ordenando...")
                 sorted_edges = sorted(distances_graph.edges(data=True), key=lambda x: x[2]['weight'])
                 has_already_been_merged  = createMap(distances_graph.nodes)
                 print("Cantidad de aristas " + str(len(sorted_edges)))
                 print("Cantidad de clusters: " + str(clusters.getSize()))
+                print("cantidad de clusters: " + str(map(lambda s: s.getSize(),clusters.getClusters())))
+                print("K: " + str(K))
 
 
             else:
@@ -77,6 +83,7 @@ def createClusters2(samplesA, samplesB):
                 #(u,v) = minimumEdge(distances_graph)    
                 if(not has_already_been_merged[v] and not has_already_been_merged[u]):
                     merged = mergeClusters(u, v)
+                    print("se puede fusionar: " + str(not containsOutlier(merged, samples)) + " k: " + str(k) + " K: " + str(K))
                     if not containsOutlier(merged, samples):
                         clusters = updateClusterContainer(clusters, u, v, merged)
                         distances_graph = updateDistanceGraph(distances_graph, u,v,merged)
