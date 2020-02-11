@@ -15,10 +15,4 @@ def readSample(name):
         c1 = __getListClass(aux_set_data, 1) 
         return c0, c1
 
-    lines = list(map(lambda line: line.split(","), lines))
-    lines = list(map(lambda line: listStringToFloat(line), lines))  
-    data0 = SampleContainer(map(lambda spl: tuple(spl[:-1]),filter(lambda spl: spl[dimension] == 0, lines)),dimension)
-    data1 = SampleContainer(map(lambda spl: tuple(spl[:-1]),filter(lambda spl: spl[dimension] == 1, lines)),dimension)
     
-    
-    return data0,data1

@@ -52,6 +52,9 @@ def createRegions(groups, clusters):
             hiperplanes.append(defineHyperplane(grp,clstr))
         regions.add(Region(hiperplanes,clusters.getDimension()))
     
+    for r in regions:
+        print("regiones antes del filtro de redundancia:")
+        print(r.getHyperplanes())    
     return map(lambda rgn: eliminateRedundant(rgn), regions)
 
 def eliminateRedundant(region):
