@@ -5,10 +5,11 @@ Created on 30 ene. 2020
 '''
 import unittest
 from mock import create_autospec
-from CRIO.Modelo.Classifier import Classifier
+from CRIO.Modelo.Classifier import Classifier, createScrollSample, displace
 from CRIO.Modelo.Hyperplane import Hyperplane
 from CRIO.Modelo.Region import Region
 from CRIO.Modelo.Sample import Sample
+from CRIO.Modelo.SampleContainer import SampleContainer
 
 
 
@@ -141,6 +142,32 @@ class Test(unittest.TestCase):
         self.assertEquals(t1,classifier.classify(sample_blue2), "la muestra debe ser azul")
         self.assertEquals(t0,classifier.classify(sample_red), "la muestra debe ser roja")
 
+
+
+    def test_createScrollTuple(self):
+        d = 2
+        samples = SampleContainer([(2.0,3.0),(-2.0,3.0),(-2.0,-2.0),(3.0,-2.0),(-4.0,4.0),(-4.0,-2.0),(1.0,-3.0)],d)
+        
+        
+        gb = createScrollSample(samples, d)
+        for i in range(d):
+            print(gb.getFeature(i))
+            
+        self.assertEquals(Sample((4.0,3.0)), createScrollSample(samples, d))
+    def test_displace(self):
+        d = 2
+        samples = SampleContainer([(2.0,3.0),(-2.0,3.0),(-2.0,-2.0),(3.0,-2.0),(-4.0,4.0),(-4.0,-2.0),(1.0,-3.0)],d)
+        scroll = Sample((4.0,3.0))
+        
+        
+        test = displace(samples,scroll)
+        print(map(lambda s:s.getData(),test.getSamples()))
+        self.assertEqual(SampleContainer([(6.0,6.0),(2.0,6.0),(2.0,1.0),(7.0,1.0),(0.0,7.0),(0.0,1.0),(5.0,0.0)],d), displace(samples,scroll))
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testClassify']
     unittest.main()
+    
+    
+    
+    
+    

@@ -201,50 +201,7 @@ def containsOutlier(mergedCluster,samples):
 
     return model.getObjVal() == 0
 
-def main():
-    c0,c1 = Importer.readSample("/home/javier/Documentos/Repositorios Git/Tesis-Classification/Resources/R2/t1-ConjuntosDisjuntos-10.csv")
-    
-    #print(c1)
-    #print(not containsOutlier(Cluster([(-0.5716,-1.3338), (-1.0047,-0.02892)],2), SampleContainer(c1,2)))
-    #print(not containsOutlier(Cluster([(-0.5716,-1.3338), (-1.0047,-0.02892)],2), SampleContainer([(4.8919,-0.1003)],2)))
-    #print(not containsOutlier(Cluster([(5.5716, 4.3338), (4.0047,5.02892)],2), SampleContainer([(9.8919,5.1003)],2)))
-    """print(not containsOutlier(Cluster([(-1.0, -1.0), (-2.0,0.0)],2), SampleContainer([(5.0,0.0)],2)))
-    print(not containsOutlier(Cluster([(-6.0, -2.0), (-4.0,-4.0)],2), SampleContainer([(1.0,-2.0)],2)))
-    print(not containsOutlier(Cluster([(-9.0, -5.0), (-8.0,-6.0)],2), SampleContainer([(-2.0,-5.0)],2)))
-    print(not containsOutlier(Cluster([(-7.0, 4.0), (-6.0,3.0)],2), SampleContainer([(2.0,4.0)],2)))
-    print(not containsOutlier(Cluster([(-9.0, 7.0), (-8.0,6.0)],2), SampleContainer([(-2.0,7.0)],2)))
-    print(not containsOutlier(Cluster([(2.0, 6.0), (4.0,4.0)],2), SampleContainer([(9.0,6.0)],2)))
-    print(not containsOutlier(Cluster([(3.0, -1.0), (2.0,0.0)],2), SampleContainer([(9.0,0.0)],2)))
-    print(not containsOutlier(Cluster([(2.0, -2.0), (4.0,-4.0)],2), SampleContainer([(9.0,-2.0)],2)))
-    print(not containsOutlier(Cluster([(6.0, -2.0), (7.0,-1.0)],2), SampleContainer([(13.0,0.0)],2)))
-    print(not containsOutlier(Cluster([(-0.5, 0.5), (7.0,-1.0)],2), SampleContainer([(7.0,0.5)],2)))
-    print(not containsOutlier(Cluster([(2.0, 7.0), (1.0,6.0)],2), SampleContainer([(-7.0,7.0)],2)))"""
-    
-    print(not containsOutlier(Cluster([(-4.0, -2.0), (-3.0,-1.0)],2), SampleContainer([(-4.0,5.0)],2)))
-    print(not containsOutlier(Cluster([(-8.0, 4.0), (-7.0,5.0)],2), SampleContainer([(-8.0,11.0)],2)))
-    print(not containsOutlier(Cluster([(-10.0, -10.0), (-9.0,-9.0)],2), SampleContainer([(-10.0,-3.0)],2)))
-    print(not containsOutlier(Cluster([(6.0, 3.0), (7.0,4.0)],2), SampleContainer([(6.0,10.0)],2)))
-    print(not containsOutlier(Cluster([(4.0, -5.0), (5.0,-4.0)],2), SampleContainer([(4.0,2.0)],2)))
-    print(not containsOutlier(Cluster([(8.0, -11.0), (9.0,-10.0)],2), SampleContainer([(8.0,-4.0)],2)))
-    print(not containsOutlier(Cluster([(10.0, 2.0), (11.0,1.0)],2), SampleContainer([(10.0,-5.0)],2)))
-    print(not containsOutlier(Cluster([(-12.0, 3.0), (-11.0,2.0)],2), SampleContainer([(-12.0,-4.0)],2)))
-    
-    """print(not containsOutlier(Cluster([(-3.0, 4.0), (-3.0,2.0)],2), SampleContainer([(2.0,5.0)],2)))
-    print(not containsOutlier(Cluster([(-3.0, 4.0), (-3.0,2.0)],2), SampleContainer([(2.0,3.0)],2)))
-    print(not containsOutlier(Cluster([(-3.0, 4.0), (-3.0,2.0)],2), SampleContainer([(2.0,1.0)],2)))
-    print(not containsOutlier(Cluster([(9.0, -3.0), (11.0,-3.0)],2), SampleContainer([(8.0,2.0)],2)))
-    print(not containsOutlier(Cluster([(9.0, -3.0), (11.0,-3.0)],2), SampleContainer([(10.0,2.0)],2)))
-    print(not containsOutlier(Cluster([(9.0, -3.0), (11.0,-3.0)],2), SampleContainer([(12.0,2.0)],2)))
-    print(not containsOutlier(Cluster([(19.0, 1.0), (21.0,1.0)],2), SampleContainer([(22.0,-2.0)],2)))
-    print(not containsOutlier(Cluster([(19.0, 1.0), (21.0,1.0)],2), SampleContainer([(18.0,-2.0)],2)))
-    print(not containsOutlier(Cluster([(19.0, 1.0), (21.0,1.0)],2), SampleContainer([(20.0,-2.0)],2)))
-    print(not containsOutlier(Cluster([(1.0, -3.0), (1.0,-5.0)],2), SampleContainer([(-2.0,-2.0)],2)))
-    print(not containsOutlier(Cluster([(1.0, -3.0), (1.0,-5.0)],2), SampleContainer([(-2.0,-4.0)],2)))
-    print(not containsOutlier(Cluster([(1.0, -3.0), (1.0,-5.0)],2), SampleContainer([(-2.0,-6.0)],2)))"""
-    
-    
-main()
-    
+
     
 
 

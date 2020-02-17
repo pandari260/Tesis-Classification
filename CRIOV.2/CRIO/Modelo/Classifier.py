@@ -6,7 +6,8 @@ Created on 30 dic. 2019
 from CRIO.Clustering import createClusters
 from CRIO.Grouping import createGroups
 from CRIO.Regionalization import createRegions
-import Sample
+from CRIO.Modelo.Sample import Sample
+from CRIO.Modelo.SampleContainer import SampleContainer
 
 
 class Classifier(object):
@@ -22,6 +23,7 @@ class Classifier(object):
         self.__num_groups = k
         self.__class1 = c1
         self.__class0 = c0
+        
         self.__tag0 = t0
         self.__tag1 = t1
     
@@ -78,7 +80,7 @@ class Classifier(object):
     def __rowConfuseMatrix(self, clasifier, sample, color):
         r1, r2 = 0, 0
         for i in sample:  
-            if(clasifier.classify(Sample.Sample(i)).__eq__(color)):  r1+=1 
+            if(clasifier.classify(Sample(i)).__eq__(color)):  r1+=1 
             else: r2+=1
         return r1, r2
         
@@ -94,8 +96,28 @@ def displayClusterContainer(c):
     for cls in c.getClusters():
         print(map(lambda s: s.getData(), cls.getSamples()))
    
+def createScrollSample(samples,d):
+    
+    def minValuesSample(a,b):
+        s = []
+        for f in range(0,d):
+            if a.getFeature(f) > b.getFeature(f):
+                s.append(b.getFeature(f))
+            else:
+                s.append(a.getFeature(f))
+        return tuple(s)
+    
+    minValues = reduce(lambda a,b: Sample(minValuesSample(a, b)), samples.getSamples())
+    return Sample(tuple(map(lambda n: abs(minValues.getFeature(n)), range(d))))
     
     
+def displace(samples, scrollSample):
+    d = samples.getDimension()
+    def sampleSum(s1,s2):
+        return Sample(tuple(map(lambda i:s1.getFeature(i) + s2.getFeature(i) , range(d))))
+        
+    return SampleContainer(map(lambda spl: sampleSum(spl,scrollSample) , samples.getSamples()),d)
+ 
     
     
     
