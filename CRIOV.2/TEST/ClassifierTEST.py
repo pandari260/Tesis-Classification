@@ -10,6 +10,7 @@ from CRIO.Modelo.Hyperplane import Hyperplane
 from CRIO.Modelo.Region import Region
 from CRIO.Modelo.Sample import Sample
 from CRIO.Modelo.SampleContainer import SampleContainer
+from sympy.logic.boolalg import false
 
 
 
@@ -155,14 +156,21 @@ class Test(unittest.TestCase):
             
         self.assertEquals(Sample((4.0,3.0)), createScrollSample(samples, d))
     def test_displace(self):
+        
+        def isInFirstQuandrant(sample):
+            for i in range(sample.getDimension()):
+                if sample.getFeature(i) < 0:
+                    return False
+            return True
         d = 2
         samples = SampleContainer([(2.0,3.0),(-2.0,3.0),(-2.0,-2.0),(3.0,-2.0),(-4.0,4.0),(-4.0,-2.0),(1.0,-3.0)],d)
         scroll = Sample((4.0,3.0))
         
         
         test = displace(samples,scroll)
-        print(map(lambda s:s.getData(),test.getSamples()))
-        self.assertEqual(SampleContainer([(6.0,6.0),(2.0,6.0),(2.0,1.0),(7.0,1.0),(0.0,7.0),(0.0,1.0),(5.0,0.0)],d), displace(samples,scroll))
+        for sample in test.getSamples():
+            self.assertTrue(isInFirstQuandrant(sample))
+        
 if __name__ == "__main__":
     #import sys;sys.argv = ['', 'Test.testClassify']
     unittest.main()

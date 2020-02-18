@@ -25,7 +25,7 @@ def mainDeJavier():
     d = 2
     k = 2
    
-    c0,c1 = Importer.readSample("/home/javier/Documentos/Repositorios Git/Tesis-Classification/Resources/R2/t1-ConjuntosDisjuntos-200.csv")
+    c0,c1 = Importer.readSample("/home/javier/Documentos/Repositorios Git/Tesis-Classification/Resources/R2/t2-ConjuntosSolapados.csv")
     
     class0 = SampleContainer(c0,d)
     class1 = SampleContainer(c1,d)
@@ -40,6 +40,7 @@ def mainDeJavier():
     
     clasifier.export("/home/javier/Documents/LiClipse Workspace/Ploteo/TEST/solution", d)
     clasifier.export("/home/javier/Documents/LiClipse Workspace/Ploteo3/TEST/solution", d)
+    print("vector de desplazamiento: " + str(clasifier.getDisplaceSample().getData()))
     print("DONE")
     
 def graphClusters(sampleC0,sampleC1, clusters):

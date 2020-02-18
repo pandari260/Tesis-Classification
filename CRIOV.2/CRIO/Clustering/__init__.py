@@ -28,10 +28,10 @@ def createClusters(samplesA, samplesB):
             #(u,v,w) = sorted_edges[0]
             (u,v) = minimumEdge(distances_graph)
             merged = mergeClusters(u, v)
-            print("se puede fusionar: " + str(not containsOutlier(merged, samples)) + " k: " + str(k) + " K: " + str(K))
+            """print("se puede fusionar: " + str(not containsOutlier(merged, samples)) + " k: " + str(k) + " K: " + str(K))
             print("cluster u: " + str(map(lambda s : s.getData(), u.getSamples())))
             print("cluster v: " + str(map(lambda s : s.getData(), v.getSamples())))
-            print("cluster merged: " + str(map(lambda s : s.getData(), merged.getSamples())))
+            print("cluster merged: " + str(map(lambda s : s.getData(), merged.getSamples())))"""
             if containsOutlier(merged, samples):
                 #k = k + 1
                 #sorted_edges.remove(sorted_edges[0])
@@ -75,13 +75,13 @@ def createClusters2(samplesA, samplesB):
         while k < K:
             
             if len(sorted_edges) == 0:
-                #print("re-ordenando...")
+                print("re-ordenando...")
                 sorted_edges = sorted(distances_graph.edges(data=True), key=lambda x: x[2]['weight'])
                 has_already_been_merged  = createMap(distances_graph.nodes)
-                print("Cantidad de aristas " + str(len(sorted_edges)))
+                """print("Cantidad de aristas " + str(len(sorted_edges)))
                 print("Cantidad de clusters: " + str(clusters.getSize()))
                 print("cantidad de clusters: " + str(map(lambda s: s.getSize(),clusters.getClusters())))
-                print("K: " + str(K))
+                print("K: " + str(K))"""
 
 
             else:
@@ -89,10 +89,10 @@ def createClusters2(samplesA, samplesB):
                 #(u,v) = minimumEdge(distances_graph)    
                 if(not has_already_been_merged[v] and not has_already_been_merged[u]):
                     merged = mergeClusters(u, v)
-                    print("se puede fusionar: " + str(not containsOutlier(merged, samples)) + " k: " + str(k) + " K: " + str(K))
+                    """print("se puede fusionar: " + str(not containsOutlier(merged, samples)) + " k: " + str(k) + " K: " + str(K))
                     print("cluster u: " + str(map(lambda s : s.getData(), u.getSamples())))
                     print("cluster v: " + str(map(lambda s : s.getData(), v.getSamples())))
-                    print("cluster merged: " + str(map(lambda s : s.getData(), merged.getSamples())))
+                    print("cluster merged: " + str(map(lambda s : s.getData(), merged.getSamples())))"""
 
                     
 

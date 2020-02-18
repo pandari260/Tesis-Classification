@@ -22,16 +22,21 @@ class Classifier(object):
         self.__dimension = d
         self.__num_groups = k
         self.__class1 = c1
-        self.__class0 = c0
-        
+        self.__class0 = c0        
         self.__tag0 = t0
         self.__tag1 = t1
+        self.__displace_sample = createDisplaceSample(SampleContainer(self.__class0.getSamples().union(self.__class1.getSamples()),d), self.__dimension)
     
     def train(self,creteClustersMethod=createClusters):
         
+        
+        print("desplazando muestras...")
+        displaced_class0 = displace(self.__class0, self.__displace_sample)
+        displaced_class1 = displace(self.__class1, self.__displace_sample)
+
         print("clustering...")
-        clusters0 = creteClustersMethod(self.__class0,self.__class1)
-        clusters1 = creteClustersMethod(self.__class1,self.__class0)
+        clusters0 = creteClustersMethod(displaced_class0,displaced_class1)
+        clusters1 = creteClustersMethod(displaced_class1,displaced_class0)
         print("cluster0")
         displayClusterContainer(clusters0)
         print("cluster1")
@@ -49,11 +54,8 @@ class Classifier(object):
         for r in self.regions:
             if r.contains(sample):
                 return self.__tag1
-        return self.__tag0
+        return self.__tag0          
             
-            
-        
-    
     def export(self, route,d):
         f = open(route,"w")
         THREE_ITEMS_FORMAT = "%s,%s,%s\n"
@@ -74,9 +76,12 @@ class Classifier(object):
             data.append(h.getIntercept())
             f.write(THREE_ITEMS_FORMAT % tuple(data))
         f.close()
+        
+    def getDisplaceSample(self):
+        return self.__displace_sample
     
     
-    "Ariel: mover esto a otro lado"    
+    """Ariel: mover esto a otro lado"""    
     def __rowConfuseMatrix(self, clasifier, sample, color):
         r1, r2 = 0, 0
         for i in sample:  
@@ -88,15 +93,14 @@ class Classifier(object):
         TP, FP = self.__rowConfuseMatrix(clasifier, sampleC0, t0)
         TN, FN = self.__rowConfuseMatrix(clasifier, sampleC1, t1)  
         return float(TP), float(FP), float(TN), float(FN)
-
-
+    """----------------------------------------------------------------------"""
 
     
 def displayClusterContainer(c):
     for cls in c.getClusters():
         print(map(lambda s: s.getData(), cls.getSamples()))
    
-def createScrollSample(samples,d):
+def createDisplaceSample(samples,d):
     
     def minValuesSample(a,b):
         s = []
