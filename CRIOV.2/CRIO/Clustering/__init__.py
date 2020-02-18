@@ -11,7 +11,13 @@ import CRIO.Importer as Importer
 
 #resive dos SamplesContainer de clase A y B, y retorna clusters de clase A de acuerdo a clustering por menor distacia promedio
 def createClusters(samplesA, samplesB):
-    clusters = createDefaultClusters(samplesA)
+    clusters = None
+    if not isinstance(samplesA,ClusterContainer):
+        print("no es sample")
+        clusters = createDefaultClusters(samplesA)
+    else:
+        print("si es sample")
+        clusters = samplesA
     samples = samplesB
     
     if samplesA.getSize() == 1:
@@ -110,7 +116,7 @@ def createClusters2(samplesA, samplesB):
         
         
         
-        
+        clusters = createClusters(clusters, samplesB)
         return ClusterContainer(filter(lambda cls: cls.getSize() >= samplesA.getSize()*0.01, clusters.getClusters()),clusters.getDimension())
 
             

@@ -38,8 +38,9 @@ def mainDeJavier():
     print(clasifier.regions[0].getHyperplanes())
    
     
-    clasifier.export("/home/javier/Documents/LiClipse Workspace/Ploteo/TEST/solution", d)
-    clasifier.export("/home/javier/Documents/LiClipse Workspace/Ploteo3/TEST/solution", d)
+    #clasifier.export("/home/javier/Documents/LiClipse Workspace/Ploteo/TEST/solution", d)
+    #clasifier.export("/home/javier/Documents/LiClipse Workspace/Ploteo3/TEST/solution", d)
+    clasifier.exportRegion("/home/javier/Documents/LiClipse Workspace/Ploteo/TEST/solution", d, clasifier.regions.pop())
     print("vector de desplazamiento: " + str(clasifier.getDisplaceSample().getData()))
     print("DONE")
     

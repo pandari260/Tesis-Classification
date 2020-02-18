@@ -39,8 +39,10 @@ class Classifier(object):
         clusters1 = creteClustersMethod(displaced_class1,displaced_class0)
         print("cluster0")
         displayClusterContainer(clusters0)
+        print(map(lambda c: c.getSize(), clusters0.getClusters()))   
         print("cluster1")
         displayClusterContainer(clusters1)
+        print(map(lambda c: c.getSize(), clusters1.getClusters()))   
         
         print("grouping...")
         (groups,clusters) = createGroups(clusters0,clusters1,self.__num_groups)
@@ -97,6 +99,7 @@ class Classifier(object):
 
     
 def displayClusterContainer(c):
+    print("_Clusters")
     for cls in c.getClusters():
         print(map(lambda s: s.getData(), cls.getSamples()))
    
