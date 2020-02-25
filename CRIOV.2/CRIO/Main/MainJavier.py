@@ -34,7 +34,7 @@ def mainDeJavier():
     class1 = SampleContainer(c1,d)
     t0 = "rojo"
     t1 = "azul"
-    clasifier = Classifier(class0,class1,t0,t1,d,k)
+    clasifier = Classifier(class1,class0,t1,t0,d,k)
     start = time()
     clasifier.train(creteClustersMethod=createClusters2)
     finish = time() - start
