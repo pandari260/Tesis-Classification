@@ -11,9 +11,12 @@ from CRIO.Clustering import createClusters,createClusters2
 import matplotlib.pyplot as plt
 from CRIO.Modelo.SampleContainer import SampleContainer
 from time import time
+import os
 
 
-
+def alarma():
+    os.system('spd-say "yout program is finished"')
+    
 def displayClusterContainer(c):
     for cls in c.getClusters():
         print(map(lambda s: s.getData(), cls.getSamples()))
@@ -23,9 +26,9 @@ def displayClusterContainer(c):
 def mainDeJavier():
     
     d = 2
-    k = 2
+    k = 5
    
-    c0,c1 = Importer.readSample("/home/javier/Documentos/Repositorios Git/Tesis-Classification/Resources/R2/t2-ConjuntosSolapados.csv")
+    c0,c1 = Importer.readSample("/home/javier/Documentos/Repositorios Git/Tesis-Classification/Resources/R2/t6-EncerradoSolapado.csv")
     
     class0 = SampleContainer(c0,d)
     class1 = SampleContainer(c1,d)
@@ -34,15 +37,18 @@ def mainDeJavier():
     clasifier = Classifier(class0,class1,t0,t1,d,k)
     start = time()
     clasifier.train(creteClustersMethod=createClusters2)
-    print(time() - start)
-    print(clasifier.regions[0].getHyperplanes())
+    finish = time() - start
+
    
     
-    #clasifier.export("/home/javier/Documents/LiClipse Workspace/Ploteo/TEST/solution", d)
-    #clasifier.export("/home/javier/Documents/LiClipse Workspace/Ploteo3/TEST/solution", d)
-    clasifier.exportRegion("/home/javier/Documents/LiClipse Workspace/Ploteo/TEST/solution", d, clasifier.regions.pop())
+    clasifier.export("/home/javier/Documents/LiClipse Workspace/Ploteo/TEST/solution", d)
+    clasifier.exportRegion("/home/javier/Documents/LiClipse Workspace/Ploteo/TEST/solutionPrimeraRegion", d, clasifier.regions.pop())
+
+    
     print("vector de desplazamiento: " + str(clasifier.getDisplaceSample().getData()))
     print("DONE")
+    print("tiempo transcurrido: " + str(finish))
+    alarma()
     
 def graphClusters(sampleC0,sampleC1, clusters):
     

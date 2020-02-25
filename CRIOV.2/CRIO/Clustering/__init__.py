@@ -13,10 +13,8 @@ import CRIO.Importer as Importer
 def createClusters(samplesA, samplesB):
     clusters = None
     if not isinstance(samplesA,ClusterContainer):
-        print("no es sample")
         clusters = createDefaultClusters(samplesA)
     else:
-        print("si es sample")
         clusters = samplesA
     samples = samplesB
     
@@ -95,10 +93,10 @@ def createClusters2(samplesA, samplesB):
                 #(u,v) = minimumEdge(distances_graph)    
                 if(not has_already_been_merged[v] and not has_already_been_merged[u]):
                     merged = mergeClusters(u, v)
-                    """print("se puede fusionar: " + str(not containsOutlier(merged, samples)) + " k: " + str(k) + " K: " + str(K))
-                    print("cluster u: " + str(map(lambda s : s.getData(), u.getSamples())))
-                    print("cluster v: " + str(map(lambda s : s.getData(), v.getSamples())))
-                    print("cluster merged: " + str(map(lambda s : s.getData(), merged.getSamples())))"""
+                    #print(" k: " + str(k) + " K: " + str(K) + "tam: " + str(merged.getSize()))
+                    #print("cluster u: " + str(map(lambda s : s.getData(), u.getSamples())))
+                    #print("cluster v: " + str(map(lambda s : s.getData(), v.getSamples())))
+                    #print("cluster merged: " + str(map(lambda s : s.getData(), merged.getSamples())))
 
                     
 
@@ -112,7 +110,7 @@ def createClusters2(samplesA, samplesB):
                     k = k + 1
                 sorted_edges.remove(sorted_edges[0])
                 
-        print(map(lambda c: c.getSize(), clusters.getClusters()))        
+        #print(map(lambda c: c.getSize(), clusters.getClusters()))        
         
         
         
