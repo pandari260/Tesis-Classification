@@ -26,7 +26,7 @@ def displayClusterContainer(c):
 def mainDeJavier():
     
     d = 2
-    k = 5
+    k = 1
    
     c0,c1 = Importer.readSample("/home/javier/Documentos/Repositorios Git/Tesis-Classification/Resources/R2/t6-EncerradoSolapado.csv")
     
