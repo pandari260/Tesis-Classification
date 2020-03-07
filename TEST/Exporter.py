@@ -11,7 +11,10 @@ def __writeSample(sample, format, formathead, location):
     for i in range(len(sample[0][0])-1): file.write(formathead % str(i+1))
     file.write('Class\n')
 
-    for data in sample: __setFormat(data, format, file)
+    for data in sample: 
+        file.write("* \n")
+        __setFormat(data, format, file)
+
     file.close()
 
 def __setFormat(sample, format, file):

@@ -45,8 +45,8 @@ classes = [	[0,1],
 			[1,0,1]		]
 
 seed = 2
-dimension = 3
-d = "R3"	
+dimension = 2
+d = "R2"	
 
 def __main__():
 	for i in range(len(files)):
@@ -56,7 +56,7 @@ def __main__():
 		exporter.exportCaseTest(sample, name)
 		c0, c1 = Sample.divideForClass(sample)
 		plotter.graphSample(c0, c1)
-		plt.show()
+		#plt.show()
 
 	print("--> {} test de dimension {} fueron creados en la carpeta {}.".format(n[0], dimension, d))
 
