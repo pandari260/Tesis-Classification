@@ -4,11 +4,9 @@ Created on 8 feb. 2020
 @author: javier
 '''
 
-import numpy as np
 import CRIO.Importer as Importer
 from CRIO.Modelo.Classifier import Classifier
 from CRIO.Clustering import createClusters,createClusters2
-import matplotlib.pyplot as plt
 from CRIO.Modelo.SampleContainer import SampleContainer
 from time import time
 import os
@@ -50,43 +48,9 @@ def mainDeJavier():
     print("tiempo transcurrido: " + str(finish))
     alarma()
     
-def graphClusters(sampleC0,sampleC1, clusters):
-    
-    graphSample(sampleC0, sampleC1)
-    graphCircles(clusters)
-    plt.show()
 
-def graphCircles(clusters):
-    
-    def centerCluster(cluster):
-        return np.mean(map(lambda spl: spl.getData(), cluster.getSamples()),0)
-    
 
-    circles = []
-    for c in clusters.getClusters():
-        print(centerCluster(c))
-        circles.append(plt.Circle(centerCluster(c), 0.75, color='black', fill=False))
-    
-    ax=plt.gca()
-    
-    
-    
-    plt.xlim(-3.0,6.25)
-    plt.ylim(-3.25,6.25)    
-    
-    for c in circles:
-        ax.add_patch(c)
-    
-def graphSample(sampleC0, sampleC1):
-    def __drawSample(sample, color):
-        x, y = [], []
-        area = np.pi*10.0
-        for i in sample.getSamples():
-            x.append(i.getFeature(0))
-            y.append(i.getFeature(1))
-        plt.scatter(x, y, s=area, c=color, alpha=1)
-    __drawSample(sampleC0, 'red')
-    __drawSample(sampleC1, 'blue')
+
 
 mainDeJavier()
     
