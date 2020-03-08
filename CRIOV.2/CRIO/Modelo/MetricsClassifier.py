@@ -18,6 +18,8 @@ class MetricsClassifier():
         return (self._TP + self._FN)/(self._TP + self._FP + self._TN + self._FN)
     
     def __getPresicion(self):
+      
+
         return  self._TP/(self._TP + self._TN)
     
     def __getRecall(self):

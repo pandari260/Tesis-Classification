@@ -1,11 +1,10 @@
-from CRIO.Modelo.SampleContainer import SampleContainer
 import csv
 
 read_sample_key = ["* "]
-def splitList(list, key):    
+def splitList(lista, key):    
     ret = []
     aux = []
-    for item in list:
+    for item in lista:
         if not item == key:
             aux.append(item)
         elif len(aux) > 0:
@@ -15,7 +14,8 @@ def splitList(list, key):
     return ret
 
             
-    
+
+
     
 def __getListClass(clusters_lines, clas):       
     def removeLastChar(lines): 
@@ -36,19 +36,7 @@ def readSample(name):
         c1 = __getListClass(clusters_lines, 1)
         return c0, c1
     
-def main():
-    with open("/home/javier/Documentos/Repositorios Git/Tesis-Classification/Resources/R2/t1-ConjuntosDisjuntos.csv", 'r') as csvfile:
-        aux_set_data = csv.reader(csvfile, delimiter=',')
-        next(aux_set_data)
-        aux_set_data = list(aux_set_data)
-    print aux_set_data
-    print(splitList(aux_set_data,["* "]))
-main()
-    
-    
-    
-    
-    
+
     
 
     

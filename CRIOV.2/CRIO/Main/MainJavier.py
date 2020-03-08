@@ -26,15 +26,16 @@ def mainDeJavier():
     d = 2
     k = 1
    
-    c0,c1 = Importer.readSample("/home/javier/Documentos/Repositorios Git/Tesis-Classification/Resources/R2/t6-EncerradoSolapado.csv")
-    
+    c0,c1 = Importer.readSample("/home/javier/Documentos/Repositorios Git/Tesis-Classification/Resources/R2/t1-ConjuntosDisjuntos.csv")
+    c0 = [item for sublist in c0 for item in sublist]
+    c1 = [item for sublist in c1 for item in sublist]
     class0 = SampleContainer(c0,d)
     class1 = SampleContainer(c1,d)
     t0 = "rojo"
     t1 = "azul"
     clasifier = Classifier(class1,class0,t1,t0,d,k)
     start = time()
-    clasifier.train(creteClustersMethod=createClusters2)
+    clasifier.train(createClustersMethod=createClusters2)
     finish = time() - start
 
    

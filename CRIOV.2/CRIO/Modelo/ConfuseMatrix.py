@@ -3,6 +3,7 @@ import Sample
 def __rowConfuseMatrix(clasifier, sample, color):
     r1, r2 = 0, 0
     for i in sample:  
+        print("color: " + str(clasifier.classify(Sample.Sample(i))) + " " + str(clasifier.classify(Sample.Sample(i)).__eq__(color)))
         if(clasifier.classify(Sample.Sample(i)).__eq__(color)):  r1+=1 
         else: r2+=1
     return r1, r2
