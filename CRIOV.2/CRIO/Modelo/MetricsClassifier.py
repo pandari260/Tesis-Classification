@@ -15,13 +15,13 @@ class MetricsClassifier():
         return self.ROW_METRIC.format(self._clas, self.__getPresicion(), self.__getRecall(), self.__getF1Score(), self.__getSupport())
     
     def getAccuracy(self):
-        return (self._TP + self._FN)/(self._TP + self._FP + self._TN + self._FN)
+        return (self._TP + self._TN)/(self._TP + self._FP + self._TN + self._FN)
     
     def __getPresicion(self):
-        return  self._TP/(self._TP + self._TN)
+        return  self._TP/(self._TP + self._FP)
     
     def __getRecall(self):
-        return self._TP/(self._TP+self._FP)
+        return self._TP/(self._TP + self._FN)
     
     def __getF1Score(self):
         return (2*(self.__getPresicion()*self.__getRecall())) / (self.__getPresicion() + self.__getRecall())
