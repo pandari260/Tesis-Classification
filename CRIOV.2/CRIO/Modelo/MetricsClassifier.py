@@ -4,7 +4,7 @@ class MetricsClassifier():
     
     ROW_METRIC = "\t{}\t{:f}\t{:f}\t{:f}\t{}"
     
-    def __init__(self, clas, TP, FP, TN, FN):
+    def __init__(self, clas, TP, FP, FN, TN):
         self._clas = clas
         self._TP = TP
         self._FP = FP
