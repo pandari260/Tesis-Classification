@@ -27,7 +27,7 @@ class Classifier(object):
         self.__tag1 = t1
         self.__displace_sample = createDisplaceSample(SampleContainer(self.__class0.getSamples().union(self.__class1.getSamples()),d), self.__dimension)
     
-    def train(self,creteClustersMethod=createClusters):
+    def train(self,createClustersMethod=createClusters):
         
         
         print("desplazando muestras...")
@@ -35,8 +35,8 @@ class Classifier(object):
         displaced_class1 = displace(self.__class1, self.__displace_sample)
 
         print("clustering...")
-        clusters0 = creteClustersMethod(displaced_class0,displaced_class1)
-        clusters1 = creteClustersMethod(displaced_class1,displaced_class0)
+        clusters0 = createClustersMethod(displaced_class0,displaced_class1)
+        clusters1 = createClustersMethod(displaced_class1,displaced_class0)
         print("cluster0")
         displayClusterContainer(clusters0)
         print(map(lambda c: c.getSize(), clusters0.getClusters()))   
@@ -52,7 +52,7 @@ class Classifier(object):
     
     
     def classify(self, sample):        
-        
+        sample = sampleSum(sample, self.__displace_sample, self.__dimension)
         for r in self.regions:
             if r.contains(sample):
                 return self.__tag1
@@ -78,6 +78,10 @@ class Classifier(object):
             data.append(h.getIntercept())
             f.write(THREE_ITEMS_FORMAT % tuple(data))
         f.close()
+        
+        
+    
+        
         
     def getDisplaceSample(self):
         return self.__displace_sample
@@ -117,13 +121,12 @@ def createDisplaceSample(samples,d):
     minValues = reduce(lambda a,b: Sample(minValuesSample(a, b)), samples.getSamples())
     return Sample(tuple(map(lambda n: abs(minValues.getFeature(n)), range(d))))
     
-    
+
+def sampleSum(s1,s2,d):
+        return Sample(tuple(map(lambda i:s1.getFeature(i) + s2.getFeature(i) , range(d)))) 
 def displace(samples, scrollSample):
     d = samples.getDimension()
-    def sampleSum(s1,s2):
-        return Sample(tuple(map(lambda i:s1.getFeature(i) + s2.getFeature(i) , range(d))))
-        
-    return SampleContainer(map(lambda spl: sampleSum(spl,scrollSample) , samples.getSamples()),d)
+    return SampleContainer(map(lambda spl: sampleSum(spl,scrollSample,d) , samples.getSamples()),d)
  
     
     

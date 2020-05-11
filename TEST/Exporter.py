@@ -14,6 +14,7 @@ def __writeSample(sample, format, formathead, location):
     for data in sample: 
         file.write("* \n")
         __setFormat(data, format, file)
+    file.write("* \n")
 
     file.close()
 
