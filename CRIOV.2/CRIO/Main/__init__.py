@@ -25,9 +25,9 @@ def main():
     d = 2
     k = 1
     
-    c0,c1 = Importer.readSample("/home/javier/Documentos/Repositorios Git/Tesis-Classification/Resources/R2/t1-ConjuntosDisjuntos.csv")   
-    split_samples_0 = map(lambda cluster: divideProportionally(cluster, 0.9),c0)
-    split_samples_1 = map(lambda cluster: divideProportionally(cluster, 0.9),c1)  
+    c0,c1 = Importer.readSample("/home/javier/Documentos/Repositorios Git/Tesis-Classification/Resources/R2/t7-DiagonalIntercalada.csv")   
+    split_samples_0 = map(lambda cluster: divideProportionally(cluster, 0.7),c0)
+    split_samples_1 = map(lambda cluster: divideProportionally(cluster, 0.7),c1)  
     
     
     train0 = [item for sublist in map(lambda s: s[0], split_samples_0) for item in sublist] 
@@ -41,7 +41,7 @@ def main():
     t1 = "azul"
     
     clasifier = Classifier(train0,train1,t0,t1,d,k)
-    clasifier.train(createClustersMethod=createClusters2)
+    clasifier.train(createClustersMethod=createClusters)
     
     TP, FP, TN, FN = ConfuseMatrix.generateConfuseMatrix(clasifier, test0, test1, t0, t1)
    
@@ -60,6 +60,14 @@ def main():
     print (HEADER_METRIC)
     print (metC0.showMetrics())
     print (metC1.showMetrics())
+    
+    clasifier.export("/home/javier/Documents/LiClipse Workspace/Ploteo/TEST/solution", d)
+    clasifier.exportRegion("/home/javier/Documents/LiClipse Workspace/Ploteo/TEST/solutionPrimeraRegion", d, clasifier.regions.pop())
+
+    
+    print("vector de desplazamiento: " + str(clasifier.getDisplaceSample().getData()))
+    print("DONE")
+    
 
    
 main()
