@@ -45,8 +45,8 @@ classes = [	[0,1],
 			[1,0,1]		]
 
 seed = 2
-dimension = 30
-d = "R30"	
+dimension = 20
+d = "R20"
 
 def __main__():
 	for i in range(len(files)):

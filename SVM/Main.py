@@ -1,11 +1,11 @@
 import pandas as pd
-import SVM as svm
+import Classifier as svm
 import matplotlib.pyplot as plt
 import SearcherFile as searcher
 import Printer 
 import numpy as np
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score, recall_score
-
+import csv
 
 test = [    [   "/t1-ConjuntosDisjuntos",
                 "/t2-ConjuntosSolapados",
@@ -28,8 +28,9 @@ test = [    [   "/t1-ConjuntosDisjuntos",
                 "/Test-C_Drift_Easy2_noise015"    ]  ]
 
 directory = ["R2", "R2-Real", "R3", "R4", "R5", "R6", "R7", "R8", "R9", "R10"]
-d=0
+d=2
 test = test[0]
+
 
 for i in range(len(test)):
     dataSet, target = searcher.searchDatafile(directory[d], test[i])
